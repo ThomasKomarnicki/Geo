@@ -27,7 +27,7 @@ public class NavDrawerRecyclerAdapter extends RecyclerView.Adapter<NavDrawerRecy
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 3;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
