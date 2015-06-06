@@ -1,15 +1,13 @@
 package com.doglandia.geogame.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +15,14 @@ import android.view.View;
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.adapter.MainPagerAdapter;
 import com.doglandia.geogame.adapter.NavDrawerRecyclerAdapter;
+import com.doglandia.geogame.navigation.NavigationItemManager;
 
 public class MainActivity extends FragmentActivity implements TabLayout.OnTabSelectedListener {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private RecyclerView mNavDrawerList;
+//    private RecyclerView mNavDrawerList;
+    private NavigationView mNavigationView;
 
     private MainPagerAdapter mMainPagerAdapter;
 
@@ -35,9 +35,8 @@ public class MainActivity extends FragmentActivity implements TabLayout.OnTabSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNavDrawerList = (RecyclerView) findViewById(R.id.nav_drawer_recycler);
-        mNavDrawerList.setLayoutManager(new LinearLayoutManager(this));
-        mNavDrawerList.setAdapter(new NavDrawerRecyclerAdapter());
+        mNavigationView = (NavigationView) findViewById(R.id.main_navigation_view);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationItemManager(this));
 
         mNavDrawer = (DrawerLayout) findViewById(R.id.main_nav_drawer);
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
