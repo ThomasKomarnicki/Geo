@@ -40,9 +40,7 @@ public class MainActivity extends FragmentActivity implements TabLayout.OnTabSel
         mNavDrawerList.setAdapter(new NavDrawerRecyclerAdapter());
 
         mNavDrawer = (DrawerLayout) findViewById(R.id.main_nav_drawer);
-
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-
         mViewPager = (ViewPager) findViewById(R.id.main_pager);
         mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
 
@@ -51,23 +49,24 @@ public class MainActivity extends FragmentActivity implements TabLayout.OnTabSel
 
         mTabLayout.setupWithViewPager(mViewPager);
 
+        mTabLayout.removeAllTabs();
         mTabLayout.addTab(mTabLayout.newTab().setText("Explore"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Locate"));
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setOnTabSelectedListener(this);
 
         mToolbar.setTitle("GeoGame");
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mNavDrawer.isDrawerOpen(GravityCompat.START)){
+                if (mNavDrawer.isDrawerOpen(GravityCompat.START)) {
                     mNavDrawer.closeDrawers();
-                }else{
+                } else {
                     mNavDrawer.openDrawer(GravityCompat.START);
                 }
             }
         });
-
-        mTabLayout.setOnTabSelectedListener(this);
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
     }
