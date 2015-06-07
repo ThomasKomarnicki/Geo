@@ -10,21 +10,27 @@ import com.doglandia.geogame.map.StreetViewMapFragment;
 /**
  * Created by Thomas on 6/3/2015.
  */
-public class MainPagerAdapter extends FragmentPagerAdapter {
+public class PlaceLocatePaterAdapter extends FragmentPagerAdapter {
 
-    public MainPagerAdapter(FragmentManager fm) {
+    private StreetViewMapFragment streetViewMapFragment;
+    private LocatingMapFragment locatingMapFragment;
+
+    public PlaceLocatePaterAdapter(FragmentManager fm) {
         super(fm);
+
     }
+
+
 
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position){
             case 0:
-                fragment = new StreetViewMapFragment();
+                fragment = streetViewMapFragment;
                 break;
             case 1:
-                fragment = new LocatingMapFragment();
+                fragment = locatingMapFragment;
                 break;
         }
         return fragment;
@@ -33,5 +39,13 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 2;
+    }
+
+    public void setStreetViewMapFragment(StreetViewMapFragment streetViewMapFragment) {
+        this.streetViewMapFragment = streetViewMapFragment;
+    }
+
+    public void setLocatingMapFragment(LocatingMapFragment locatingMapFragment) {
+        this.locatingMapFragment = locatingMapFragment;
     }
 }

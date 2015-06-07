@@ -1,21 +1,27 @@
 package com.doglandia.geogame.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.doglandia.geogame.R;
-import com.doglandia.geogame.adapter.MainPagerAdapter;
+import com.doglandia.geogame.adapter.PlaceLocatePaterAdapter;
+import com.doglandia.geogame.map.LocatingMapFragment;
+import com.doglandia.geogame.map.StreetViewMapFragment;
+import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.navigation.NavigationItemManager;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -27,12 +33,28 @@ public class PlaceLocateActivity extends FragmentActivity implements TabLayout.O
     private Toolbar mToolbar;
 
     private ViewPager mViewPager;
-    private MainPagerAdapter mMainPagerAdapter;
+    private PlaceLocatePaterAdapter mPlaceLocatePaterAdapter;
+
+    private Place place;
+
+    private StreetViewMapFragment streetViewMapFragment;
+    private LocatingMapFragment locatingMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(streetViewMapFragment == null){
+            streetViewMapFragment = new StreetViewMapFragment();
+        }
+        if(locatingMapFragment == null){
+            locatingMapFragment = new LocatingMapFragment();
+        }
+
+        mPlaceLocatePaterAdapter = new PlaceLocatePaterAdapter(getSupportFragmentManager());
+        mPlaceLocatePaterAdapter.setLocatingMapFragment(locatingMapFragment);
+        mPlaceLocatePaterAdapter.setStreetViewMapFragment(streetViewMapFragment);
 
         mNavigationView = (NavigationView) findViewById(R.id.main_navigation_view);
         mNavigationView.setNavigationItemSelectedListener(new NavigationItemManager(this));
@@ -42,8 +64,8 @@ public class PlaceLocateActivity extends FragmentActivity implements TabLayout.O
         mViewPager = (ViewPager) findViewById(R.id.main_pager);
         mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
 
-        mMainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mMainPagerAdapter);
+
+        mViewPager.setAdapter(mPlaceLocatePaterAdapter);
 
         mTabLayout.setupWithViewPager(mViewPager);
 
@@ -67,6 +89,14 @@ public class PlaceLocateActivity extends FragmentActivity implements TabLayout.O
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        initiateTestData();
+    }
+
+    private void initiateTestData(){
+        place = new Place(new LatLng(27.90412,-82.672321));
+
+        streetViewMapFragment.setPosition(place.getLatLng());
 
     }
 
@@ -103,6 +133,8 @@ public class PlaceLocateActivity extends FragmentActivity implements TabLayout.O
     }
 
     public void onLocationSelected(LatLng latLng){
-
+        Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
+        intent.putExtra("guessed_location",latLng);
+        startActivity(intent);
     }
 }

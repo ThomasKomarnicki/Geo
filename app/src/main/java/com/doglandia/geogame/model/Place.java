@@ -7,15 +7,17 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class Place {
 
-    private long lat;
-    private long lon;
+    private LatLng latLng;
 
-
-    public long getLat() {
-        return lat;
+    public Place(LatLng latLng){
+        setLatLng(latLng);
     }
 
-    public long getLon() {
-        return lon;
+    public LatLng getLatLng() {
+        return latLng;
+    }
+
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
     }
 }

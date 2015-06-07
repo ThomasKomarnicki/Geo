@@ -13,16 +13,25 @@ import com.google.android.gms.maps.model.LatLng;
 public class StreetViewMapFragment extends SupportStreetViewPanoramaFragment implements OnStreetViewPanoramaReadyCallback{
 
     private StreetViewPanorama streetViewPanorama;
+    private LatLng latLng;
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         this.streetViewPanorama = streetViewPanorama;
-        LatLng latLng = new LatLng(27.904117,-82.672428);
-        streetViewPanorama.setPosition(latLng);
+        if(latLng != null){
+            streetViewPanorama.setPosition(latLng);
+        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getStreetViewPanoramaAsync(this);
+    }
+
+    public void setPosition(LatLng latLng){
+        this.latLng = latLng;
+        if(streetViewPanorama != null) {
+            streetViewPanorama.setPosition(latLng);
+        }
     }
 }
