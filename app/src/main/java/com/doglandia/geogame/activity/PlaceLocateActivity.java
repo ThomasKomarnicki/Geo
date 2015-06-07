@@ -22,8 +22,11 @@ import com.doglandia.geogame.adapter.PlaceLocatePaterAdapter;
 import com.doglandia.geogame.map.LocatingMapFragment;
 import com.doglandia.geogame.map.StreetViewMapFragment;
 import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.navigation.NavigationItemManager;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.parceler.Parcels;
 
 public class PlaceLocateActivity extends FragmentActivity implements TabLayout.OnTabSelectedListener {
 
@@ -134,7 +137,10 @@ public class PlaceLocateActivity extends FragmentActivity implements TabLayout.O
 
     public void onLocationSelected(LatLng latLng){
         Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
-        intent.putExtra("guessed_location",latLng);
+        PlaceLocateResult placeLocateResult = new PlaceLocateResult();
+        placeLocateResult.setGuessedLocation(latLng);
+        placeLocateResult.setActualLocation(place.getLatLng());
+        intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
         startActivity(intent);
     }
 }
