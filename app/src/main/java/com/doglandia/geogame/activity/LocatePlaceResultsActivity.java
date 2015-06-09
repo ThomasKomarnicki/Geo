@@ -1,14 +1,14 @@
 package com.doglandia.geogame.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
-import doglandia.com.server.model.PlaceLocateResult;
+import com.doglandia.server.model.PlaceLocateResult;
 
 import org.parceler.Parcels;
 
@@ -26,16 +26,18 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
         setContentView(R.layout.locate_place_results);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setTitle("Results");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(Activity.RESULT_OK);
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
+
         placeLocateResult = Parcels.unwrap(getIntent().getParcelableExtra("locate_result"));
 
         addMapFragment();

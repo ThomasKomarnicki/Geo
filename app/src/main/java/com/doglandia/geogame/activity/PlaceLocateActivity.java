@@ -19,14 +19,14 @@ import com.doglandia.geogame.adapter.PlaceLocatePaterAdapter;
 import com.doglandia.geogame.map.LocatingMapFragment;
 import com.doglandia.geogame.map.StreetViewMapFragment;
 
-import doglandia.com.server.Server;
-import doglandia.com.server.model.Place;
-import doglandia.com.server.model.PlaceLocateResult;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 import com.doglandia.geogame.navigation.NavigationItemManager;
+import com.doglandia.server.Server;
+import com.doglandia.server.model.Place;
+import com.doglandia.server.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;

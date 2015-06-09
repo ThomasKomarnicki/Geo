@@ -1,4 +1,4 @@
-package doglandia.com.server.model;
+package com.doglandia.server.model;
 
 import com.google.android.gms.maps.model.LatLng;
 

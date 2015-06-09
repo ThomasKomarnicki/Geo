@@ -1,7 +1,8 @@
-package doglandia.com.server;
+package com.doglandia.server;
 
-import doglandia.com.server.model.Place;
-import doglandia.com.server.model.PlaceLocateResult;
+import com.doglandia.server.model.Place;
+import com.doglandia.server.model.PlaceLocateResult;
+
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.POST;

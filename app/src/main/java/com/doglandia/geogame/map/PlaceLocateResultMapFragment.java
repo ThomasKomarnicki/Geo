@@ -3,7 +3,7 @@ package com.doglandia.geogame.map;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import doglandia.com.server.model.PlaceLocateResult;
+import com.doglandia.server.model.PlaceLocateResult;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

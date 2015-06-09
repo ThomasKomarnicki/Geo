@@ -1,4 +1,4 @@
-package doglandia.com.server;
+package com.doglandia.server;
 
 /**
  * Created by Thomas on 6/7/2015.
