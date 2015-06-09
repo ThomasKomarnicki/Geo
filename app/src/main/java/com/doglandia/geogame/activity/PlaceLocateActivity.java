@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +18,22 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.adapter.PlaceLocatePaterAdapter;
 import com.doglandia.geogame.map.LocatingMapFragment;
 import com.doglandia.geogame.map.StreetViewMapFragment;
-import com.doglandia.geogame.model.Place;
-import com.doglandia.geogame.model.PlaceLocateResult;
+
+import doglandia.com.server.Server;
+import doglandia.com.server.model.Place;
+import doglandia.com.server.model.PlaceLocateResult;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 import com.doglandia.geogame.navigation.NavigationItemManager;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
 
-public class PlaceLocateActivity extends FragmentActivity implements TabLayout.OnTabSelectedListener {
+public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+
+    private static final int START_NEW_LOCATION_RESULT = 0x420;
 
     private TabLayout mTabLayout;
     private NavigationView mNavigationView;
@@ -91,15 +96,26 @@ public class PlaceLocateActivity extends FragmentActivity implements TabLayout.O
         });
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
+        setSupportActionBar(mToolbar);
+
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
         initiateTestData();
     }
 
     private void initiateTestData(){
-        place = new Place(new LatLng(27.90412,-82.672321));
+        Server.getInstance().getNewLocation(0, new Callback<Place>() {
+            @Override
+            public void success(Place place, Response response) {
+                PlaceLocateActivity.this.place = place;
+                streetViewMapFragment.setPosition(place.getLatLng());
+            }
 
-        streetViewMapFragment.setPosition(place.getLatLng());
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
 
     }
 
@@ -139,8 +155,33 @@ public class PlaceLocateActivity extends FragmentActivity implements TabLayout.O
         Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
         PlaceLocateResult placeLocateResult = new PlaceLocateResult();
         placeLocateResult.setGuessedLocation(latLng);
-        placeLocateResult.setActualLocation(place.getLatLng());
+        placeLocateResult.setActualLocation(place);
         intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
-        startActivity(intent);
+        startActivityForResult(intent, START_NEW_LOCATION_RESULT);
+
+        Server.getInstance().locationGuess(0, placeLocateResult, new Callback<Place>() {
+            @Override
+            public void success(Place place, Response response) {
+                PlaceLocateActivity.this.place = place;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == START_NEW_LOCATION_RESULT){
+            setNewPlace();
+        }
+    }
+
+    private void setNewPlace(){
+        streetViewMapFragment.setPosition(place.getLatLng());
+        mViewPager.setCurrentItem(0);
     }
 }

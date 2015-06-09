@@ -3,7 +3,7 @@ package com.doglandia.geogame.map;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import com.doglandia.geogame.model.PlaceLocateResult;
+import doglandia.com.server.model.PlaceLocateResult;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,12 +43,12 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(placeLocateResult.getGuessedLocation());
         googleMap.moveCamera(cameraUpdate);
         googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getGuessedLocation()).title("Guessed Location").icon(BitmapDescriptorFactory.defaultMarker()));
-        googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getActualLocation()).title("Actual Location").icon(BitmapDescriptorFactory.defaultMarker()));
+        googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getActualLocation().getLatLng()).title("Actual Location").icon(BitmapDescriptorFactory.defaultMarker()));
 
 
         LatLngBounds.Builder builder = LatLngBounds.builder();
         builder.include(placeLocateResult.getGuessedLocation());
-        builder.include(placeLocateResult.getActualLocation());
+        builder.include(placeLocateResult.getActualLocation().getLatLng());
         LatLngBounds bounds = builder.build();
 
         cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, (int) (32 * getResources().getDisplayMetrics().density));
@@ -59,7 +59,7 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
     public void showLine(){
         PolylineOptions connectingLine = new PolylineOptions()
                 .add(placeLocateResult.getGuessedLocation())
-                .add(placeLocateResult.getActualLocation())
+                .add(placeLocateResult.getActualLocation().getLatLng())
                 .color(Color.BLACK)
                 .width(getResources().getDisplayMetrics().density * 5);
         googleMap.addPolyline(connectingLine);

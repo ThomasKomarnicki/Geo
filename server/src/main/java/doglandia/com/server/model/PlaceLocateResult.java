@@ -1,4 +1,4 @@
-package com.doglandia.geogame.model;
+package doglandia.com.server.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -12,10 +12,10 @@ import org.parceler.Parcel;
 public class PlaceLocateResult {
 
 
-    LatLng actualLocation;
+    Place actualLocation;
     LatLng guessedLocation;
 
-    public LatLng getActualLocation() {
+    public Place getActualLocation() {
         return actualLocation;
     }
 
@@ -23,7 +23,7 @@ public class PlaceLocateResult {
         return guessedLocation;
     }
 
-    public void setActualLocation(LatLng actualLocation) {
+    public void setActualLocation(Place actualLocation) {
         this.actualLocation = actualLocation;
     }
 

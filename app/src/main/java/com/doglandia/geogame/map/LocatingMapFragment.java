@@ -53,6 +53,9 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 LocatingMapFragment.this.mGoogleMap = googleMap;
+                googleMap.getUiSettings().setRotateGesturesEnabled(false);
+                googleMap.getUiSettings().setCompassEnabled(false);
+                googleMap.getUiSettings().setTiltGesturesEnabled(false);
                 googleMap.setOnMapClickListener(LocatingMapFragment.this);
                 googleMap.setOnMapLongClickListener(LocatingMapFragment.this);
             }
