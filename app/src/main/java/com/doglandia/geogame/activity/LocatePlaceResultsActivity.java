@@ -50,4 +50,10 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
         fragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().add(R.id.locate_place_results_fragment_holder, fragment,RESULT_MAP_FRAGMENT_TAG).commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        super.onBackPressed();
+    }
 }

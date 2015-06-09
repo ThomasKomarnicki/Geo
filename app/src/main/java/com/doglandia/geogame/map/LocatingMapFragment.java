@@ -16,6 +16,8 @@ import android.view.animation.AnimationUtils;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.PlaceLocateActivity;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -65,7 +67,7 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
             @Override
             public void onClick(View v) {
                 animateFABOut();
-                ((PlaceLocateActivity)getActivity()).onLocationSelected(selectedLocation);
+                ((PlaceLocateActivity) getActivity()).onLocationSelected(selectedLocation);
             }
         });
 
@@ -121,5 +123,13 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
         mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
         Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(50);
+    }
+
+    public void clearMap(){
+        floatingActionButton.setVisibility(View.INVISIBLE);
+        mGoogleMap.clear();
+        CameraUpdate defaultMapLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(0,0),1);
+        mGoogleMap.moveCamera(defaultMapLocation);
+
     }
 }

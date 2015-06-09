@@ -17,8 +17,9 @@ import retrofit.http.Path;
  */
 public class LocalMockServer implements ServerInterface {
 
-    List<Place> places = new ArrayList<>();
+    List<Place> places;
     public LocalMockServer(){
+        places = new ArrayList<>();
         Place place = new Place(new LatLng(27.90412,-82.672321));
         place.setId(0);
         places.add(place);
@@ -45,7 +46,7 @@ public class LocalMockServer implements ServerInterface {
     private Place getRandomPlace(int lastPlaceId){
 
         Random random = new Random();
-        int nextId = random.nextInt(places.size())-1;
+        int nextId = random.nextInt(places.size());
         if(nextId == lastPlaceId){
             nextId = 0;
         }
