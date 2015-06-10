@@ -25,9 +25,43 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".6"></FrameLayout>
+        android:layout_weight=".6"
+        android:orientation="vertical"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="distance: 2500 mi"
+            android:id="@+id/results_distance"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Country"
+            android:id="@+id/results_country"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City,"
+            android:id="@+id/results_city"
+            android:textSize="34sp"
+            android:layout_marginTop="48dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="State"
+            android:id="@+id/results_state"
+            android:textSize="34sp"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
 
 </LinearLayout>
