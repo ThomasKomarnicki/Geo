@@ -2,12 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_sub_item_1"
-        android:title="item one"/>
+        android:title="Locate and Guess"/>
     <item
         android:id="@+id/navigation_sub_item_2"
-        android:title="item two"/>
+        android:title="Discover"/>
 
     <item
         android:id="@+id/navigation_sub_item_3"
-        android:title="item two"/>
+        android:title="Recent Locations"/>
+
+    <item
+        android:id="@+id/navigation_sub_item_4"
+        android:title="My Locations"/>
 </menu>

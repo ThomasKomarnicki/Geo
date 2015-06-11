@@ -3,8 +3,11 @@ package com.doglandia.server;
 import com.doglandia.server.model.Place;
 import com.doglandia.server.model.PlaceLocateResult;
 
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -18,4 +21,10 @@ public interface ServerInterface {
 
     @POST("/getNewLocation/{user_id}") // get new place based on userId
     void getNewLocation(@Path("user_id")Integer userId,Callback<Place> callback);
+
+    @GET("/userLocations/{user_id}")
+    void getUserLocations(@Path("user_id")Integer userId, Callback<List<Place>> callback);
+
+    @GET("/userPlaceLocateResults/{user_id}")
+    void getUserPlaceLocateResults(@Path("user_id")Integer userId,Callback<List<PlaceLocateResult>> callback);
 }

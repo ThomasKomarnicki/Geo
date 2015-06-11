@@ -18,8 +18,12 @@ import retrofit.http.Path;
 public class LocalMockServer implements ServerInterface {
 
     List<Place> places;
+    List<PlaceLocateResult> placeLocateResults;
+
+
     public LocalMockServer(){
         places = new ArrayList<>();
+        placeLocateResults = new ArrayList<>();
         Place place = new Place(new LatLng(27.90412,-82.672321));
         place.setId(0);
         places.add(place);
@@ -32,15 +36,27 @@ public class LocalMockServer implements ServerInterface {
     }
 
 
+
+
     @Override
     public void locationGuess(@Path("user_id") Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
-
+        placeLocateResults.add(placeLocateResult);
         callback.success(getRandomPlace(placeLocateResult.getActualLocation().getId()), null);
     }
 
     @Override
     public void getNewLocation(@Path("user_id") Integer userId, Callback<Place> callback) {
         callback.success(getRandomPlace(0),null);
+    }
+
+    @Override
+    public void getUserLocations(@Path("user_id") Integer userId, Callback<List<Place>> callback) {
+        callback.success(places,null);
+    }
+
+    @Override
+    public void getUserPlaceLocateResults(@Path("user_id") Integer userId, Callback<List<PlaceLocateResult>> callback) {
+        callback.success(placeLocateResults,null);
     }
 
     private Place getRandomPlace(int lastPlaceId){

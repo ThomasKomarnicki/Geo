@@ -15,6 +15,8 @@ public class PlaceLocateResult {
     Place actualLocation;
     LatLng guessedLocation;
 
+    int score;
+
     public Place getActualLocation() {
         return actualLocation;
     }
