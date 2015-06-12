@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
-import com.doglandia.server.model.PlaceLocateResult;
+import com.doglandia.geogame.model.PlaceLocateResult;
 
 import java.util.List;
 
@@ -29,6 +29,11 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
     @Override
     public void onBindViewHolder(LocateResultsAdapter.ViewHolder holder, int position) {
         PlaceLocateResult placeLocateResult = placeLocateResults.get(position);
+
+        holder.locationCityTv.setText(placeLocateResult.getActualLocation().getCity());
+        holder.locationCountryTv.setText(placeLocateResult.getActualLocation().getCountry());
+        holder.distanceTv.setText(placeLocateResult.getDistanceString());
+        holder.scoreTv.setText(String.valueOf(placeLocateResult.getScore()));
     }
 
     @Override
@@ -37,14 +42,18 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView distanceTv;
         TextView locationCityTv;
         TextView locationCountryTv;
+        TextView distanceTv;
         TextView scoreTv;
 
 
         public ViewHolder(View row) {
             super(row);
+            locationCityTv = (TextView) row.findViewById(R.id.locate_result_city);
+            locationCountryTv = (TextView) row.findViewById(R.id.locate_result_country);
+            distanceTv = (TextView) row.findViewById(R.id.locate_result_distance);
+            scoreTv = (TextView) row.findViewById(R.id.locate_result_score);
 
         }
     }

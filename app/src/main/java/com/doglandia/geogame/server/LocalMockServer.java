@@ -1,7 +1,9 @@
-package com.doglandia.server;
+package com.doglandia.geogame.server;
 
-import com.doglandia.server.model.Place;
-import com.doglandia.server.model.PlaceLocateResult;
+import android.location.Geocoder;
+
+import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package com.doglandia.server;
+package com.doglandia.geogame.server;
 
-import com.doglandia.server.model.Place;
-import com.doglandia.server.model.PlaceLocateResult;
+import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceLocateResult;
 
 import java.util.List;
 

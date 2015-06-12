@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.doglandia.server.model.Place;
+import com.doglandia.geogame.model.Place;
 
 import java.util.List;
 

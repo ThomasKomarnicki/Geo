@@ -1,4 +1,4 @@
-package com.doglandia.server;
+package com.doglandia.geogame.server;
 
 /**
  * Created by Thomas on 6/7/2015.

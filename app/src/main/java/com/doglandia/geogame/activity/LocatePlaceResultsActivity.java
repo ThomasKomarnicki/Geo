@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
-import com.doglandia.server.model.PlaceLocateResult;
+import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
@@ -62,25 +63,9 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
 
         addMapFragment();
 
-        LatLng actualLatLn = placeLocateResult.getActualLocation().getLatLng();
-        Geocoder geocoder = new Geocoder(this,Locale.getDefault());
-        try {
-            List<Address> addressList = geocoder.getFromLocation(actualLatLn.latitude,actualLatLn.longitude,10);
+        placeLocateResult.getActualLocation().geocode(new Geocoder(this,Locale.getDefault()));
 
-            if(addressList != null && !addressList.isEmpty()){
-                Address address = addressList.get(0);
-                Log.d(getLocalClassName(),"reverse geolocated address: \n\n"+address);
-
-                String locality = address.getLocality();
-                String admin = address.getAdminArea();
-                String countryName = address.getCountryName();
-
-                showLocationDetails(countryName,locality,admin);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        showLocationDetails(placeLocateResult.getActualLocation());
 
     }
 
@@ -92,11 +77,11 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.locate_place_results_fragment_holder, fragment,RESULT_MAP_FRAGMENT_TAG).commit();
     }
 
-    private void showLocationDetails(String country, String city, String state) {
-        countryTv.setText(country);
-        cityTv.setText(city + ",");
-        if(state != null) {
-            stateTv.setText(state);
+    private void showLocationDetails(Place place) {
+        countryTv.setText(place.getCountry());
+        cityTv.setText(place.getCity() + ",");
+        if(place.getLocality() != null) {
+            stateTv.setText(place.getLocality());
         }
 
         distanceTv.setText(getDistanceText(placeLocateResult));
@@ -110,22 +95,6 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
     }
 
     private static String getDistanceText(PlaceLocateResult placeLocateResult) {
-        float[] result = new float[1];
-        Location.distanceBetween(placeLocateResult.getGuessedLocation().latitude,placeLocateResult.getGuessedLocation().longitude,
-                placeLocateResult.getActualLocation().getLatLng().latitude,placeLocateResult.getActualLocation().getLatLng().longitude,result);
-
-        int distance = (int) result[0];
-        String units = "m";
-        if(Locale.getDefault().equals(Locale.US)){
-            // convert to miles
-            distance = (int) (distance*0.000621371192);
-            units = "mi";
-        }else if(distance > 10000){
-            distance = distance/1000;
-            units = "km";
-        }
-
-        return "distance: "+distance+" "+units;
-
+        return "distance: "+placeLocateResult.getDistanceString();
     }
 }

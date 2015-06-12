@@ -23,9 +23,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 import com.doglandia.geogame.navigation.NavigationItemManager;
-import com.doglandia.server.Server;
-import com.doglandia.server.model.Place;
-import com.doglandia.server.model.PlaceLocateResult;
+import com.doglandia.geogame.server.Server;
+import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
