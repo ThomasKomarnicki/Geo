@@ -1,7 +1,7 @@
 package com.doglandia.geogame.model;
 
-import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -42,6 +42,7 @@ public class PlaceLocateResult {
     }
 
     public int getScore(){
+        Log.d("PlaceLocateResult","get score == "+(getDistance()/10000));
         return getDistance() / 10000;
     }
 
@@ -51,7 +52,6 @@ public class PlaceLocateResult {
                 getActualLocation().getLatLng().latitude, getActualLocation().getLatLng().longitude, result);
 
         distance = (int) result[0];
-
     }
 
     public String getDistanceString(){

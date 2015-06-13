@@ -1,13 +1,10 @@
 package com.doglandia.geogame.activity;
 
 import android.app.Activity;
-import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,12 +12,9 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
-import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -80,8 +74,8 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
     private void showLocationDetails(Place place) {
         countryTv.setText(place.getCountry());
         cityTv.setText(place.getCity() + ",");
-        if(place.getLocality() != null) {
-            stateTv.setText(place.getLocality());
+        if(place.getState() != null) {
+            stateTv.setText(place.getState());
         }
 
         distanceTv.setText(getDistanceText(placeLocateResult));

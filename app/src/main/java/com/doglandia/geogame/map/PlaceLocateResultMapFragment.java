@@ -27,19 +27,24 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        placeLocateResult = Parcels.unwrap(getArguments().getParcelable("locate_result"));
+        if(getArguments() != null && getArguments().containsKey("locate_result")) {
+            placeLocateResult = Parcels.unwrap(getArguments().getParcelable("locate_result"));
+        }
         getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 PlaceLocateResultMapFragment.this.googleMap = googleMap;
                 googleMap.getUiSettings().setAllGesturesEnabled(false);
-                showBothLocations();
+                if(placeLocateResult != null) {
+                    showPlaceLocateResult(placeLocateResult);
+                }
 
             }
         });
     }
 
-    public void showBothLocations(){
+    public void showPlaceLocateResult(PlaceLocateResult placeLocateResult){
+        googleMap.clear();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(placeLocateResult.getGuessedLocation());
         googleMap.moveCamera(cameraUpdate);
         googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getGuessedLocation()).title("Guessed Location").icon(BitmapDescriptorFactory.defaultMarker()));
@@ -53,10 +58,10 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
 
         cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, (int) (32 * getResources().getDisplayMetrics().density));
         googleMap.animateCamera(cameraUpdate);
-        showLine();
+        showLine(placeLocateResult);
     }
 
-    public void showLine(){
+    public void showLine(PlaceLocateResult placeLocateResult){
         PolylineOptions connectingLine = new PolylineOptions()
                 .add(placeLocateResult.getGuessedLocation())
                 .add(placeLocateResult.getActualLocation().getLatLng())

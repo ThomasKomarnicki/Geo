@@ -16,8 +16,15 @@ import java.util.List;
  */
 public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdapter.ViewHolder> {
 
+    public interface LocateResultClickListener {
+        void onLocateResultClicked(int index, PlaceLocateResult placeLocateResult);
+    }
+
+    private LocateResultClickListener listener;
+
     private List<PlaceLocateResult> placeLocateResults;
-    public LocateResultsAdapter(List<PlaceLocateResult> placeLocateResultList) {
+    public LocateResultsAdapter(List<PlaceLocateResult> placeLocateResultList, LocateResultClickListener locateResultClickListener) {
+        this.listener = locateResultClickListener;
         this.placeLocateResults = placeLocateResultList;
     }
 
@@ -27,13 +34,20 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
     }
 
     @Override
-    public void onBindViewHolder(LocateResultsAdapter.ViewHolder holder, int position) {
-        PlaceLocateResult placeLocateResult = placeLocateResults.get(position);
+    public void onBindViewHolder(LocateResultsAdapter.ViewHolder holder, final int position) {
+        final PlaceLocateResult placeLocateResult = placeLocateResults.get(position);
 
         holder.locationCityTv.setText(placeLocateResult.getActualLocation().getCity());
         holder.locationCountryTv.setText(placeLocateResult.getActualLocation().getCountry());
         holder.distanceTv.setText(placeLocateResult.getDistanceString());
-        holder.scoreTv.setText(String.valueOf(placeLocateResult.getScore()));
+        holder.scoreTv.setText("Score: "+String.valueOf(placeLocateResult.getScore()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onLocateResultClicked(position,placeLocateResult);
+            }
+        });
     }
 
     @Override
@@ -46,7 +60,6 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
         TextView locationCountryTv;
         TextView distanceTv;
         TextView scoreTv;
-
 
         public ViewHolder(View row) {
             super(row);

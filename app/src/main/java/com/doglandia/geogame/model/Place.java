@@ -26,7 +26,7 @@ public class Place {
     LatLng latLng;
 
     private String city;
-    private String locality;
+    private String state;
     private String country;
 
     public void geocode(Geocoder geocoder){
@@ -36,7 +36,7 @@ public class Place {
             if(addressList != null && !addressList.isEmpty()){
                 Address address = addressList.get(0);
 
-                locality = address.getLocality();
+                state = address.getLocality();
                 city = address.getAdminArea();
                 country = address.getCountryName();
             }
@@ -56,12 +56,12 @@ public class Place {
         this.city = city;
     }
 
-    public String getLocality() {
-        return locality;
+    public String getState() {
+        return state;
     }
 
-    public void setLocality(String locality) {
-        this.locality = locality;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getCountry() {

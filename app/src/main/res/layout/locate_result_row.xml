@@ -2,9 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:padding="16dp"
-    android:background="#FFF">
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
 
     <TextView
@@ -42,8 +41,8 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/locate_result_score"
-        android:layout_above="@+id/locate_result_distance"
+        android:textSize="20sp"
+        android:layout_alignBottom="@+id/locate_result_city"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="20sp" />
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

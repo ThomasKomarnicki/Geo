@@ -43,10 +43,10 @@ public class NavigationAdapter {
                 }
                 break;
             case R.id.navigation_sub_item_2:
-                startRecentLocationsActivity();
+
                 break;
             case R.id.navigation_sub_item_3:
-
+                startRecentLocationsActivity();
                 break;
             case R.id.navigation_sub_item_4:
 
@@ -57,17 +57,21 @@ public class NavigationAdapter {
     private void startPlaceLocateActivity(){
         Intent intent = new Intent(activity,PlaceLocateActivity.class);
         activity.startActivity(intent);
+        activity.finish();
     }
 
     private void startRecentLocationsActivity(){
         Intent intent = new Intent(activity,RecentLocationsActivity.class);
         activity.startActivity(intent);
+        activity.finish();
     }
 
     public static void setUpNavDrawerActivity(AppCompatActivity activity){
         final DrawerLayout navDrawer = (DrawerLayout) activity.findViewById(R.id.main_nav_drawer);
 
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.recent_locations_toolbar);
+
+        activity.setSupportActionBar(toolbar);
 
         toolbar.setTitle("GeoGame");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -80,9 +84,7 @@ public class NavigationAdapter {
                 }
             }
         });
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-
-        activity.setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
 
         new NavigationAdapter(activity);
     }

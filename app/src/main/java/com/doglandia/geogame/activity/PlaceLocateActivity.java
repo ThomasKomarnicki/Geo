@@ -1,6 +1,7 @@
 package com.doglandia.geogame.activity;
 
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -9,11 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.adapter.PlaceLocatePaterAdapter;
 import com.doglandia.geogame.map.LocatingMapFragment;
 import com.doglandia.geogame.map.StreetViewMapFragment;
@@ -22,7 +22,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import com.doglandia.geogame.navigation.NavigationItemManager;
 import com.doglandia.geogame.server.Server;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
@@ -64,7 +63,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
         mPlaceLocatePaterAdapter.setStreetViewMapFragment(streetViewMapFragment);
 
         mNavigationView = (NavigationView) findViewById(R.id.main_navigation_view);
-        mNavigationView.setNavigationItemSelectedListener(new NavigationItemManager(this));
+//        mNavigationView.setNavigationItemSelectedListener(new NavigationItemManager(this));
 
         mNavDrawer = (DrawerLayout) findViewById(R.id.main_nav_drawer);
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -82,6 +81,8 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setOnTabSelectedListener(this);
 
+        setSupportActionBar(mToolbar);
+
         mToolbar.setTitle("GeoGame");
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,9 +94,9 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
                 }
             }
         });
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
 
-        setSupportActionBar(mToolbar);
+        new NavigationAdapter(this);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
@@ -119,23 +120,6 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onTabSelected(TabLayout.Tab tab) {
         mViewPager.setCurrentItem(tab.getPosition(),true);
     }
@@ -155,6 +139,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
         PlaceLocateResult placeLocateResult = new PlaceLocateResult();
         placeLocateResult.setGuessedLocation(latLng);
         placeLocateResult.setActualLocation(place);
+        place.geocode(new Geocoder(this));
         intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
 

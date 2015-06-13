@@ -2,6 +2,7 @@ package com.doglandia.geogame.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import com.doglandia.geogame.R;
@@ -9,7 +10,7 @@ import com.doglandia.geogame.R;
 /**
  * Created by Thomas on 6/5/2015.
  */
-public class PlacesListActivity extends FragmentActivity {
+public class PlacesListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
