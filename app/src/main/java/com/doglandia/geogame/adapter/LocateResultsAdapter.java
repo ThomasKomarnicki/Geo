@@ -22,6 +22,8 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
 
     private LocateResultClickListener listener;
 
+    private ViewHolder highLightedView;
+
     private List<PlaceLocateResult> placeLocateResults;
     public LocateResultsAdapter(List<PlaceLocateResult> placeLocateResultList, LocateResultClickListener locateResultClickListener) {
         this.listener = locateResultClickListener;
@@ -34,7 +36,7 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
     }
 
     @Override
-    public void onBindViewHolder(LocateResultsAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final LocateResultsAdapter.ViewHolder holder, final int position) {
         final PlaceLocateResult placeLocateResult = placeLocateResults.get(position);
 
         holder.locationCityTv.setText(placeLocateResult.getActualLocation().getCity());
@@ -45,9 +47,21 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                highLightNewView(holder);
                 listener.onLocateResultClicked(position,placeLocateResult);
             }
         });
+    }
+
+    private void highLightNewView(ViewHolder newView){
+        if(highLightedView != null){
+            highLightedView.locationCountryTv.setSelected(false);
+            highLightedView.locationCityTv.setSelected(false);
+        }
+
+        highLightedView = newView;
+        newView.locationCityTv.setSelected(true);
+        newView.locationCountryTv.setSelected(true);
     }
 
     @Override

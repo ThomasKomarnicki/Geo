@@ -27,7 +27,7 @@
         <activity android:name=".activity.LocatePlaceResultsActivity" />
         <activity android:name=".activity.PlacesListActivity"/>
         <activity android:name=".activity.RecentLocationsActivity"/>
-        <activity android:name=".activity.RecentLocationsActivity"/>
+        <activity android:name=".activity.MyPlacesActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

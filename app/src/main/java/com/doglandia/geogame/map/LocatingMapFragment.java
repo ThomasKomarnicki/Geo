@@ -23,12 +23,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by Thomas on 6/3/2015.
  */
 public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClickListener,GoogleMap.OnMapLongClickListener {
+
+    private static final String ACTION_BUTTON_VISIBLE = "action_button_visible";
+    private static final String MARKER_LOCATION = "marker_location";
 
     private SupportMapFragment mSupportMapFragment;
     private GoogleMap mGoogleMap;
@@ -60,6 +64,15 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
                 googleMap.getUiSettings().setTiltGesturesEnabled(false);
                 googleMap.setOnMapClickListener(LocatingMapFragment.this);
                 googleMap.setOnMapLongClickListener(LocatingMapFragment.this);
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        return true;
+                    }
+                });
+                if(selectedLocation != null){
+                    onMapLocationClicked(selectedLocation);
+                }
             }
         });
 
@@ -105,12 +118,19 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 
     @Override
     public void onMapClick(LatLng latLng) {
+        clickVibrate();
         onMapLocationClicked(latLng);
     }
 
     @Override
     public void onMapLongClick(LatLng latLng) {
+        clickVibrate();
         onMapLocationClicked(latLng);
+    }
+
+    private void clickVibrate(){
+        Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(50);
     }
 
     private void onMapLocationClicked(LatLng latLng){
@@ -121,8 +141,6 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
         mGoogleMap.clear();
 
         mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
-        Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(50);
     }
 
     public void clearMap(){
@@ -130,6 +148,36 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
         mGoogleMap.clear();
         CameraUpdate defaultMapLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(0,0),1);
         mGoogleMap.moveCamera(defaultMapLocation);
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(ACTION_BUTTON_VISIBLE, floatingActionButton.getVisibility() == View.VISIBLE);
+        if(selectedLocation != null) {
+            outState.putParcelable(MARKER_LOCATION, selectedLocation);
+        }
+
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null) {
+
+            if (savedInstanceState.getBoolean(ACTION_BUTTON_VISIBLE, false)) {
+                floatingActionButton.setVisibility(View.VISIBLE);
+            }
+            if (savedInstanceState.containsKey(MARKER_LOCATION)) {
+                selectedLocation = savedInstanceState.getParcelable(MARKER_LOCATION);
+//                if(mGoogleMap != null) {
+//                    onMapLocationClicked(selectedLocation); // this function expects to always have valid googleMap
+//                    // shouldn't every get called?
+//                }
+            }
+
+        }
 
     }
 }

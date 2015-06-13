@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.adapter.NavigationAdapter;
-import com.doglandia.geogame.adapter.PlaceLocatePaterAdapter;
+import com.doglandia.geogame.adapter.PlaceLocatePagerAdapter;
 import com.doglandia.geogame.map.LocatingMapFragment;
 import com.doglandia.geogame.map.StreetViewMapFragment;
 
@@ -39,7 +39,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
     private Toolbar mToolbar;
 
     private ViewPager mViewPager;
-    private PlaceLocatePaterAdapter mPlaceLocatePaterAdapter;
+    private PlaceLocatePagerAdapter mPlaceLocatePaterAdapter;
 
     private Place place;
 
@@ -58,7 +58,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
             locatingMapFragment = new LocatingMapFragment();
         }
 
-        mPlaceLocatePaterAdapter = new PlaceLocatePaterAdapter(getSupportFragmentManager());
+        mPlaceLocatePaterAdapter = new PlaceLocatePagerAdapter(getSupportFragmentManager());
         mPlaceLocatePaterAdapter.setLocatingMapFragment(locatingMapFragment);
         mPlaceLocatePaterAdapter.setStreetViewMapFragment(streetViewMapFragment);
 

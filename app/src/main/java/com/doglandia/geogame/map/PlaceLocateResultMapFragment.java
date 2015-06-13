@@ -10,7 +10,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -35,6 +37,12 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
             public void onMapReady(GoogleMap googleMap) {
                 PlaceLocateResultMapFragment.this.googleMap = googleMap;
                 googleMap.getUiSettings().setAllGesturesEnabled(false);
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        return true;
+                    }
+                });
                 if(placeLocateResult != null) {
                     showPlaceLocateResult(placeLocateResult);
                 }
@@ -68,5 +76,10 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
                 .color(Color.BLACK)
                 .width(getResources().getDisplayMetrics().density * 5);
         googleMap.addPolyline(connectingLine);
+
+        // draw circles to round out edges
+        float radius = getResources().getDisplayMetrics().density * 5;
+        googleMap.addCircle(new CircleOptions().center(placeLocateResult.getGuessedLocation()).radius(radius).fillColor(Color.BLACK).zIndex(10));
+        googleMap.addCircle(new CircleOptions().center(placeLocateResult.getActualLocation().getLatLng()).radius(radius).fillColor(Color.BLACK).zIndex(10));
     }
 }

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivity;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
 
@@ -46,10 +47,14 @@ public class NavigationAdapter {
 
                 break;
             case R.id.navigation_sub_item_3:
-                startRecentLocationsActivity();
+                if(activityName != RecentLocationsActivity.class.getSimpleName()){
+                    startRecentLocationsActivity();
+                }
                 break;
             case R.id.navigation_sub_item_4:
-
+                if(activityName != MyPlacesActivity.class.getSimpleName()) {
+                    startMyPlacesActivity();
+                }
                 break;
         }
     }
@@ -62,6 +67,12 @@ public class NavigationAdapter {
 
     private void startRecentLocationsActivity(){
         Intent intent = new Intent(activity,RecentLocationsActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    private void startMyPlacesActivity(){
+        Intent intent = new Intent(activity, MyPlacesActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }

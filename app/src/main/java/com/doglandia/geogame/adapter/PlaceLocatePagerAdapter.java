@@ -10,12 +10,12 @@ import com.doglandia.geogame.map.StreetViewMapFragment;
 /**
  * Created by Thomas on 6/3/2015.
  */
-public class PlaceLocatePaterAdapter extends FragmentPagerAdapter {
+public class PlaceLocatePagerAdapter extends FragmentPagerAdapter {
 
     private StreetViewMapFragment streetViewMapFragment;
     private LocatingMapFragment locatingMapFragment;
 
-    public PlaceLocatePaterAdapter(FragmentManager fm) {
+    public PlaceLocatePagerAdapter(FragmentManager fm) {
         super(fm);
 
     }
