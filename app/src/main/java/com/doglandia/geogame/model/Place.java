@@ -36,8 +36,8 @@ public class Place {
             if(addressList != null && !addressList.isEmpty()){
                 Address address = addressList.get(0);
 
-                state = address.getLocality();
-                city = address.getAdminArea();
+                state = address.getAdminArea();
+                city = address.getLocality();
                 country = address.getCountryName();
             }
 

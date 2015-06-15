@@ -16,10 +16,20 @@ import java.util.List;
  */
 public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHolder> {
 
+    public interface OnPlaceClickListener{
+        void onPlaceClick(Place place, int position);
+    }
+
     private List<Place> places;
+
+    private OnPlaceClickListener listener;
 
     public MyPlacesAdapter(List<Place> places){
         this.places = places;
+    }
+
+    public void setListener(OnPlaceClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -28,8 +38,8 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Place place = places.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final Place place = places.get(position);
         if(place.getState() != null){
             holder.cityTv.setText(place.getCity()+", "+place.getState());
         }else {
@@ -40,6 +50,10 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 // TODO start place details activity
+                if(listener != null){
+                    listener.onPlaceClick(place,position);
+                }
+
             }
         });
     }

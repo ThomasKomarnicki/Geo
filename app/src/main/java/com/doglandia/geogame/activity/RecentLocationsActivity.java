@@ -40,7 +40,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
         mapFragmentHolder = (FrameLayout) findViewById(R.id.recent_locations_map_holder);
         mapFragment = (PlaceLocateResultMapFragment) getSupportFragmentManager().findFragmentById(R.id.recent_locations_map);
 
-        NavigationAdapter.setUpNavDrawerActivity(this);
+        NavigationAdapter.setUpNavDrawerActivity(this,"Recent Places");
 
         getRecentLocations();
     }

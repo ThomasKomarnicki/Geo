@@ -2,6 +2,7 @@ package com.doglandia.geogame.server;
 
 import android.location.Geocoder;
 
+import com.doglandia.geogame.GeoApplication;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
@@ -25,15 +26,22 @@ public class LocalMockServer implements ServerInterface {
 
     public LocalMockServer(){
         places = new ArrayList<>();
+        Geocoder geocoder = new Geocoder(GeoApplication.getContext());
         placeLocateResults = new ArrayList<>();
+
         Place place = new Place(new LatLng(27.90412,-82.672321));
         place.setId(0);
+        place.geocode(geocoder);
         places.add(place);
+
         place = new Place(new LatLng(27.814931,-82.630792));
         place.setId(1);
+        place.geocode(geocoder);
         places.add(place);
+
         place = new Place(new LatLng(27.818742,-82.63375));
         place.setId(2);
+        place.geocode(geocoder);
         places.add(place);
     }
 

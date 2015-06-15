@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.fragment.PlaceDetailsFragment;
 import com.doglandia.geogame.model.Place;
 
 import org.parceler.Parcels;
@@ -13,6 +14,9 @@ import org.parceler.Parcels;
  * Created by Thomas on 6/13/2015.
  */
 public class PlaceDetailsActivity extends AppCompatActivity{
+
+    private PlaceDetailsFragment placeDetailsFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +29,9 @@ public class PlaceDetailsActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setTitle(place.getCity());
+
+        placeDetailsFragment = (PlaceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.place_etails_fragment);
+
+        placeDetailsFragment.showPlaceDetails(place);
     }
 }

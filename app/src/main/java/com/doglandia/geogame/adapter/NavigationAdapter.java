@@ -77,14 +77,15 @@ public class NavigationAdapter {
         activity.finish();
     }
 
-    public static void setUpNavDrawerActivity(AppCompatActivity activity){
+    public static void setUpNavDrawerActivity(AppCompatActivity activity, String title){
         final DrawerLayout navDrawer = (DrawerLayout) activity.findViewById(R.id.main_nav_drawer);
 
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.recent_locations_toolbar);
 
+        toolbar.setTitle(title);
+
         activity.setSupportActionBar(toolbar);
 
-        toolbar.setTitle("GeoGame");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
