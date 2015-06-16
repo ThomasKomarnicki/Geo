@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.map.PlaceHeatMapFragment;
 import com.doglandia.geogame.model.Place;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +30,8 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
 
     private Place place;
 
+    private PlaceHeatMapFragment heatMapFragment;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
                 initHeaderMap();
             }
         });
+
+        heatMapFragment = (PlaceHeatMapFragment) getFragmentManager().findFragmentById(R.id.place_details_heat_map);
 
         return view;
     }
