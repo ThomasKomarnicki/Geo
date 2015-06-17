@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
@@ -23,6 +25,11 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
 
     private TextView cityTv;
     private TextView countryTv;
+    private TextView avgTv;
+    private TextView bestTv;
+
+    private FrameLayout heatMapContainer;
+    private RelativeLayout heroContainer;
 
     private SupportMapFragment headerLiteMapFragment;
 
@@ -39,6 +46,16 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
 
         cityTv = (TextView) view.findViewById(R.id.place_details_city);
         countryTv = (TextView) view.findViewById(R.id.place_details_country);
+        avgTv = (TextView) view.findViewById(R.id.place_details_average);
+        bestTv = (TextView) view.findViewById(R.id.place_details_best_guess);
+
+        heatMapContainer = (FrameLayout) view.findViewById(R.id.place_details_heat_map_container);
+        heroContainer = (RelativeLayout) view.findViewById(R.id.place_details_hero_container);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(container.getWidth(),container.getWidth());
+        heroContainer.setLayoutParams(params);
+        FrameLayout.LayoutParams squareParams = new FrameLayout.LayoutParams(container.getWidth(),container.getWidth());
+        heatMapContainer.setLayoutParams(squareParams);
 
         headerLiteMapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.place_details_lite_map);
         headerLiteMapFragment.getMapAsync(new OnMapReadyCallback() {
