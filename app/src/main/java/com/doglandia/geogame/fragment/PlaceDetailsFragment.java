@@ -11,8 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.Util;
 import com.doglandia.geogame.map.PlaceHeatMapFragment;
 import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceDetails;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,7 +37,7 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
 
     private GoogleMap headerGoogleMap;
 
-    private Place place;
+    private PlaceDetails placeDetails;
 
     private PlaceHeatMapFragment heatMapFragment;
 
@@ -76,18 +78,22 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
         super.onActivityCreated(savedInstanceState);
     }
 
-    public void showPlaceDetails(Place place){
+    public void showPlaceDetails(PlaceDetails placeDetails){
         // TODO
         initHeaderMap();
 
-        if(place.getState() != null){
-            cityTv.setText(place.getCity()+", "+place.getState());
+        if(placeDetails.getPlace().getState() != null){
+            cityTv.setText(placeDetails.getPlace().getCity()+", "+placeDetails.getPlace().getState());
         }else {
-            cityTv.setText(place.getCity());
+            cityTv.setText(placeDetails.getPlace().getCity());
         }
 
-        countryTv.setText(place.getCountry());
+        countryTv.setText(placeDetails.getPlace().getCountry());
 
+        avgTv.setText(Util.getDistanceDisplay(placeDetails.getAverageDistance()));
+        bestTv.setText(Util.getDistanceDisplay(placeDetails.getBestDistance()));
+
+        initHeatMap();
     }
 
     @Override
@@ -95,11 +101,14 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
         initHeaderMap();
     }
 
+    private void initHeatMap(){
+
+    }
     private void initHeaderMap(){
-        if(place == null || headerGoogleMap == null){
+        if(placeDetails == null || headerGoogleMap == null){
             return;
         }
 
-        headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+        headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(placeDetails.getPlace().getLatLng()));
     }
 }

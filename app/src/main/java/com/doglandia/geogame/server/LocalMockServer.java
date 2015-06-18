@@ -4,6 +4,7 @@ import android.location.Geocoder;
 
 import com.doglandia.geogame.GeoApplication;
 import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -22,6 +23,7 @@ public class LocalMockServer implements ServerInterface {
 
     List<Place> places;
     List<PlaceLocateResult> placeLocateResults;
+    PlaceDetails placeDetails;
 
 
     public LocalMockServer(){
@@ -43,6 +45,9 @@ public class LocalMockServer implements ServerInterface {
         place.setId(2);
         place.geocode(geocoder);
         places.add(place);
+
+        placeDetails = new PlaceDetails();
+
     }
 
 
@@ -68,6 +73,29 @@ public class LocalMockServer implements ServerInterface {
     public void getUserPlaceLocateResults(@Path("user_id") Integer userId, Callback<List<PlaceLocateResult>> callback) {
         callback.success(placeLocateResults,null);
     }
+
+    @Override
+    public void getPlaceDetails(@Path("user_id") Integer placeId, Callback<PlaceDetails> callback) {
+        PlaceDetails placeDetails = new PlaceDetails();
+        placeDetails.setPlace(places.get(placeId));
+        placeDetails.setAverageDistance(6800);
+        placeDetails.setBestDistance(1200);
+        placeDetails.setOtherGuesses(generateRandomLatLons(100));
+
+
+    }
+
+    private List<LatLng> generateRandomLatLons(int count){
+        List<LatLng> randoms = new ArrayList<>();
+        Random randomLat = new Random();
+        Random randomLon = new Random();
+        for(int i = 0; i < count; i++){
+            randoms.add(new LatLng((randomLat.nextDouble()*180)-90,(randomLon.nextDouble()*360)-180));
+        }
+
+        return randoms;
+    }
+
 
     private Place getRandomPlace(int lastPlaceId){
 

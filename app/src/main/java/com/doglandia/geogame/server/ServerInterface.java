@@ -1,6 +1,7 @@
 package com.doglandia.geogame.server;
 
 import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
 
 import java.util.List;
@@ -27,4 +28,7 @@ public interface ServerInterface {
 
     @GET("/userPlaceLocateResults/{user_id}")
     void getUserPlaceLocateResults(@Path("user_id")Integer userId,Callback<List<PlaceLocateResult>> callback);
+
+    @GET("/placeDetails/{place_id}")
+    void getPlaceDetails(@Path("user_id")Integer placeId, Callback<PlaceDetails> callback);
 }
