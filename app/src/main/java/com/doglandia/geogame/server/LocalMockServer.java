@@ -50,41 +50,6 @@ public class LocalMockServer implements ServerInterface {
 
     }
 
-
-
-
-    @Override
-    public void locationGuess(@Path("user_id") Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
-        placeLocateResults.add(placeLocateResult);
-        callback.success(getRandomPlace(placeLocateResult.getActualLocation().getId()), null);
-    }
-
-    @Override
-    public void getNewLocation(@Path("user_id") Integer userId, Callback<Place> callback) {
-        callback.success(getRandomPlace(0),null);
-    }
-
-    @Override
-    public void getUserLocations(@Path("user_id") Integer userId, Callback<List<Place>> callback) {
-        callback.success(places,null);
-    }
-
-    @Override
-    public void getUserPlaceLocateResults(@Path("user_id") Integer userId, Callback<List<PlaceLocateResult>> callback) {
-        callback.success(placeLocateResults,null);
-    }
-
-    @Override
-    public void getPlaceDetails(@Path("user_id") Integer placeId, Callback<PlaceDetails> callback) {
-        PlaceDetails placeDetails = new PlaceDetails();
-        placeDetails.setPlace(places.get(placeId));
-        placeDetails.setAverageDistance(6800);
-        placeDetails.setBestDistance(1200);
-        placeDetails.setOtherGuesses(generateRandomLatLons(100));
-
-
-    }
-
     private List<LatLng> generateRandomLatLons(int count){
         List<LatLng> randoms = new ArrayList<>();
         Random randomLat = new Random();
@@ -105,5 +70,40 @@ public class LocalMockServer implements ServerInterface {
             nextId = 0;
         }
         return places.get(nextId);
+    }
+
+    @Override
+    public void getLocation(@Path("location_id") Integer locationId, Callback<Place> callback) {
+        callback.success(places.get(locationId),null);
+    }
+
+    @Override
+    public void getCurrentLocation(Callback<Place> callback) {
+        callback.success(getRandomPlace(0),null);
+    }
+
+    @Override
+    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
+        placeLocateResults.add(placeLocateResult);
+        callback.success(getRandomPlace(placeLocateResult.getActualLocation().getId()), null);
+    }
+
+    @Override
+    public void getLocationDetails(@Path("location_id") Integer locationId, Callback<PlaceDetails> callback) {
+        PlaceDetails placeDetails = new PlaceDetails();
+        placeDetails.setPlace(places.get(locationId));
+        placeDetails.setAverageDistance(6800);
+        placeDetails.setBestDistance(1200);
+        placeDetails.setOtherGuesses(generateRandomLatLons(100));
+    }
+
+    @Override
+    public void getUserLocationGuesses(@Path("user_id") Integer userId, Callback<List<PlaceLocateResult>> callback) {
+        callback.success(placeLocateResults,null);
+    }
+
+    @Override
+    public void getUserLocations(@Path("user_id") Integer userId, Callback<List<Place>> callback) {
+        callback.success(places,null);
     }
 }

@@ -52,7 +52,7 @@ public class MyPlacesActivity extends AppCompatActivity {
 
     public void onPlaceClick(Place place){
         if(landscape){
-            placeDetailsFragment.showPlaceDetails(place);
+            placeDetailsFragment.getPlaceDetails(place);
         }else{
             Intent intent = new Intent(this,PlaceDetailsActivity.class);
             startActivity(intent);

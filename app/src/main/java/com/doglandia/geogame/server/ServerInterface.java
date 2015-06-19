@@ -17,18 +17,37 @@ import retrofit.http.Path;
  */
 public interface ServerInterface {
 
-    @POST("/locationGuess/{user_id}")// send placeLocate result and get new Place
-    void locationGuess(@Path("user_id")Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
+    @GET("/locations/{location_id}")
+    void getLocation(@Path("location_id")Integer locationId, Callback<Place> callback);
 
-    @POST("/getNewLocation/{user_id}") // get new place based on userId
-    void getNewLocation(@Path("user_id")Integer userId,Callback<Place> callback);
+    @GET("/locations/currentLocation")
+    void getCurrentLocation(Callback<Place> callback);
 
-    @GET("/userLocations/{user_id}")
-    void getUserLocations(@Path("user_id")Integer userId, Callback<List<Place>> callback);
+    @POST("/locations/currentLocation")
+    void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
 
-    @GET("/userPlaceLocateResults/{user_id}")
-    void getUserPlaceLocateResults(@Path("user_id")Integer userId,Callback<List<PlaceLocateResult>> callback);
+    @GET("/locations/{location_id}/details")
+    void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);
 
-    @GET("/placeDetails/{place_id}")
-    void getPlaceDetails(@Path("user_id")Integer placeId, Callback<PlaceDetails> callback);
+    @GET("/user/{user_id}/locationGuesses")
+    void getUserLocationGuesses(@Path("user_id")Integer userId, Callback<List<PlaceLocateResult>> callback);
+
+    @GET("user/{user_id}/locations")
+    void getUserLocations(@Path("user_id")Integer userId,Callback<List<Place>> callback);
+
+
+//    @POST("/locationGuess/{user_id}")// send placeLocate result and get new Place
+//    void locationGuess(@Path("user_id")Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
+//
+//    @POST("/getNewLocation/{user_id}") // get new place based on userId
+//    void getNewLocation(@Path("user_id")Integer userId,Callback<Place> callback);
+//
+//    @GET("/userLocations/{user_id}")
+//    void getUserLocations(@Path("user_id")Integer userId, Callback<List<Place>> callback);
+//
+//    @GET("/userPlaceLocateResults/{user_id}")
+//    void getUserPlaceLocateResults(@Path("user_id")Integer userId,Callback<List<PlaceLocateResult>> callback);
+//
+//    @GET("/placeDetails/{place_id}")
+//    void getPlaceDetails(@Path("user_id")Integer placeId, Callback<PlaceDetails> callback);
 }

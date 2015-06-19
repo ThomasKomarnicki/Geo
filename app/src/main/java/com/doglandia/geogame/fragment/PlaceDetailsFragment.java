@@ -15,10 +15,15 @@ import com.doglandia.geogame.Util;
 import com.doglandia.geogame.map.PlaceHeatMapFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
+import com.doglandia.geogame.server.Server;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Thomas on 6/13/2015.
@@ -110,5 +115,19 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
         }
 
         headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(placeDetails.getPlace().getLatLng()));
+    }
+
+    public void getPlaceDetails(Place place) {
+        Server.getInstance().getLocationDetails(place.getId(), new Callback<PlaceDetails>() {
+            @Override
+            public void success(PlaceDetails placeDetails, Response response) {
+                showPlaceDetails(placeDetails);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 }
