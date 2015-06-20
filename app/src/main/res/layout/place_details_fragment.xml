@@ -18,7 +18,7 @@
                 android:layout_height="match_parent"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:id="@+id/place_details_lite_map"
-                map:cameraZoom="13"
+                map:cameraZoom="17"
                 map:mapType="satellite"
                 map:liteMode="true"/>
 
@@ -34,7 +34,8 @@
                 android:textIsSelectable="false"
                 android:padding="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp" />
+                android:layout_marginLeft="16dp"
+                android:textColor="#FFF"/>
         </RelativeLayout>
 
         <TextView
@@ -87,7 +88,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text="Other Guesses:"
             android:id="@+id/textView"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="16dp"
@@ -106,7 +107,7 @@
                 android:name="com.doglandia.geogame.map.PlaceHeatMapFragment"
                 android:id="@+id/place_details_heat_map"
                 map:mapType="normal"
-                android:layout_marginTop="60dp" />
+                android:layout_marginTop="20dp" />
         </FrameLayout>
 
     </LinearLayout>

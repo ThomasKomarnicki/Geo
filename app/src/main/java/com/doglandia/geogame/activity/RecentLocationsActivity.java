@@ -46,7 +46,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
     }
 
     private void getRecentLocations(){
-        Server.getInstance().getUserPlaceLocateResults(0, new Callback<List<PlaceLocateResult>>() {
+        Server.getInstance().getUserLocationGuesses(0, new Callback<List<PlaceLocateResult>>() {
             @Override
             public void success(List<PlaceLocateResult> placeLocateResults, Response response) {
                 recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults,RecentLocationsActivity.this));

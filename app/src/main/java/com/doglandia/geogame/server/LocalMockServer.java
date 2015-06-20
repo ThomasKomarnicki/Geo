@@ -92,9 +92,10 @@ public class LocalMockServer implements ServerInterface {
     public void getLocationDetails(@Path("location_id") Integer locationId, Callback<PlaceDetails> callback) {
         PlaceDetails placeDetails = new PlaceDetails();
         placeDetails.setPlace(places.get(locationId));
-        placeDetails.setAverageDistance(6800);
-        placeDetails.setBestDistance(1200);
+        placeDetails.setAverageDistance(68000);
+        placeDetails.setBestDistance(12000);
         placeDetails.setOtherGuesses(generateRandomLatLons(100));
+        callback.success(placeDetails,null);
     }
 
     @Override

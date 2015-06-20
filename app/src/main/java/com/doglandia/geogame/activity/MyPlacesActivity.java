@@ -16,6 +16,8 @@ import com.doglandia.geogame.fragment.PlaceDetailsFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.Server;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import retrofit.Callback;
@@ -25,7 +27,7 @@ import retrofit.client.Response;
 /**
  * Created by Thomas on 6/13/2015.
  */
-public class MyPlacesActivity extends AppCompatActivity {
+public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClickedListener{
 
 
     boolean landscape = false;
@@ -55,9 +57,14 @@ public class MyPlacesActivity extends AppCompatActivity {
             placeDetailsFragment.getPlaceDetails(place);
         }else{
             Intent intent = new Intent(this,PlaceDetailsActivity.class);
+            intent.putExtra("place", Parcels.wrap(place));
             startActivity(intent);
         }
     }
 
 
+    @Override
+    public boolean onHeatMapClicked() {
+        return false;
+    }
 }

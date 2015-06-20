@@ -104,7 +104,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
     }
 
     private void initiateTestData(){
-        Server.getInstance().getNewLocation(0, new Callback<Place>() {
+        Server.getInstance().getCurrentLocation(new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
                 PlaceLocateActivity.this.place = place;
@@ -143,7 +143,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
         intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
 
-        Server.getInstance().locationGuess(0, placeLocateResult, new Callback<Place>() {
+        Server.getInstance().postLocateResult(placeLocateResult, new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
                 PlaceLocateActivity.this.place = place;

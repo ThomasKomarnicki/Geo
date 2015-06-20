@@ -1,12 +1,15 @@
 package com.doglandia.geogame.fragment;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,7 +31,7 @@ import retrofit.client.Response;
 /**
  * Created by Thomas on 6/13/2015.
  */
-public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback{
+public class PlaceDetailsFragment extends Fragment {
 
     private TextView cityTv;
     private TextView countryTv;
@@ -50,6 +53,7 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.place_details_fragment,null);
+        Log.d("PlaceDetailsFragment","onCreateView");
 
         cityTv = (TextView) view.findViewById(R.id.place_details_city);
         countryTv = (TextView) view.findViewById(R.id.place_details_country);
@@ -59,21 +63,17 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
         heatMapContainer = (FrameLayout) view.findViewById(R.id.place_details_heat_map_container);
         heroContainer = (RelativeLayout) view.findViewById(R.id.place_details_hero_container);
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(container.getWidth(),container.getWidth());
+
+        heatMapFragment = (PlaceHeatMapFragment) getChildFragmentManager().findFragmentById(R.id.place_details_heat_map);
+
+        Point size = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+        int width = size.x;
+        int height = (int) (size.x*(9f/16f));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
         heroContainer.setLayoutParams(params);
-        FrameLayout.LayoutParams squareParams = new FrameLayout.LayoutParams(container.getWidth(),container.getWidth());
+        LinearLayout.LayoutParams squareParams = new LinearLayout.LayoutParams(width,width);
         heatMapContainer.setLayoutParams(squareParams);
-
-        headerLiteMapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.place_details_lite_map);
-        headerLiteMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                headerGoogleMap = googleMap;
-                initHeaderMap();
-            }
-        });
-
-        heatMapFragment = (PlaceHeatMapFragment) getFragmentManager().findFragmentById(R.id.place_details_heat_map);
 
         return view;
     }
@@ -81,10 +81,26 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d("PlaceDetailsFragment","onActivityCreated");
+
+        headerLiteMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.place_details_lite_map);
+        headerLiteMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                headerGoogleMap = googleMap;
+                headerGoogleMap.getUiSettings().setMapToolbarEnabled(false);
+                initHeaderMap();
+            }
+        });
+
+        Log.d("PlaceDetailsFragment","Activity finished create");
+
+
     }
 
     public void showPlaceDetails(PlaceDetails placeDetails){
         // TODO
+        this.placeDetails = placeDetails;
         initHeaderMap();
 
         if(placeDetails.getPlace().getState() != null){
@@ -98,29 +114,28 @@ public class PlaceDetailsFragment extends Fragment implements OnMapReadyCallback
         avgTv.setText(Util.getDistanceDisplay(placeDetails.getAverageDistance()));
         bestTv.setText(Util.getDistanceDisplay(placeDetails.getBestDistance()));
 
-        initHeatMap();
+        initHeatMap(placeDetails);
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        initHeaderMap();
-    }
-
-    private void initHeatMap(){
-
+    private void initHeatMap(PlaceDetails placeDetails){
+        heatMapFragment.showHeat(placeDetails.getOtherGuesses());
     }
     private void initHeaderMap(){
         if(placeDetails == null || headerGoogleMap == null){
             return;
         }
 
+        Log.d("PlaceDetailsFrag","succesfully initiated header google map");
+
         headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(placeDetails.getPlace().getLatLng()));
+
     }
 
     public void getPlaceDetails(Place place) {
         Server.getInstance().getLocationDetails(place.getId(), new Callback<PlaceDetails>() {
             @Override
             public void success(PlaceDetails placeDetails, Response response) {
+                PlaceDetailsFragment.this.placeDetails = placeDetails;
                 showPlaceDetails(placeDetails);
             }
 
