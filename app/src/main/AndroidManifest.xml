@@ -30,6 +30,7 @@
         <activity android:name=".activity.RecentLocationsActivity"/>
         <activity android:name=".activity.MyPlacesActivity"/>
         <activity android:name=".activity.PlaceDetailsActivity"/>
+        <activity android:name=".activity.DiscoverActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

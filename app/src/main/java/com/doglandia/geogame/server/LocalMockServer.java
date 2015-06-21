@@ -94,7 +94,7 @@ public class LocalMockServer implements ServerInterface {
         placeDetails.setPlace(places.get(locationId));
         placeDetails.setAverageDistance(68000);
         placeDetails.setBestDistance(12000);
-        placeDetails.setOtherGuesses(generateRandomLatLons(100));
+        placeDetails.setOtherGuesses(generateRandomLatLons(2000));
         callback.success(placeDetails,null);
     }
 

@@ -23,6 +23,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -48,6 +51,12 @@ public class PlaceDetailsFragment extends Fragment {
     private PlaceDetails placeDetails;
 
     private PlaceHeatMapFragment heatMapFragment;
+
+    public interface OnPlaceDetailsLoadedListener{
+        void onPlaceDetailsLoaded(PlaceDetails placeDetails);
+    }
+
+    private OnPlaceDetailsLoadedListener onPlaceDetailsLoadedListener;
 
     @Nullable
     @Override
@@ -76,6 +85,13 @@ public class PlaceDetailsFragment extends Fragment {
         heatMapContainer.setLayoutParams(squareParams);
 
         return view;
+    }
+
+    public void setOnPlaceDetailsLoadedListener(OnPlaceDetailsLoadedListener onPlaceDetailsLoadedListener){
+        this.onPlaceDetailsLoadedListener = onPlaceDetailsLoadedListener;
+        if(placeDetails != null){
+            onPlaceDetailsLoadedListener.onPlaceDetailsLoaded(placeDetails);
+        }
     }
 
     @Override
@@ -115,10 +131,14 @@ public class PlaceDetailsFragment extends Fragment {
         bestTv.setText(Util.getDistanceDisplay(placeDetails.getBestDistance()));
 
         initHeatMap(placeDetails);
+
+        if(onPlaceDetailsLoadedListener != null){
+            onPlaceDetailsLoadedListener.onPlaceDetailsLoaded(placeDetails);
+        }
     }
 
     private void initHeatMap(PlaceDetails placeDetails){
-        heatMapFragment.showHeat(placeDetails.getOtherGuesses());
+        heatMapFragment.showHeat(placeDetails);
     }
     private void initHeaderMap(){
         if(placeDetails == null || headerGoogleMap == null){
@@ -145,4 +165,5 @@ public class PlaceDetailsFragment extends Fragment {
             }
         });
     }
+
 }

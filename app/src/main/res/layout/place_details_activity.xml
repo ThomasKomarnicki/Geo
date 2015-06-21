@@ -16,10 +16,26 @@
 
     </android.support.design.widget.AppBarLayout>
 
-   <fragment
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:name="com.doglandia.geogame.fragment.PlaceDetailsFragment"
-       android:id="@+id/place_etails_fragment"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.doglandia.geogame.fragment.PlaceDetailsFragment"
+            android:id="@+id/place_etails_fragment"
+            android:tag="place_details_fragment"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/heat_map_holder">
+        </FrameLayout>
+
+
+    </FrameLayout>
+
 
 </LinearLayout>
