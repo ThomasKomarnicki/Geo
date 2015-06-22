@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.activity.DiscoverActivity;
 import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivity;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
@@ -39,20 +40,22 @@ public class NavigationAdapter {
     public void onNavigationItemSelected(int itemId, String activityName){
         switch (itemId){
             case R.id.navigation_sub_item_1:
-                if(activityName != PlaceLocateActivity.class.getSimpleName()){
+                if(!activityName.equals(PlaceLocateActivity.class.getSimpleName())){
                     startPlaceLocateActivity();
                 }
                 break;
             case R.id.navigation_sub_item_2:
-
+                if(!activityName.equals(DiscoverActivity.class.getSimpleName())){
+                    startDiscoverActivity();
+                }
                 break;
             case R.id.navigation_sub_item_3:
-                if(activityName != RecentLocationsActivity.class.getSimpleName()){
+                if(!activityName.equals(RecentLocationsActivity.class.getSimpleName())){
                     startRecentLocationsActivity();
                 }
                 break;
             case R.id.navigation_sub_item_4:
-                if(activityName != MyPlacesActivity.class.getSimpleName()) {
+                if(!activityName.equals(MyPlacesActivity.class.getSimpleName())) {
                     startMyPlacesActivity();
                 }
                 break;
@@ -73,6 +76,12 @@ public class NavigationAdapter {
 
     private void startMyPlacesActivity(){
         Intent intent = new Intent(activity, MyPlacesActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    private void startDiscoverActivity(){
+        Intent intent = new Intent(activity, DiscoverActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }

@@ -17,6 +17,7 @@ public class StreetViewMapFragment extends SupportStreetViewPanoramaFragment imp
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         this.streetViewPanorama = streetViewPanorama;
+        streetViewPanorama.setStreetNamesEnabled(false);
         if(latLng != null){
             streetViewPanorama.setPosition(latLng);
         }
