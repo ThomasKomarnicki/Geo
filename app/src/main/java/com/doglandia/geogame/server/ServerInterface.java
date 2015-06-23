@@ -3,6 +3,8 @@ package com.doglandia.geogame.server;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -34,6 +36,9 @@ public interface ServerInterface {
 
     @GET("user/{user_id}/locations")
     void getUserLocations(@Path("user_id")Integer userId,Callback<List<Place>> callback);
+
+    @POST("user/{user_id}/locations")
+    void addUserLocation(@Path("user_id")Integer userId,@Body LatLng latLng, Callback<JsonObject> callback);
 
 
 //    @POST("/locationGuess/{user_id}")// send placeLocate result and get new Place
