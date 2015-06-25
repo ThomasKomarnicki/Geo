@@ -52,9 +52,14 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
             @Override
             public void success(List<Place> places, Response response) {
                 Log.d(MyPlacesFragment.this.getTag(), "got "+places.size()+" places");
-                MyPlacesAdapter adapter = new MyPlacesAdapter(places);
-                adapter.setListener(MyPlacesFragment.this);
-                recyclerView.setAdapter(adapter);
+                if(places != null && places.size() == 0){
+
+                } else if(getActivity() != null && places != null) {
+                    MyPlacesAdapter adapter = new MyPlacesAdapter(places);
+                    adapter.setListener(MyPlacesFragment.this);
+                    recyclerView.setAdapter(adapter);
+                    ((MyPlacesActivity) getActivity()).onPlaceClick(places.get(0));
+                }
             }
 
             @Override

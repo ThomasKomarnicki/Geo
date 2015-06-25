@@ -1,5 +1,6 @@
 package com.doglandia.geogame.fragment;
 
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.Util;
+import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.map.PlaceHeatMapFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
@@ -23,9 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-
-import java.util.List;
+import com.google.android.gms.maps.model.CameraPosition;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -43,6 +45,10 @@ public class PlaceDetailsFragment extends Fragment {
 
     private FrameLayout heatMapContainer;
     private RelativeLayout heroContainer;
+
+    private ProgressBar progressBar;
+    private ScrollView scrollView;
+
 
     private SupportMapFragment headerLiteMapFragment;
 
@@ -62,6 +68,9 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.place_details_fragment,null);
+        scrollView = (ScrollView) view.findViewById(R.id.place_details_fragment_scroll_view);
+        progressBar = (ProgressBar) view.findViewById(R.id.place_details_fragment_progress);
+        hideView();
         Log.d("PlaceDetailsFragment","onCreateView");
 
         cityTv = (TextView) view.findViewById(R.id.place_details_city);
@@ -78,10 +87,15 @@ public class PlaceDetailsFragment extends Fragment {
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
         int width = size.x;
+
         int height = (int) (size.x*(9f/16f));
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            height = height/2;
+        }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
         heroContainer.setLayoutParams(params);
-        LinearLayout.LayoutParams squareParams = new LinearLayout.LayoutParams(width,width);
+        LinearLayout.LayoutParams squareParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,width);
         heatMapContainer.setLayoutParams(squareParams);
 
         return view;
@@ -116,6 +130,7 @@ public class PlaceDetailsFragment extends Fragment {
 
     public void showPlaceDetails(PlaceDetails placeDetails){
         // TODO
+        showView();
         this.placeDetails = placeDetails;
         initHeaderMap();
 
@@ -148,10 +163,18 @@ public class PlaceDetailsFragment extends Fragment {
         Log.d("PlaceDetailsFrag","succesfully initiated header google map");
 
         headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(placeDetails.getPlace().getLatLng()));
+        headerGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+                Log.d("PlaceDetailsFrag","camera changed");
+                showView();
+            }
+        });
 
     }
 
     public void getPlaceDetails(Place place) {
+        hideView();
         Server.getInstance().getLocationDetails(place.getId(), new Callback<PlaceDetails>() {
             @Override
             public void success(PlaceDetails placeDetails, Response response) {
@@ -164,6 +187,16 @@ public class PlaceDetailsFragment extends Fragment {
 
             }
         });
+    }
+
+    private void showView(){
+        progressBar.setVisibility(View.INVISIBLE);
+        scrollView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideView(){
+        progressBar.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.INVISIBLE);
     }
 
 }

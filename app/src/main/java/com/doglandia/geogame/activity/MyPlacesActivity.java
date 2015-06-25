@@ -48,6 +48,10 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
         landscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
+        if(landscape){
+            placeDetailsFragment = (PlaceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.place_details_fragment);
+        }
+
         myPlacesFragment = (MyPlacesFragment) getSupportFragmentManager().findFragmentById(R.id.my_places_fragment);
         myPlacesFragment.getPlaces(0);
     }
@@ -60,6 +64,10 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
             intent.putExtra("place", Parcels.wrap(place));
             startActivity(intent);
         }
+    }
+
+    public boolean isLandscape(){
+        return landscape;
     }
 
 
