@@ -48,29 +48,35 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
     }
 
     public void getPlaces(int userId) {
-        Server.getInstance().getUserLocations(userId, new Callback<List<Place>>() {
-            @Override
-            public void success(List<Place> places, Response response) {
-                Log.d(MyPlacesFragment.this.getTag(), "got "+places.size()+" places");
-                if(places != null && places.size() == 0){
+//        Server.getInstance().getUserLocations(userId, new Callback<List<Place>>() {
+//            @Override
+//            public void success(List<Place> places, Response response) {
+//                Log.d(MyPlacesFragment.this.getTag(), "got "+places.size()+" places");
+//                if(places != null && places.size() == 0){
+//
+//                } else if(getActivity() != null && places != null) {
+//                    MyPlacesAdapter adapter = new MyPlacesAdapter(places);
+//                    adapter.setListener(MyPlacesFragment.this);
+//                    recyclerView.setAdapter(adapter);
+//                    ((MyPlacesActivity) getActivity()).onPlaceClick(places.get(0),0);
+//                }
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//
+//            }
+//        });
+    }
 
-                } else if(getActivity() != null && places != null) {
-                    MyPlacesAdapter adapter = new MyPlacesAdapter(places);
-                    adapter.setListener(MyPlacesFragment.this);
-                    recyclerView.setAdapter(adapter);
-                    ((MyPlacesActivity) getActivity()).onPlaceClick(places.get(0));
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
+    public void initAdapter(List<Place> places){
+        MyPlacesAdapter adapter = new MyPlacesAdapter(places);
+        adapter.setListener(MyPlacesFragment.this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onPlaceClick(Place place, int position) {
-        ((MyPlacesActivity)getActivity()).onPlaceClick(place);
+        ((MyPlacesActivity)getActivity()).onPlaceClick(place,position);
     }
 }

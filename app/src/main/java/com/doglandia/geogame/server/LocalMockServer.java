@@ -22,7 +22,7 @@ import retrofit.http.Path;
  */
 public class LocalMockServer implements ServerInterface {
 
-    List<Place> places;
+    ArrayList<Place> places;
     List<PlaceLocateResult> placeLocateResults;
     PlaceDetails placeDetails;
 
@@ -105,7 +105,7 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void getUserLocations(@Path("user_id") Integer userId, Callback<List<Place>> callback) {
+    public void getUserLocations(@Path("user_id") Integer userId, Callback<ArrayList<Place>> callback) {
         callback.success(places,null);
     }
 

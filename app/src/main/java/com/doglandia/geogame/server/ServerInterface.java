@@ -6,6 +6,7 @@ import com.doglandia.geogame.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -35,7 +36,7 @@ public interface ServerInterface {
     void getUserLocationGuesses(@Path("user_id")Integer userId, Callback<List<PlaceLocateResult>> callback);
 
     @GET("user/{user_id}/locations")
-    void getUserLocations(@Path("user_id")Integer userId,Callback<List<Place>> callback);
+    void getUserLocations(@Path("user_id")Integer userId,Callback<ArrayList<Place>> callback);
 
     @POST("user/{user_id}/locations")
     void addUserLocation(@Path("user_id")Integer userId,@Body LatLng latLng, Callback<JsonObject> callback);

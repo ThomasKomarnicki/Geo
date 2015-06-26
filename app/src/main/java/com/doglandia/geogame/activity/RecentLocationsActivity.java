@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.adapter.LocateResultsAdapter;
 import com.doglandia.geogame.adapter.NavigationAdapter;
+import com.doglandia.geogame.fragment.NoRecentLocationsFragment;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.server.Server;
@@ -28,10 +32,21 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
 //    private Toolbar toolbar;
     private FrameLayout mapFragmentHolder;
     private PlaceLocateResultMapFragment mapFragment;
+
+    private FrameLayout contentFrame;
+    private LinearLayout recentLocationsHolder;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recent_locations_activity);
+
+        contentFrame = (FrameLayout) findViewById(R.id.recent_locations_content);
+        progressBar = (ProgressBar) findViewById(R.id.recent_locations_progress);
+        progressBar.setVisibility(View.VISIBLE);
+
+        recentLocationsHolder = (LinearLayout) findViewById(R.id.recent_locations_holder);
+        recentLocationsHolder.setVisibility(View.INVISIBLE);
 
         recyclerView = (RecyclerView) findViewById(R.id.recent_locations_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -49,11 +64,20 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
         Server.getInstance().getUserLocationGuesses(0, new Callback<List<PlaceLocateResult>>() {
             @Override
             public void success(List<PlaceLocateResult> placeLocateResults, Response response) {
-                recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults,RecentLocationsActivity.this));
+                if(placeLocateResults == null || placeLocateResults.size() == 0){
+                    getSupportFragmentManager().beginTransaction()
+                            .add(contentFrame.getId(),new NoRecentLocationsFragment(),"no_recent_locations_fragment")
+                            .commit();
+                }else {
+                    recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this));
+                    recentLocationsHolder.setVisibility(View.VISIBLE);
+                }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void failure(RetrofitError error) {
+                progressBar.setVisibility(View.GONE);
 
             }
         });
