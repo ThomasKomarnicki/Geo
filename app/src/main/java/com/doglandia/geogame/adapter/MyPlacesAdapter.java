@@ -1,5 +1,7 @@
 package com.doglandia.geogame.adapter;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +26,15 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
 
     private OnPlaceClickListener listener;
 
-    public MyPlacesAdapter(List<Place> places){
+    private View selectedView;
+
+    private int backgroundResourceId;
+
+    public MyPlacesAdapter(List<Place> places,Context context){
         this.places = places;
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(R.style.AppTheme, new int[] {R.attr.selectableItemBackground});
+        backgroundResourceId = a.getResourceId(0, 0);
     }
 
     public void setListener(OnPlaceClickListener listener) {
@@ -48,8 +57,15 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
         holder.countryTv.setText(place.getCountry());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO start place details activity
+            public void onClick(View view) {
+                if(view == selectedView){
+                    return; // do nothing
+                }
+
+                selectedView.setBackgroundResource(backgroundResourceId);
+                selectedView = view;
+                selectedView.setBackgroundColor(view.getContext().getResources().getColor(android.R.color.holo_green_dark));
+
                 if(listener != null){
                     listener.onPlaceClick(place,position);
                 }

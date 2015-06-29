@@ -12,7 +12,8 @@ import android.widget.ProgressBar;
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.adapter.LocateResultsAdapter;
 import com.doglandia.geogame.adapter.NavigationAdapter;
-import com.doglandia.geogame.fragment.NoRecentLocationsFragment;
+import com.doglandia.geogame.fragment.error.NoDataFragment;
+import com.doglandia.geogame.fragment.error.NoPlaceLocateResultsFragments;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.server.Server;
@@ -66,7 +67,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
             public void success(List<PlaceLocateResult> placeLocateResults, Response response) {
                 if(placeLocateResults == null || placeLocateResults.size() == 0){
                     getSupportFragmentManager().beginTransaction()
-                            .add(contentFrame.getId(),new NoRecentLocationsFragment(),"no_recent_locations_fragment")
+                            .add(contentFrame.getId(),new NoPlaceLocateResultsFragments(),"no_recent_locations_fragment")
                             .commit();
                 }else {
                     recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this));

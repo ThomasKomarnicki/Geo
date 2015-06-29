@@ -33,6 +33,7 @@ public class DiscoverMapFragment extends SupportMapFragment implements OnMapRead
 
     @Override
     public void onMapClick(LatLng latLng) {
+
         ((DiscoverActivity)getActivity()).onMapLocationClicked(latLng);
     }
 

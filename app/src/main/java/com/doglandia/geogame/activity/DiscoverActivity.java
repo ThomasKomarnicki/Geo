@@ -1,9 +1,12 @@
 package com.doglandia.geogame.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.doglandia.geogame.R;
@@ -29,11 +32,16 @@ public class DiscoverActivity extends AppCompatActivity {
     private DiscoverStreetViewFragment discoverStreetViewFragment;
 
     private Toolbar toolbar;
+
+    private FrameLayout streetViewContainer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.discovery_activity);
+
+        streetViewContainer = (FrameLayout) findViewById(R.id.discover_street_view_map_container);
+        streetViewContainer.setVisibility(View.INVISIBLE);
 
         new NavigationAdapter(this);
         NavigationAdapter.setUpNavDrawerActivity(this,"Discover");
@@ -43,10 +51,13 @@ public class DiscoverActivity extends AppCompatActivity {
         discoverMapFragment = (DiscoverMapFragment) getSupportFragmentManager().findFragmentById(R.id.discover_map_framgnet);
 
         discoverStreetViewFragment = (DiscoverStreetViewFragment) getSupportFragmentManager().findFragmentById(R.id.discover_steet_view_fragment);
-        getSupportFragmentManager().beginTransaction().hide(discoverStreetViewFragment).commit();
+//        getSupportFragmentManager().beginTransaction().hide(discoverStreetViewFragment).commit();
     }
 
     public void onMapLocationClicked(LatLng latLng){
+        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
+        Log.d(this.getLocalClassName(),"on map location clicked "+latLng);
+        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
         discoverStreetViewFragment.setLocation(latLng);
     }
 
@@ -69,18 +80,23 @@ public class DiscoverActivity extends AppCompatActivity {
     public void onLocationChangeResult(StreetViewPanoramaLocation streetViewPanoramaLocation){
         if(streetViewPanoramaLocation == null){
             showNoLocationToast();
+//            getSupportFragmentManager().beginTransaction().hide(discoverStreetViewFragment).commit();
         }else{
-            // todo go to street view
-            getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
+            streetViewContainer.setVisibility(View.VISIBLE);
+//            // todo go to street view
+//            getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
+////            streetViewContainer.setVisibility(View.VISIBLE);
+//
+//            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+//            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    getSupportFragmentManager().popBackStack();
+//                    NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this,"Discover");
+//                }
+//            });
 
-            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getSupportFragmentManager().popBackStack();
-                    NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this,"Discover");
-                }
-            });
+
         }
     }
 

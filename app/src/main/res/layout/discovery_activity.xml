@@ -38,7 +38,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/discover_street_view_fragment">
+                android:id="@+id/discover_street_view_holder">
 
                 <fragment
                     android:layout_width="match_parent"

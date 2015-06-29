@@ -23,34 +23,47 @@
                 app:layout_scrollFlags="scroll|enterAlways"/>
 
         </android.support.design.widget.AppBarLayout>
-        <LinearLayout
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@+id/my_places_content">
 
-            <fragment
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="com.doglandia.geogame.fragment.MyPlacesFragment"
-                android:id="@+id/my_places_fragment"
-                android:layout_weight=".5"/>
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5">
+                android:orientation="horizontal">
 
                 <fragment
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:name="com.doglandia.geogame.fragment.PlaceDetailsFragment"
-                    android:id="@+id/place_details_fragment"
-                    android:tag="place_details_fragments" />
+                    android:name="com.doglandia.geogame.fragment.MyPlacesFragment"
+                    android:id="@+id/my_places_fragment"
+                    android:layout_weight=".5"/>
 
-            </FrameLayout>
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5">
+
+                    <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:name="com.doglandia.geogame.fragment.PlaceDetailsFragment"
+                        android:id="@+id/place_details_fragment"
+                        android:tag="place_details_fragments" />
+
+                </FrameLayout>
 
 
-        </LinearLayout>
+            </LinearLayout>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_places_progress"
+                android:layout_gravity="center" />
+        </FrameLayout>
 
     </LinearLayout>
 

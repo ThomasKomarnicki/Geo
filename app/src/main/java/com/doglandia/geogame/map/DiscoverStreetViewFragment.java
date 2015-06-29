@@ -50,6 +50,7 @@ public class DiscoverStreetViewFragment extends SupportStreetViewPanoramaFragmen
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         this.streetViewPanorama = streetViewPanorama;
+        streetViewPanorama.setStreetNamesEnabled(false);
         setLocation(currentLocation);
         streetViewPanorama.setOnStreetViewPanoramaChangeListener(this);
     }
@@ -63,16 +64,19 @@ public class DiscoverStreetViewFragment extends SupportStreetViewPanoramaFragmen
             return;
         }
 
+        Log.d(getClass().getSimpleName(),"set streetViewPanorama Position");
         streetViewPanorama.setPosition(latLng,1000);
     }
 
     @Override
     public void onStreetViewPanoramaChange(StreetViewPanoramaLocation streetViewPanoramaLocation) {
+        Log.d(getClass().getSimpleName(),"onStreetViewPanoramaChange "+streetViewPanoramaLocation);
         if(streetViewPanoramaLocation == null){
             Log.d(getClass().getSimpleName(),"no location found");
-            ((DiscoverActivity)getActivity()).onLocationChangeResult(streetViewPanoramaLocation);
-            return;
+        }else{
+            currentLocation = streetViewPanoramaLocation.position;
         }
-        currentLocation = streetViewPanoramaLocation.position;
+        ((DiscoverActivity)getActivity()).onLocationChangeResult(streetViewPanoramaLocation);
+
     }
 }

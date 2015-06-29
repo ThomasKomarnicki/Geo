@@ -3,19 +3,18 @@ package com.doglandia.geogame.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
-import com.doglandia.geogame.adapter.MyPlacesAdapter;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.MyPlacesFragment;
 import com.doglandia.geogame.fragment.PlaceDetailsFragment;
+import com.doglandia.geogame.fragment.error.NoPlacesFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.Server;
 
@@ -46,11 +45,18 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
     private ArrayList<Place> places;
 
+    private FrameLayout contentHolder;
+
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.my_places_activity);
+
+        contentHolder = (FrameLayout) findViewById(R.id.my_places_content);
+        progressBar = (ProgressBar) findViewById(R.id.my_places_progress);
 
         new NavigationAdapter(this);
         NavigationAdapter.setUpNavDrawerActivity(this,"My Places");
@@ -62,27 +68,40 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
         }
 
         myPlacesFragment = (MyPlacesFragment) getSupportFragmentManager().findFragmentById(R.id.my_places_fragment);
-        myPlacesFragment.getPlaces(0);
 
         if(places == null) {
             Server.getInstance().getUserLocations(0, new Callback<ArrayList<Place>>() {
                 @Override
                 public void success(ArrayList<Place> places, Response response) {
+                    progressBar.setVisibility(View.GONE);
                     MyPlacesActivity.this.places = places;
                     Log.d(getLocalClassName(), "got " + places.size() + " places");
-                    if (places != null && places.size() == 0) {
-
+                    if (places == null || places.size() == 0) {
+                        showNoPlacesMessage();
                     } else if (places != null) {
+                        myPlacesFragment.showPlacesList(places);
                         myPlacesFragment.onPlaceClick(places.get(0),0);
                     }
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }
+    }
+
+    private void showNoPlacesMessage(){
+        // remove all content views
+        // show fragment
+
+        contentHolder.removeAllViews();
+        getSupportFragmentManager().beginTransaction().remove(myPlacesFragment).commit();
+        if(placeDetailsFragment != null){
+            getSupportFragmentManager().beginTransaction().remove(placeDetailsFragment).commit();
+        }
+        getSupportFragmentManager().beginTransaction().add(contentHolder.getId(),new NoPlacesFragment(),"no_places_fragment").commit();
     }
 
     public void onPlaceClick(Place place, int position){

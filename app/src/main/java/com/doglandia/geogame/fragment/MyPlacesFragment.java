@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,8 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.adapter.MyPlacesAdapter;
 import com.doglandia.geogame.model.Place;
-import com.doglandia.geogame.server.Server;
 
 import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by Thomas on 6/13/2015.
@@ -47,30 +41,12 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
 //        int userId = getArguments().getInt("user_id",0);
     }
 
-    public void getPlaces(int userId) {
-//        Server.getInstance().getUserLocations(userId, new Callback<List<Place>>() {
-//            @Override
-//            public void success(List<Place> places, Response response) {
-//                Log.d(MyPlacesFragment.this.getTag(), "got "+places.size()+" places");
-//                if(places != null && places.size() == 0){
-//
-//                } else if(getActivity() != null && places != null) {
-//                    MyPlacesAdapter adapter = new MyPlacesAdapter(places);
-//                    adapter.setListener(MyPlacesFragment.this);
-//                    recyclerView.setAdapter(adapter);
-//                    ((MyPlacesActivity) getActivity()).onPlaceClick(places.get(0),0);
-//                }
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-//        });
+    public void showPlacesList(List<Place> places) {
+        initAdapter(places);
     }
 
-    public void initAdapter(List<Place> places){
-        MyPlacesAdapter adapter = new MyPlacesAdapter(places);
+    private void initAdapter(List<Place> places) {
+        MyPlacesAdapter adapter = new MyPlacesAdapter(places,getActivity());
         adapter.setListener(MyPlacesFragment.this);
         recyclerView.setAdapter(adapter);
     }

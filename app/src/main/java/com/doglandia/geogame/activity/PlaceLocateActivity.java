@@ -25,6 +25,7 @@ import retrofit.client.Response;
 import com.doglandia.geogame.server.Server;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.util.CurrentLocationManager;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
@@ -46,10 +47,14 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
     private StreetViewMapFragment streetViewMapFragment;
     private LocatingMapFragment locatingMapFragment;
 
+    private CurrentLocationManager currentLocationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        currentLocationManager = new CurrentLocationManager(this);
 
         if(streetViewMapFragment == null){
             streetViewMapFragment = new StreetViewMapFragment();
@@ -101,12 +106,14 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
         initiateTestData();
+        streetViewMapFragment.setPosition(currentLocationManager.getCurrentPlace().getLatLng());
     }
 
     private void initiateTestData(){
         Server.getInstance().getCurrentLocation(new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
+                currentLocationManager.onNewLocationRetrieved(place);
                 PlaceLocateActivity.this.place = place;
                 streetViewMapFragment.setPosition(place.getLatLng());
             }

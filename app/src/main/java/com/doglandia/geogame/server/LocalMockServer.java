@@ -107,6 +107,7 @@ public class LocalMockServer implements ServerInterface {
     @Override
     public void getUserLocations(@Path("user_id") Integer userId, Callback<ArrayList<Place>> callback) {
         callback.success(places,null);
+//        callback.success(new ArrayList<Place>(),null);
     }
 
     @Override

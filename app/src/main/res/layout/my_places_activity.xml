@@ -24,14 +24,26 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <fragment
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.doglandia.geogame.fragment.MyPlacesFragment"
-            android:id="@+id/my_places_fragment">
+            android:id="@+id/my_places_content">
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.doglandia.geogame.fragment.MyPlacesFragment"
+                android:id="@+id/my_places_fragment">
 
 
-        </fragment>
+            </fragment>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_places_progress"
+                android:layout_gravity="center" />
+        </FrameLayout>
 
     </LinearLayout>
 
