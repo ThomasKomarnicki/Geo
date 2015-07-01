@@ -34,6 +34,8 @@ public class DiscoverActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private FrameLayout streetViewContainer;
+
+    private NavigationAdapter navigationAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class DiscoverActivity extends AppCompatActivity {
         streetViewContainer = (FrameLayout) findViewById(R.id.discover_street_view_map_container);
         streetViewContainer.setVisibility(View.INVISIBLE);
 
-        new NavigationAdapter(this);
+        navigationAdapter = new NavigationAdapter(this);
         NavigationAdapter.setUpNavDrawerActivity(this,"Discover");
 
         toolbar =  (Toolbar)findViewById(R.id.recent_locations_toolbar);
@@ -51,6 +53,7 @@ public class DiscoverActivity extends AppCompatActivity {
         discoverMapFragment = (DiscoverMapFragment) getSupportFragmentManager().findFragmentById(R.id.discover_map_framgnet);
 
         discoverStreetViewFragment = (DiscoverStreetViewFragment) getSupportFragmentManager().findFragmentById(R.id.discover_steet_view_fragment);
+        discoverStreetViewFragment.setVisible(false);
 //        getSupportFragmentManager().beginTransaction().hide(discoverStreetViewFragment).commit();
     }
 
@@ -82,25 +85,50 @@ public class DiscoverActivity extends AppCompatActivity {
             showNoLocationToast();
 //            getSupportFragmentManager().beginTransaction().hide(discoverStreetViewFragment).commit();
         }else{
-            streetViewContainer.setVisibility(View.VISIBLE);
-//            // todo go to street view
-//            getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
-////            streetViewContainer.setVisibility(View.VISIBLE);
-//
-//            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-//            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    getSupportFragmentManager().popBackStack();
-//                    NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this,"Discover");
-//                }
-//            });
-
-
+           showStreetViewFragment();
         }
     }
 
     private void showNoLocationToast(){
         Toast.makeText(this,"Street View Not Found",Toast.LENGTH_SHORT).show();
+    }
+
+    public void setStreetViewToolbar(){
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().popBackStack();
+                NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this,"Discover");
+            }
+        });
+    }
+
+    public void setDiscoverToolbar(){
+        navigationAdapter.initNavigation();
+        NavigationAdapter.setUpNavDrawerActivity(this,"Discover");
+    }
+
+    public void hideStreetViewFragment(){
+        streetViewContainer.setVisibility(View.INVISIBLE);
+        discoverStreetViewFragment.setVisible(false);
+        setDiscoverToolbar();
+    }
+
+    public void showStreetViewFragment(){
+        setStreetViewToolbar();
+        streetViewContainer.setVisibility(View.VISIBLE);
+        discoverStreetViewFragment.setVisible(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+       if(streetViewContainer.getVisibility() == View.VISIBLE){
+           // hide street view fragment
+           hideStreetViewFragment();
+
+       }else{
+           super.onBackPressed();
+       }
     }
 }

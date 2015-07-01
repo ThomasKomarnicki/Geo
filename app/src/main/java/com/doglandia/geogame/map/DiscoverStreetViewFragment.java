@@ -79,4 +79,16 @@ public class DiscoverStreetViewFragment extends SupportStreetViewPanoramaFragmen
         ((DiscoverActivity)getActivity()).onLocationChangeResult(streetViewPanoramaLocation);
 
     }
+
+    public void setVisible(boolean visible){
+        if(visible){
+            addLocationButton.setVisibility(View.VISIBLE);
+        }else{
+            addLocationButton.setVisibility(View.GONE);
+        }
+
+
+    }
+
+
 }

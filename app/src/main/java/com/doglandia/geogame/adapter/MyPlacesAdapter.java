@@ -62,12 +62,14 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
                     return; // do nothing
                 }
 
-                selectedView.setBackgroundResource(backgroundResourceId);
+                if(selectedView != null) { // first runm
+                    selectedView.setBackgroundResource(backgroundResourceId);
+                }
                 selectedView = view;
                 selectedView.setBackgroundColor(view.getContext().getResources().getColor(android.R.color.holo_green_dark));
 
                 if(listener != null){
-                    listener.onPlaceClick(place,position);
+                    listener.onPlaceClick(place, position);
                 }
 
             }

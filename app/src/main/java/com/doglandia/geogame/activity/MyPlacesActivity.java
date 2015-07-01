@@ -69,6 +69,11 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
         myPlacesFragment = (MyPlacesFragment) getSupportFragmentManager().findFragmentById(R.id.my_places_fragment);
 
+        if(savedInstanceState != null && savedInstanceState.containsKey(PLACES)){
+            currentlySelectedPlace = savedInstanceState.getInt(CURRENTLY_SELECTED_PLACE,-1);
+            places = Parcels.unwrap(savedInstanceState.getParcelable(PLACES));
+        }
+
         if(places == null) {
             Server.getInstance().getUserLocations(0, new Callback<ArrayList<Place>>() {
                 @Override
@@ -130,6 +135,10 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putInt(CURRENTLY_SELECTED_PLACE,currentlySelectedPlace);
         outState.putParcelable(PLACES, Parcels.wrap(places));
+
+//        if(placeDetailsFragment != null){
+//            getSupportFragmentManager().beginTransaction().remove(placeDetailsFragment).commit();
+//        }
     }
 
     @Override

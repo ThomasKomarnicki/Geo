@@ -25,6 +25,10 @@ public class NavigationAdapter {
 
     public NavigationAdapter(final AppCompatActivity activity){
         this.activity = activity;
+        initNavigation();
+    }
+
+    public void initNavigation(){
         navigationView = (NavigationView) activity.findViewById(R.id.main_navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
