@@ -17,17 +17,21 @@ import java.util.List;
 @Parcel
 public class Place {
 
-    public Place(){
 
-    }
 
     int id;
+
+    int userId;
 
     LatLng latLng;
 
     private String city;
     private String state;
     private String country;
+
+    public Place(){
+
+    }
 
     public void geocode(Geocoder geocoder){
         try {
@@ -90,5 +94,9 @@ public class Place {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
