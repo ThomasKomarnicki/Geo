@@ -13,6 +13,7 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.map.DiscoverMapFragment;
 import com.doglandia.geogame.map.DiscoverStreetViewFragment;
+import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.Server;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
@@ -65,7 +66,10 @@ public class DiscoverActivity extends AppCompatActivity {
     }
 
     public void onLocationAdded(LatLng latLng){
-        Server.getInstance().addUserLocation(0, latLng, new Callback<JsonObject>() {
+        Place place = new Place();
+        place.setLatLng(latLng);
+
+        Server.getInstance().addUserLocation(place, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, Response response) {
 
