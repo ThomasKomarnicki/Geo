@@ -1,7 +1,9 @@
 package com.doglandia.geogame.activity;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,9 +11,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.UserAuth;
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
+
+import java.io.IOException;
 
 /**
  * Created by Thomas on 7/18/2015.
@@ -20,6 +27,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         GoogleApiClient.OnConnectionFailedListener{
 
     private static final String TAG = "AuthActivity";
+    private static final String SERVER_CLIENT_ID = "2340928633-us5fuamroao1lachlcfn7a8hgn5oe75g.apps.googleusercontent.com";
     private static final int RC_SIGN_IN = 420;
 
     private GoogleApiClient mGoogleApiClient;
@@ -31,13 +39,22 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
     private boolean mShouldResolve = false;
 
     private Button googleSignIn;
+    private Button continueWithoutSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setTheme(android.support.v7.appcompat.R.style.Theme_AppCompat_Light_NoActionBar);
         setContentView(R.layout.auth_activity);
 
+        if(UserAuth.getAuthState(this) != UserAuth.AuthState.LOGGED_OUT){
+            Intent intent = new Intent(this,PlaceLocateActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return;
+        }
+        
         googleSignIn = (Button) findViewById(R.id.google_sign_in_button);
         googleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +66,13 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
 
                 // Show a message to the user that we are signing in.
 //                mStatusTextView.setText(R.string.signing_in);
+            }
+        });
+        continueWithoutSignIn = (Button) findViewById(R.id.continue_without_sign_in);
+        continueWithoutSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -82,7 +106,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         mShouldResolve = false;
 
         // Show the signed-in UI
-        showSignedInUI();
+        onGoogleSignedIn(bundle);
     }
 
     @Override
@@ -110,11 +134,8 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
             } else {
                 // Could not resolve the connection result, show the user an
                 // error dialog.
-                showErrorDialog(connectionResult);
+//                showErrorDialog(connectionResult);
             }
-        } else {
-            // Show the signed-out UI
-            showSignedOutUI();
         }
 
     }
@@ -133,6 +154,43 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
             mIsResolving = false;
             mGoogleApiClient.connect();
         }
+    }
+
+    private void onGoogleSignedIn(Bundle bundle){
+        new GetIdTokenTask().execute(new Void[]{});
+    }
+
+    public class GetIdTokenTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String accountName = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            Account account = new Account(accountName, GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+            String scopes = "audience:server:client_id:" + SERVER_CLIENT_ID; // Not the app's client ID.
+            try {
+                return GoogleAuthUtil.getToken(getApplicationContext(), account,scopes);
+            } catch (IOException e) {
+                Log.e(TAG, "Error retrieving ID token.", e);
+                return null;
+            } catch (GoogleAuthException e) {
+                Log.e(TAG, "Error retrieving ID token.", e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.i(TAG, "ID token: " + result);
+            if (result != null) {
+
+                // Successfully retrieved ID Token
+                // ...
+            } else {
+                // There was some error getting the ID Token
+                // ...
+            }
+        }
+
     }
 
 }
