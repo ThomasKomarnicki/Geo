@@ -28,22 +28,22 @@ public interface ServerInterface {
     @GET("/locations/currentLocation")
     void getCurrentLocation(Callback<Place> callback);
 
-    @POST("/user/{user_id}/guess")
+    @POST("/users/{user_id}/guess")
     void postLocateResult(@Path("user_id") Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
 
     @GET("/locations/{location_id}/details")
     void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);
 
-    @GET("/user/{user_id}/locationGuesses")
+    @GET("/users/{user_id}/locationGuesses")
     void getUserLocationGuesses(@Path("user_id")Integer userId, Callback<List<PlaceLocateResult>> callback);
 
-    @GET("/user/{user_id}/locations")
+    @GET("/users/{user_id}/locations")
     void getUserLocations(@Path("user_id")Integer userId,Callback<ArrayList<Place>> callback);
 
     @POST("/locations")
     void addUserLocation(@Body Place place, Callback<JsonObject> callback);
 
-    @POST("/user/google_auth")
+    @POST("/users/google_auth")
     void googleAuth(@Body Map<String,String> body, Callback<User> callback);
 
 
