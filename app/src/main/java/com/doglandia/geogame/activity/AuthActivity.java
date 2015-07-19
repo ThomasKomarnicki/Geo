@@ -95,13 +95,15 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
 
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+        if(mGoogleApiClient!= null) {
+            mGoogleApiClient.connect();
+        }
     }
 
     protected void onStop() {
         super.onStop();
 
-        if (mGoogleApiClient.isConnected()) {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
     }
@@ -221,6 +223,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         Intent intent = new Intent(this,PlaceLocateActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 
 }
