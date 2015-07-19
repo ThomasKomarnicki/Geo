@@ -10,6 +10,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -30,4 +32,6 @@ dependencies {
     compile 'org.parceler:parceler:1.0.1'
     compile 'com.google.maps.android:android-maps-utils:0.3+'
     compile 'com.google.android.gms:play-services:7.5.0'
+//    compile 'com.google.android.gms:play-services-identity:7.5.0'
+//    compile 'com.google.android.gms:play-services-plus:7.5.0'
 }

@@ -12,13 +12,24 @@ import android.widget.Button;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
+import com.doglandia.geogame.model.User;
+import com.doglandia.geogame.server.Server;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Thomas on 7/18/2015.
@@ -28,7 +39,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private static final String TAG = "AuthActivity";
     private static final String SERVER_CLIENT_ID = "2340928633-us5fuamroao1lachlcfn7a8hgn5oe75g.apps.googleusercontent.com";
-    private static final int RC_SIGN_IN = 420;
+    private static final int RC_SIGN_IN = 0;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -38,7 +49,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
     /* Should we automatically resolve ConnectionResults when possible? */
     private boolean mShouldResolve = false;
 
-    private Button googleSignIn;
+    private SignInButton googleSignIn;
     private Button continueWithoutSignIn;
 
     @Override
@@ -49,13 +60,11 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.auth_activity);
 
         if(UserAuth.getAuthState(this) != UserAuth.AuthState.LOGGED_OUT){
-            Intent intent = new Intent(this,PlaceLocateActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startPlaceLocateActivity();
             return;
         }
-        
-        googleSignIn = (Button) findViewById(R.id.google_sign_in_button);
+
+        googleSignIn = (SignInButton) findViewById(R.id.google_sign_in_button);
         googleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +89,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API)
-                .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .addScope(new Scope(Scopes.PROFILE))
                 .build();
     }
 
@@ -182,7 +191,20 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         protected void onPostExecute(String result) {
             Log.i(TAG, "ID token: " + result);
             if (result != null) {
+                Map<String,String> map = new HashMap<>();
+                map.put("auth_token",result);
+                Server.getInstance().googleAuth(map, new Callback<User>() {
+                    @Override
+                    public void success(User user, Response response) {
+                        UserAuth.googleSignIn(AuthActivity.this,user);
+                        startPlaceLocateActivity();
+                    }
 
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
                 // Successfully retrieved ID Token
                 // ...
             } else {
@@ -191,6 +213,12 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         }
 
+    }
+
+    private void startPlaceLocateActivity(){
+        Intent intent = new Intent(this,PlaceLocateActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }

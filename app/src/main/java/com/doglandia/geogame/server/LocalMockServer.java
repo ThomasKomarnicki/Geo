@@ -6,11 +6,13 @@ import com.doglandia.geogame.GeoApplication;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.model.User;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import retrofit.Callback;
@@ -84,10 +86,15 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
-        placeLocateResults.add(placeLocateResult);
-        callback.success(getRandomPlace(placeLocateResult.getActualLocation().getId()), null);
+    public void postLocateResult(@Path("user_id") Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
+
     }
+
+//    @Override
+//    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
+//        placeLocateResults.add(placeLocateResult);
+//        callback.success(getRandomPlace(placeLocateResult.getActualLocation().getId()), null);
+//    }
 
     @Override
     public void getLocationDetails(@Path("location_id") Integer locationId, Callback<PlaceDetails> callback) {
@@ -111,12 +118,22 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void addUserLocation(@Path("user_id") Integer userId, @Body LatLng latLng, Callback<JsonObject> callback) {
-        Place place = new Place(latLng);
-        place.geocode(new Geocoder(GeoApplication.getContext()));
-        place.setId(places.size());
-        places.add(place);
+    public void addUserLocation(@Body Place place, Callback<JsonObject> callback) {
 
-        callback.success(null,null);
     }
+
+    @Override
+    public void googleAuth(@Body Map<String, String> body, Callback<User> callback) {
+
+    }
+
+//    @Override
+//    public void addUserLocation(@Path("user_id") Integer userId, @Body LatLng latLng, Callback<JsonObject> callback) {
+//        Place place = new Place(latLng);
+//        place.geocode(new Geocoder(GeoApplication.getContext()));
+//        place.setId(places.size());
+//        places.add(place);
+//
+//        callback.success(null,null);
+//    }
 }

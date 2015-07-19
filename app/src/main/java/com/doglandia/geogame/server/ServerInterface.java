@@ -3,11 +3,13 @@ package com.doglandia.geogame.server;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.model.User;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -40,6 +42,9 @@ public interface ServerInterface {
 
     @POST("locations")
     void addUserLocation(@Body Place place, Callback<JsonObject> callback);
+
+    @POST("user/google_auth")
+    void googleAuth(@Body Map<String,String> body, Callback<User> callback);
 
 
 }

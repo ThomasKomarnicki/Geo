@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.adapter.PlaceLocatePagerAdapter;
 import com.doglandia.geogame.map.LocatingMapFragment;
@@ -105,7 +106,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        initiateTestData();
+//        initiateTestData();
         streetViewMapFragment.setPosition(currentLocationManager.getCurrentPlace().getLatLng());
     }
 
@@ -150,7 +151,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
         intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
 
-        Server.getInstance().postLocateResult(placeLocateResult, new Callback<Place>() {
+        Server.getInstance().postLocateResult(UserAuth.getAuthUserId(),placeLocateResult, new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
                 PlaceLocateActivity.this.place = place;
