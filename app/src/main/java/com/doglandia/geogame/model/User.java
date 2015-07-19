@@ -9,7 +9,7 @@ import org.parceler.Parcel;
 public class User {
 
     int id;
-    int currentLocationId;
+    int currentLocation;
     String googleAuthId;
     String otherIdentifier;
 
@@ -18,7 +18,7 @@ public class User {
     }
 
     public int getCurrentLocationId() {
-        return currentLocationId;
+        return currentLocation;
     }
 
     public String getGoogleAuthId() {
@@ -27,5 +27,9 @@ public class User {
 
     public String getOtherIdentifier() {
         return otherIdentifier;
+    }
+
+    public void setCurrentLocationId(int currentLocationId) {
+        this.currentLocation = currentLocationId;
     }
 }
