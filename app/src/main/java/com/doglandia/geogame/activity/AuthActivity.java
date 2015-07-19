@@ -38,7 +38,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         GoogleApiClient.OnConnectionFailedListener{
 
     private static final String TAG = "AuthActivity";
-    private static final String SERVER_CLIENT_ID = "2340928633-us5fuamroao1lachlcfn7a8hgn5oe75g.apps.googleusercontent.com";
+    private static final String SERVER_CLIENT_ID = "92340928633-a2lv6k929j34994pjcfmpdm9a8kc9lme.apps.googleusercontent.com";
     private static final int RC_SIGN_IN = 0;
 
     private GoogleApiClient mGoogleApiClient;
@@ -175,7 +175,9 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         protected String doInBackground(Void... params) {
             String accountName = Plus.AccountApi.getAccountName(mGoogleApiClient);
             Account account = new Account(accountName, GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
-            String scopes = "audience:server:client_id:" + SERVER_CLIENT_ID; // Not the app's client ID.
+            String scopes = "audience:server:client_id:"+SERVER_CLIENT_ID; // Not the app's client ID.
+//            String scopes = "oauth2:https://www.googleapis.com/auth/plus.login";
+//            String scopes = "oauth2:server:client_id:"+SERVER_CLIENT_ID+":api_scope:https://www.googleapis.com/auth/plus.login";
             try {
                 return GoogleAuthUtil.getToken(getApplicationContext(), account,scopes);
             } catch (IOException e) {
