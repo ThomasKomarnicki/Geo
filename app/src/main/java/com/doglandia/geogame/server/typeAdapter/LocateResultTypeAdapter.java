@@ -15,6 +15,7 @@ import java.io.IOException;
 public class LocateResultTypeAdapter extends TypeAdapter<PlaceLocateResult> {
     @Override
     public void write(JsonWriter out, PlaceLocateResult placeLocateResult) throws IOException {
+        out.beginObject();
         Number value;
         if(placeLocateResult.getUser() == -1){
             value = UserAuth.getAuthUserId();
@@ -25,6 +26,7 @@ public class LocateResultTypeAdapter extends TypeAdapter<PlaceLocateResult> {
         out.name("location").value(placeLocateResult.getActualLocation().getId());
         out.name("lat").value(placeLocateResult.getGuessedLocation().latitude);
         out.name("lon").value(placeLocateResult.getGuessedLocation().longitude);
+        out.endObject();
 
     }
 

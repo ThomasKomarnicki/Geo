@@ -26,7 +26,13 @@ public class PlaceLocateResult {
 //    int score;
 
 
+    public PlaceLocateResult(){
 
+    }
+
+    public PlaceLocateResult(int userId){
+        user = userId;
+    }
 
     public Place getActualLocation() {
         return actualLocation;

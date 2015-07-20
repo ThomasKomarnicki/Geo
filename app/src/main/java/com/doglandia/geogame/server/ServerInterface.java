@@ -28,8 +28,8 @@ public interface ServerInterface {
     @GET("/locations/currentLocation")
     void getCurrentLocation(Callback<Place> callback);
 
-    @POST("/users/{user_id}/guess")
-    void postLocateResult(@Path("user_id") Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
+    @POST("/locationGuess/")
+    void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
 
     @GET("/locations/{location_id}/details")
     void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);

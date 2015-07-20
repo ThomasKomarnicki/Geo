@@ -164,14 +164,14 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
 
     public void onLocationSelected(LatLng latLng){
         Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
-        PlaceLocateResult placeLocateResult = new PlaceLocateResult();
+        PlaceLocateResult placeLocateResult = new PlaceLocateResult(UserAuth.getAuthUserId());
         placeLocateResult.setGuessedLocation(latLng);
         placeLocateResult.setActualLocation(place);
         place.geocode(new Geocoder(this));
         intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
 
-        Server.getInstance().postLocateResult(UserAuth.getAuthUserId(),placeLocateResult, new Callback<Place>() {
+        Server.getInstance().postLocateResult(placeLocateResult, new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
                 PlaceLocateActivity.this.place = place;

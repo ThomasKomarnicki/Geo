@@ -86,7 +86,7 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void postLocateResult(@Path("user_id") Integer userId, @Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
+    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
 
     }
 

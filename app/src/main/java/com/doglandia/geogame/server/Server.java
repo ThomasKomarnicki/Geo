@@ -1,6 +1,8 @@
 package com.doglandia.geogame.server;
 
 import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.server.typeAdapter.LocateResultTypeAdapter;
 import com.doglandia.geogame.server.typeAdapter.PlaceTypeAdapter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -22,6 +24,7 @@ public class Server {
 
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(Place.class,new PlaceTypeAdapter())
+                    .registerTypeAdapter(PlaceLocateResult.class,new LocateResultTypeAdapter())
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create();
 
