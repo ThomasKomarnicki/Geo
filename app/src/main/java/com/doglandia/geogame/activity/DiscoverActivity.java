@@ -71,10 +71,11 @@ public class DiscoverActivity extends AppCompatActivity {
         place.setLatLng(latLng);
         place.setUserId(UserAuth.getAuthUserId());
 
-        Server.getInstance().addUserLocation(place, new Callback<JsonObject>() {
+        Server.getInstance().addUserLocation(place, new Callback<Place>() {
             @Override
-            public void success(JsonObject jsonObject, Response response) {
-
+            public void success(Place place, Response response) {
+                // TODO zoom out of location // reset map camera
+                // TODO limit places around previously selected places
             }
 
             @Override

@@ -4,7 +4,6 @@ import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.model.User;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public interface ServerInterface {
     void getUserLocations(@Path("user_id")Integer userId,Callback<ArrayList<Place>> callback);
 
     @POST("/locations/")
-    void addUserLocation(@Body Place place, Callback<JsonObject> callback);
+    void addUserLocation(@Body Place place, Callback<Place> callback);
 
     @POST("/users/google_auth/")
     void googleAuth(@Body Map<String,String> body, Callback<User> callback);
