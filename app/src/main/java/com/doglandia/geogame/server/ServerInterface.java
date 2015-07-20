@@ -22,28 +22,28 @@ import retrofit.http.Path;
  */
 public interface ServerInterface {
 
-    @GET("/locations/{location_id}")
+    @GET("/locations/{location_id}/")
     void getLocation(@Path("location_id")Integer locationId, Callback<Place> callback);
 
-    @GET("/locations/currentLocation")
+    @GET("/locations/currentLocation/")
     void getCurrentLocation(Callback<Place> callback);
 
     @POST("/locationGuess/")
     void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
 
     @GET("/locations/{location_id}/details")
-    void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);
+    void getLocationDetails(@Path("location_id/")Integer locationId, Callback<PlaceDetails> callback);
 
-    @GET("/users/{user_id}/locationGuesses")
+    @GET("/users/{user_id}/locationGuesses/")
     void getUserLocationGuesses(@Path("user_id")Integer userId, Callback<List<PlaceLocateResult>> callback);
 
-    @GET("/users/{user_id}/locations")
+    @GET("/users/{user_id}/locations/")
     void getUserLocations(@Path("user_id")Integer userId,Callback<ArrayList<Place>> callback);
 
-    @POST("/locations")
+    @POST("/locations/")
     void addUserLocation(@Body Place place, Callback<JsonObject> callback);
 
-    @POST("/users/google_auth")
+    @POST("/users/google_auth/")
     void googleAuth(@Body Map<String,String> body, Callback<User> callback);
 
 

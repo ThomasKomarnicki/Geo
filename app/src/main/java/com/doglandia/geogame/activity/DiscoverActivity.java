@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.map.DiscoverMapFragment;
 import com.doglandia.geogame.map.DiscoverStreetViewFragment;
@@ -68,6 +69,7 @@ public class DiscoverActivity extends AppCompatActivity {
     public void onLocationAdded(LatLng latLng){
         Place place = new Place();
         place.setLatLng(latLng);
+        place.setUserId(UserAuth.getAuthUserId());
 
         Server.getInstance().addUserLocation(place, new Callback<JsonObject>() {
             @Override
@@ -77,7 +79,7 @@ public class DiscoverActivity extends AppCompatActivity {
 
             @Override
             public void failure(RetrofitError error) {
-
+                error.printStackTrace();
             }
         });
         getSupportFragmentManager().popBackStack();

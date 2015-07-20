@@ -180,7 +180,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
 
             @Override
             public void failure(RetrofitError error) {
-
+                error.printStackTrace();
             }
         });
     }
