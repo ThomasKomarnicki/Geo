@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.adapter.PlaceLocatePagerAdapter;
 import com.doglandia.geogame.map.LocatingMapFragment;
@@ -26,6 +27,7 @@ import com.doglandia.geogame.server.Server;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.util.CurrentLocationManager;
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
@@ -47,14 +49,16 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
     private StreetViewMapFragment streetViewMapFragment;
     private LocatingMapFragment locatingMapFragment;
 
-    private CurrentLocationManager currentLocationManager;
+//    private CurrentLocationManager currentLocationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currentLocationManager = new CurrentLocationManager(this);
+        UserAuth.spinUp(this);
+
+//        currentLocationManager = new CurrentLocationManager(this);
 
         if(streetViewMapFragment == null){
             streetViewMapFragment = new StreetViewMapFragment();
@@ -105,26 +109,43 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        initiateTestData();
-        streetViewMapFragment.setPosition(currentLocationManager.getCurrentPlace().getLatLng());
+//        initiateTestData();
+        showUserCurrentLocation();
+//        streetViewMapFragment.setPosition(currentLocationManager.getCurrentPlace().getLatLng());
     }
 
-    private void initiateTestData(){
-        Server.getInstance().getCurrentLocation(new Callback<Place>() {
+    private void showUserCurrentLocation(){
+        Server.getInstance().getLocation(UserAuth.getAuthUserCurrentLocation(), new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
-                currentLocationManager.onNewLocationRetrieved(place);
-                PlaceLocateActivity.this.place = place;
+//                currentLocationManager.onNewLocationRetrieved(place);
                 streetViewMapFragment.setPosition(place.getLatLng());
+                PlaceLocateActivity.this.place = place;
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                error.printStackTrace();
             }
         });
-
     }
+
+//    private void initiateTestData(){
+//        Server.getInstance().getCurrentLocation(new Callback<Place>() {
+//            @Override
+//            public void success(Place place, Response response) {
+//                currentLocationManager.onNewLocationRetrieved(place);
+//                PlaceLocateActivity.this.place = place;
+//                streetViewMapFragment.setPosition(place.getLatLng());
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//
+//            }
+//        });
+//
+//    }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -143,7 +164,7 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
 
     public void onLocationSelected(LatLng latLng){
         Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
-        PlaceLocateResult placeLocateResult = new PlaceLocateResult();
+        PlaceLocateResult placeLocateResult = new PlaceLocateResult(UserAuth.getAuthUserId());
         placeLocateResult.setGuessedLocation(latLng);
         placeLocateResult.setActualLocation(place);
         place.geocode(new Geocoder(this));
@@ -154,11 +175,12 @@ public class PlaceLocateActivity extends AppCompatActivity implements TabLayout.
             @Override
             public void success(Place place, Response response) {
                 PlaceLocateActivity.this.place = place;
+                UserAuth.setCurrentLocation(place.getId(),PlaceLocateActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                error.printStackTrace();
             }
         });
     }

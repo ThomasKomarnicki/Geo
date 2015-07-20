@@ -16,14 +16,23 @@ import java.util.Locale;
 @Parcel
 public class PlaceLocateResult {
 
-
+    int user = -1;
     Place actualLocation;
     LatLng guessedLocation;
 
     String distanceString;
     int distance = -1;
+
 //    int score;
 
+
+    public PlaceLocateResult(){
+
+    }
+
+    public PlaceLocateResult(int userId){
+        user = userId;
+    }
 
     public Place getActualLocation() {
         return actualLocation;
@@ -39,6 +48,14 @@ public class PlaceLocateResult {
 
     public void setGuessedLocation(LatLng guessedLocation) {
         this.guessedLocation = guessedLocation;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
+    }
+
+    public int getUser() {
+        return user;
     }
 
     public int getScore(){

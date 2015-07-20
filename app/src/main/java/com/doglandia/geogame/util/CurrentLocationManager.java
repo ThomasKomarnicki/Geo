@@ -27,14 +27,14 @@ public class CurrentLocationManager {
 
     private boolean currentLocationIsValid = true;
 
-    public CurrentLocationManager(Context context){
+    public CurrentLocationManager(Context context, int currentPlaceId){
         this.context = context;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         currentPlace = new Gson().fromJson(preferences.getString(CURRENT_PLACE,""),Place.class);
 
         if(currentPlace == null){ // TODO
-            Server.getInstance().getLocation(0, new Callback<Place>() {
+            Server.getInstance().getLocation(currentPlaceId, new Callback<Place>() {
                 @Override
                 public void success(Place place, Response response) {
                     currentPlace = place;

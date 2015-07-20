@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.MyPlacesFragment;
 import com.doglandia.geogame.fragment.PlaceDetailsFragment;
@@ -75,7 +76,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
         }
 
         if(places == null) {
-            Server.getInstance().getUserLocations(0, new Callback<ArrayList<Place>>() {
+            Server.getInstance().getUserLocations(UserAuth.getAuthUserId(), new Callback<ArrayList<Place>>() {
                 @Override
                 public void success(ArrayList<Place> places, Response response) {
                     progressBar.setVisibility(View.GONE);
