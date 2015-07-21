@@ -31,7 +31,7 @@ public interface ServerInterface {
     void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
 
     @GET("/locations/{location_id}/details")
-    void getLocationDetails(@Path("location_id/")Integer locationId, Callback<PlaceDetails> callback);
+    void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);
 
     @GET("/users/{user_id}/locationGuesses/")
     void getUserLocationGuesses(@Path("user_id")Integer userId, Callback<List<PlaceLocateResult>> callback);

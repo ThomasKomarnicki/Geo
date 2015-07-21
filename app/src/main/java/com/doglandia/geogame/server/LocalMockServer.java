@@ -8,7 +8,6 @@ import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.model.User;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +101,7 @@ public class LocalMockServer implements ServerInterface {
         placeDetails.setPlace(places.get(locationId));
         placeDetails.setAverageDistance(68000);
         placeDetails.setBestDistance(12000);
-        placeDetails.setOtherGuesses(generateRandomLatLons(10));
+        placeDetails.setLocationGuesses(generateRandomLatLons(10));
         callback.success(placeDetails,null);
     }
 
@@ -118,9 +117,10 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void addUserLocation(@Body Place place, Callback<JsonObject> callback) {
+    public void addUserLocation(@Body Place place, Callback<Place> callback) {
 
     }
+
 
     @Override
     public void googleAuth(@Body Map<String, String> body, Callback<User> callback) {

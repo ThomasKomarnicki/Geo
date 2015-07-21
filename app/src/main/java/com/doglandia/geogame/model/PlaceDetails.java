@@ -16,7 +16,7 @@ public class PlaceDetails {
     int averageDistance;
     int bestDistance;
 
-    List<LatLng> otherGuesses;
+    List<LatLng> locationGuesses;
 
 
     public Place getPlace() {
@@ -31,8 +31,8 @@ public class PlaceDetails {
         return bestDistance;
     }
 
-    public List<LatLng> getOtherGuesses() {
-        return otherGuesses;
+    public List<LatLng> getLocationGuesses() {
+        return locationGuesses;
     }
 
     public void setPlace(Place place) {
@@ -47,7 +47,7 @@ public class PlaceDetails {
         this.bestDistance = bestDistance;
     }
 
-    public void setOtherGuesses(List<LatLng> otherGuesses) {
-        this.otherGuesses = otherGuesses;
+    public void setLocationGuesses(List<LatLng> locationGuesses) {
+        this.locationGuesses = locationGuesses;
     }
 }
