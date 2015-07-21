@@ -30,7 +30,10 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
 
     private int backgroundResourceId;
 
-    public MyPlacesAdapter(List<Place> places,Context context){
+    private boolean highlightSelected = false;
+
+    public MyPlacesAdapter(List<Place> places,Context context, boolean highlightSelected){
+        this.highlightSelected = highlightSelected;
         this.places = places;
 
         TypedArray a = context.getTheme().obtainStyledAttributes(R.style.AppTheme, new int[] {R.attr.selectableItemBackground});
@@ -58,15 +61,18 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(view == selectedView){
+                if(view == selectedView && highlightSelected){
                     return; // do nothing
                 }
 
-                if(selectedView != null) { // first runm
-                    selectedView.setBackgroundResource(backgroundResourceId);
+                if(highlightSelected) {
+
+                    if (selectedView != null) { // first runm
+                        selectedView.setBackgroundResource(backgroundResourceId);
+                    }
+                    selectedView = view;
+                    selectedView.setBackgroundColor(view.getContext().getResources().getColor(android.R.color.holo_green_dark));
                 }
-                selectedView = view;
-                selectedView.setBackgroundColor(view.getContext().getResources().getColor(android.R.color.holo_green_dark));
 
                 if(listener != null){
                     listener.onPlaceClick(place, position);
