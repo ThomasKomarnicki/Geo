@@ -1,5 +1,6 @@
 package com.doglandia.geogame.fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,9 +47,11 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
     }
 
     private void initAdapter(List<Place> places) {
-        MyPlacesAdapter adapter = new MyPlacesAdapter(places,getActivity());
-        adapter.setListener(MyPlacesFragment.this);
-        recyclerView.setAdapter(adapter);
+        if(getActivity() != null) {
+            MyPlacesAdapter adapter = new MyPlacesAdapter(places, getActivity(), getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+            adapter.setListener(MyPlacesFragment.this);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     @Override

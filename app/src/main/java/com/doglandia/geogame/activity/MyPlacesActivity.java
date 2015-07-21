@@ -1,7 +1,9 @@
 package com.doglandia.geogame.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -79,6 +82,10 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
             Server.getInstance().getUserLocations(UserAuth.getAuthUserId(), new Callback<ArrayList<Place>>() {
                 @Override
                 public void success(ArrayList<Place> places, Response response) {
+                    Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
+                    for(Place place : places){
+                        place.geocode(geocoder);
+                    }
                     progressBar.setVisibility(View.GONE);
                     MyPlacesActivity.this.places = places;
                     Log.d(getLocalClassName(), "got " + places.size() + " places");
@@ -86,7 +93,9 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
                         showNoPlacesMessage();
                     } else if (places != null) {
                         myPlacesFragment.showPlacesList(places);
-                        myPlacesFragment.onPlaceClick(places.get(0),0);
+                        if(landscape) {
+                            myPlacesFragment.onPlaceClick(places.get(0), 0);
+                        }
                     }
                 }
 

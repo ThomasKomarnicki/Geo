@@ -2,6 +2,7 @@ package com.doglandia.geogame.fragment;
 
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+
+import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -178,8 +181,11 @@ public class PlaceDetailsFragment extends Fragment {
         Server.getInstance().getLocationDetails(place.getId(), new Callback<PlaceDetails>() {
             @Override
             public void success(PlaceDetails placeDetails, Response response) {
-                PlaceDetailsFragment.this.placeDetails = placeDetails;
-                showPlaceDetails(placeDetails);
+                if(getActivity() != null) {
+                    PlaceDetailsFragment.this.placeDetails = placeDetails;
+                    placeDetails.getPlace().geocode(new Geocoder(getActivity()));
+                    showPlaceDetails(placeDetails);
+                }
             }
 
             @Override

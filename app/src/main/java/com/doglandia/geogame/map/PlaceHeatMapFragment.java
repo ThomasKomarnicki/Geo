@@ -4,19 +4,15 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.doglandia.geogame.activity.OnHeatMapClickedListener;
-import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
-
-import java.util.List;
 
 /**
  * Created by Thomas on 6/15/2015.
@@ -62,11 +58,13 @@ public class PlaceHeatMapFragment extends SupportMapFragment {
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(this.placeDetails.getPlace().getLatLng()));
 
-        HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
-        builder.data(this.placeDetails.getOtherGuesses());
+        if(this.placeDetails.getLocationGuesses() != null && !this.placeDetails.getLocationGuesses().isEmpty()) {
+            HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
+            builder.data(this.placeDetails.getLocationGuesses());
 
-        HeatmapTileProvider heatmapTileProvider = builder.build();
-        TileOverlay overlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatmapTileProvider).fadeIn(true));
-        Log.d("PlaceHeatMapFragment","added heat tiles");
+            HeatmapTileProvider heatmapTileProvider = builder.build();
+            TileOverlay overlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatmapTileProvider).fadeIn(true));
+            Log.d("PlaceHeatMapFragment", "added heat tiles");
+        }
     }
 }
