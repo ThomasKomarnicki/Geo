@@ -1,5 +1,6 @@
 package com.doglandia.geogame.activity;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.UserAuth;
+import com.doglandia.geogame.Util;
 import com.doglandia.geogame.adapter.LocateResultsAdapter;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.error.NoDataFragment;
@@ -62,7 +65,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
     }
 
     private void getRecentLocations(){
-        Server.getInstance().getUserLocationGuesses(0, new Callback<List<PlaceLocateResult>>() {
+        Server.getInstance().getUserLocationGuesses(UserAuth.getAuthUserId(), new Callback<List<PlaceLocateResult>>() {
             @Override
             public void success(List<PlaceLocateResult> placeLocateResults, Response response) {
                 if(placeLocateResults == null || placeLocateResults.size() == 0){
@@ -70,6 +73,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
                             .add(contentFrame.getId(),new NoPlaceLocateResultsFragments(),"no_recent_locations_fragment")
                             .commit();
                 }else {
+                    Util.GeoCodeLocationGuess(placeLocateResults, RecentLocationsActivity.this);
                     recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this));
                     recentLocationsHolder.setVisibility(View.VISIBLE);
                 }

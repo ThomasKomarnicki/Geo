@@ -35,7 +35,7 @@ public class Server {
                     .create();
 
             serverInterface = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.0.4:8000")
+                    .setEndpoint("http://192.168.0.2:8000")
                     .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setConverter(new GsonConverter(gson))
                     .build()
