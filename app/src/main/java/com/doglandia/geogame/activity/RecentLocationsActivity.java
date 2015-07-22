@@ -83,7 +83,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
             @Override
             public void failure(RetrofitError error) {
                 progressBar.setVisibility(View.GONE);
-
+                // TODO show could not connect to server, with retry button maybe?
             }
         });
     }

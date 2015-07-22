@@ -82,16 +82,17 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
             Server.getInstance().getUserLocations(UserAuth.getAuthUserId(), new Callback<ArrayList<Place>>() {
                 @Override
                 public void success(ArrayList<Place> places, Response response) {
-                    Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
-                    for(Place place : places){
-                        place.geocode(geocoder);
-                    }
-                    progressBar.setVisibility(View.GONE);
-                    MyPlacesActivity.this.places = places;
-                    Log.d(getLocalClassName(), "got " + places.size() + " places");
+
                     if (places == null || places.size() == 0) {
                         showNoPlacesMessage();
                     } else if (places != null) {
+                        Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
+                        for(Place place : places){
+                            place.geocode(geocoder);
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        MyPlacesActivity.this.places = places;
+                        Log.d(getLocalClassName(), "got " + places.size() + " places");
                         myPlacesFragment.showPlacesList(places);
                         if(landscape) {
                             myPlacesFragment.onPlaceClick(places.get(0), 0);
@@ -102,6 +103,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
                 @Override
                 public void failure(RetrofitError error) {
                     progressBar.setVisibility(View.GONE);
+                    // TODO show could not connect to server
                 }
             });
         }
