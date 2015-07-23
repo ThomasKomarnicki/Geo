@@ -1,12 +1,15 @@
 package com.doglandia.geogame.activity;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,8 +17,10 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.model.User;
 import com.doglandia.geogame.server.Server;
+import com.doglandia.geogame.server.ServerInterface;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
@@ -26,6 +31,7 @@ import com.google.android.gms.plus.Plus;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -81,7 +87,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         continueWithoutSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                noAuthSignIn();
             }
         });
 
@@ -224,6 +230,37 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
+    }
+
+    private void noAuthSignIn(){
+//        String androidId = Settings.Secure.ANDROID_ID;
+        String androidId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+        Account[] accounts = AccountManager.get(this).getAccounts();
+        for (Account account : accounts) {
+            if (emailPattern.matcher(account.name).matches()) {
+                Log.d(TAG,"possible email: "+account.name);
+                String possibleEmail = account.name;
+
+            }
+        }
+
+        Map<String,String> map = new HashMap<>();
+        map.put("other_identifier",androidId);
+
+        Server.getInstance().noAuthUser(map, new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                UserAuth.otherSignIn(AuthActivity.this,user);
+                startPlaceLocateActivity();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
 }

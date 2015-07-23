@@ -127,6 +127,11 @@ public class LocalMockServer implements ServerInterface {
 
     }
 
+    @Override
+    public void noAuthUser(@Body Map<String, String> body, Callback<User> callback) {
+
+    }
+
 //    @Override
 //    public void addUserLocation(@Path("user_id") Integer userId, @Body LatLng latLng, Callback<JsonObject> callback) {
 //        Place place = new Place(latLng);
