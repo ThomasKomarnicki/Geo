@@ -45,5 +45,8 @@ public interface ServerInterface {
     @POST("/users/google_auth/")
     void googleAuth(@Body Map<String,String> body, Callback<User> callback);
 
+    @POST("/users/")
+    void noAuthUser(@Body Map<String,String> body, Callback<User> callback);
+
 
 }
