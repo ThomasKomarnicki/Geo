@@ -26,6 +26,7 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.place_locate_new_ui);
 
         UserAuth.spinUp(this);
 

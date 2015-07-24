@@ -27,11 +27,11 @@ public class PlaceLocateControllerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FrameLayout frameLayout = new FrameLayout(container.getContext());
+        FrameLayout frameLayout = new FrameLayout(inflater.getContext());
 
-        streetViewContainer = new FrameLayout(container.getContext());
+        streetViewContainer = new FrameLayout(inflater.getContext());
         streetViewContainer.setBackgroundColor(Color.RED);
-        mapContainer = new FrameLayout(container.getContext());
+        mapContainer = new FrameLayout(inflater.getContext());
         mapContainer.setBackgroundColor(Color.GREEN);
 
         frameLayout.addView(streetViewContainer);
@@ -46,6 +46,7 @@ public class PlaceLocateControllerFragment extends Fragment {
         // animate map container to small square in right corner
 
         Animation scaleToCorner = AnimationUtils.loadAnimation(getActivity(), R.anim.place_locate_fragment_anim);
+        scaleToCorner.setFillEnabled(true);
         scaleToCorner.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -55,6 +56,7 @@ public class PlaceLocateControllerFragment extends Fragment {
             @Override
             public void onAnimationEnd(Animation animation) {
                 Log.d(TAG,"scaleToCorner end");
+
             }
 
             @Override
