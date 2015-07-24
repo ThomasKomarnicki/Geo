@@ -32,4 +32,12 @@ public class User {
     public void setCurrentLocationId(int currentLocationId) {
         this.currentLocation = currentLocationId;
     }
+
+    public void setOtherIdentifier(String otherIdentifier) {
+        this.otherIdentifier = otherIdentifier;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -24,7 +24,7 @@ public class Server {
     private static final String HOME_DEV_SERVER = "http://192.168.0.4:8000";
     public static ServerInterface getInstance(){
         if(serverInterface == null){
-//            serverInterface = new LocalMockServer();
+            serverInterface = new LocalMockServer();
 
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(Place.class,new PlaceTypeAdapter())
@@ -34,12 +34,12 @@ public class Server {
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create();
 
-            serverInterface = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.0.2:8000")
-                    .setLogLevel(RestAdapter.LogLevel.FULL)
-                    .setConverter(new GsonConverter(gson))
-                    .build()
-                    .create(ServerInterface.class);
+//            serverInterface = new RestAdapter.Builder()
+//                    .setEndpoint("http://192.168.0.2:8000")
+//                    .setLogLevel(RestAdapter.LogLevel.FULL)
+//                    .setConverter(new GsonConverter(gson))
+//                    .build()
+//                    .create(ServerInterface.class);
         }
         return serverInterface;
     }
