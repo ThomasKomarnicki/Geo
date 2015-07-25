@@ -55,33 +55,32 @@ public class PlaceLocateControllerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // animate map container to small square in right corner
 
-        Animation scaleToCorner = AnimationUtils.loadAnimation(getActivity(), R.anim.place_locate_fragment_anim);
-        scaleToCorner.setFillEnabled(true);
-        scaleToCorner.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                Log.d(TAG,"scaleToCorner started");
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                Log.d(TAG,"scaleToCorner end");
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        mapContainer.startAnimation(scaleToCorner);
-        mapContainer.startClipAnimation();
+//        Animation scaleToCorner = AnimationUtils.loadAnimation(getActivity(), R.anim.place_locate_fragment_anim);
+//        scaleToCorner.setFillEnabled(true);
+//        scaleToCorner.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//                Log.d(TAG,"scaleToCorner started");
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                Log.d(TAG,"scaleToCorner end");
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+//        mapContainer.startAnimation(scaleToCorner);
 
         mapContainer.setClickable(true);
         mapContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mapContainer.startClipAnimation();
+                mapContainer.startShrinkAnimation();
             }
         });
     }
