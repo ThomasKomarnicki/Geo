@@ -107,14 +107,14 @@ public class PlaceLocateControllerFragment extends Fragment {
 
     /* returns true if consumed event */
     public boolean onBackPressed(){
-
-        locatingMapFragment.getSnapshot(new GoogleMap.SnapshotReadyCallback() {
-            @Override
-            public void onSnapshotReady(Bitmap bitmap) {
-                mapContainer.setOverlayImage(bitmap);
-                mapContainer.startShrinkAnimation();
-            }
-        });
+        mapContainer.startShrinkAnimation();
+//        locatingMapFragment.getSnapshot(new GoogleMap.SnapshotReadyCallback() {
+//            @Override
+//            public void onSnapshotReady(Bitmap bitmap) {
+//                mapContainer.setOverlayImage(bitmap);
+//
+//            }
+//        });
         return true;
     }
 

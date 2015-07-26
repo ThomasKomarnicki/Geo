@@ -129,6 +129,7 @@ public class AnimatorFrameLayout extends FrameLayout {
     }
 
     public void startShrinkAnimation(){
+        overlayImage.setVisibility(View.VISIBLE);
         long duration = 400;
         AnimatorSet shrinkAnimation = new AnimatorSet();
 
@@ -145,7 +146,7 @@ public class AnimatorFrameLayout extends FrameLayout {
             @Override
             public void onAnimationStart(Animator animation) {
                 overlayImage.setVisibility(View.VISIBLE);
-                contentFragment.getFragmentManager().beginTransaction().hide(contentFragment).commit();
+//                contentFragment.getFragmentManager().beginTransaction().hide(contentFragment).commit();
                 if(animationListener != null){
                     animationListener.onShrinkStart();
                 }
