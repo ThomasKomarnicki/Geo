@@ -17,6 +17,7 @@ import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.doglandia.geogame.map.LocatingMapFragment;
 import com.doglandia.geogame.map.StreetViewMapFragment;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by Thomas on 7/23/2015.
@@ -30,6 +31,8 @@ public class PlaceLocateControllerFragment extends Fragment {
 
     private LocatingMapFragment locatingMapFragment;
     private StreetViewMapFragment streetViewMapFragment;
+
+//    private LatLng currentLatLng;
 
     @Nullable
     @Override
@@ -115,4 +118,11 @@ public class PlaceLocateControllerFragment extends Fragment {
         return true;
     }
 
+    public void setPosition(LatLng latLng) {
+        streetViewMapFragment.setPosition(latLng);
+    }
+
+    public void clearMap() {
+        locatingMapFragment.clearMap();
+    }
 }

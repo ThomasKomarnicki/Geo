@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.doglandia.geogame.activity.PlaceLocateActivity;
+import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 
 /**
  * Created by Thomas on 6/27/2015.
@@ -21,7 +22,7 @@ public class NoPlaceLocateResultsFragments extends NoDataFragment {
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), PlaceLocateActivity.class);
+        Intent intent = new Intent(getActivity(), PlaceLocateActivityNewUi.class);
         startActivity(intent);
         getActivity().finish();
     }

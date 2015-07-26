@@ -26,8 +26,6 @@ import retrofit.client.Response;
 import com.doglandia.geogame.server.Server;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
-import com.doglandia.geogame.util.CurrentLocationManager;
-import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;

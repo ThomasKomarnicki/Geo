@@ -1,5 +1,7 @@
 package com.doglandia.geogame.activity;
 
+import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -14,11 +16,23 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.PlaceLocateControllerFragment;
+import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.server.Server;
+import com.google.android.gms.maps.model.LatLng;
+
+import org.parceler.Parcels;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Thomas on 7/23/2015.
  */
 public class PlaceLocateActivityNewUi extends AppCompatActivity {
+
+    private static final int START_NEW_LOCATION_RESULT = 0x420;
 
     private NavigationView mNavigationView;
     private DrawerLayout mNavDrawer;
@@ -27,6 +41,8 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
     private PlaceLocateControllerFragment placeLocateControllerFragment;
 
     private boolean backNavigation = false;
+
+    private Place place;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +72,8 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
         new NavigationAdapter(this);
 
         placeLocateControllerFragment = (PlaceLocateControllerFragment) getSupportFragmentManager().findFragmentById(R.id.place_locate_controller);
+
+        showUserCurrentLocation();
     }
 
     @Override
@@ -88,5 +106,57 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showUserCurrentLocation(){
+        Server.getInstance().getLocation(UserAuth.getAuthUserCurrentLocation(), new Callback<Place>() {
+            @Override
+            public void success(Place place, Response response) {
+//                currentLocationManager.onNewLocationRetrieved(place);
+                placeLocateControllerFragment.setPosition(place.getLatLng());
+                PlaceLocateActivityNewUi.this.place = place;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
+    }
+
+    public void onLocationSelected(LatLng latLng){
+        Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
+        PlaceLocateResult placeLocateResult = new PlaceLocateResult(UserAuth.getAuthUserId());
+        placeLocateResult.setGuessedLocation(latLng);
+        placeLocateResult.setActualLocation(place);
+        place.geocode(new Geocoder(this));
+        intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
+        startActivityForResult(intent, START_NEW_LOCATION_RESULT);
+
+        Server.getInstance().postLocateResult(placeLocateResult, new Callback<Place>() {
+            @Override
+            public void success(Place place, Response response) {
+                PlaceLocateActivityNewUi.this.place = place;
+                UserAuth.setCurrentLocation(place.getId(),PlaceLocateActivityNewUi.this);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == START_NEW_LOCATION_RESULT){
+            setNewPlace();
+        }
+    }
+
+    private void setNewPlace(){
+        placeLocateControllerFragment.setPosition(place.getLatLng());
+        placeLocateControllerFragment.clearMap();
     }
 }

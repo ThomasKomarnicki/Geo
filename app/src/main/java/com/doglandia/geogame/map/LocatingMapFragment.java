@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.PlaceLocateActivity;
+import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -83,6 +84,7 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
                     ((PlaceLocateActivity) getActivity()).onLocationSelected(selectedLocation);
                 }else{
                     // TODO new ui activity
+                    ((PlaceLocateActivityNewUi) getActivity()).onLocationSelected(selectedLocation);
                 }
             }
         });
