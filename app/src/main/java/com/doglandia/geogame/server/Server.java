@@ -22,6 +22,7 @@ import retrofit.converter.GsonConverter;
 public class Server {
 
     private static final String HOME_DEV_SERVER = "http://192.168.0.4:8000";
+    private static final String HEROKU_DEV_SERVER = "https://geo-server-dev.herokuapp.com";
     public static ServerInterface getInstance(){
         if(serverInterface == null){
 //            serverInterface = new LocalMockServer();
@@ -35,7 +36,7 @@ public class Server {
                     .create();
 
             serverInterface = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.0.2:8000")
+                    .setEndpoint(HEROKU_DEV_SERVER)
                     .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setConverter(new GsonConverter(gson))
                     .build()
