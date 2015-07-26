@@ -13,6 +13,7 @@ import android.view.View;
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
+import com.doglandia.geogame.fragment.PlaceLocateControllerFragment;
 
 /**
  * Created by Thomas on 7/23/2015.
@@ -22,6 +23,10 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
     private NavigationView mNavigationView;
     private DrawerLayout mNavDrawer;
     private Toolbar mToolbar;
+
+    private PlaceLocateControllerFragment placeLocateControllerFragment;
+
+    private boolean backNavigation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +54,39 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
         mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
 
         new NavigationAdapter(this);
+
+        placeLocateControllerFragment = (PlaceLocateControllerFragment) getSupportFragmentManager().findFragmentById(R.id.place_locate_controller);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backNavigation && placeLocateControllerFragment.onBackPressed()){
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    public void setBackNavigation(){
+        backNavigation = true;
+        mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                placeLocateControllerFragment.onBackPressed();
+            }
+        });
+    }
+    public void setMenuNavigation(){
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mNavDrawer.isDrawerOpen(GravityCompat.START)) {
+                    mNavDrawer.closeDrawers();
+                } else {
+                    mNavDrawer.openDrawer(GravityCompat.START);
+                }
+            }
+        });
     }
 }
