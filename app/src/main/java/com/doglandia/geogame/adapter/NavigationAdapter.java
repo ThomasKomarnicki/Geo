@@ -13,6 +13,7 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.DiscoverActivity;
 import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivity;
+import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
 
 /**
@@ -44,7 +45,7 @@ public class NavigationAdapter {
     public void onNavigationItemSelected(int itemId, String activityName){
         switch (itemId){
             case R.id.navigation_sub_item_1:
-                if(!activityName.equals(PlaceLocateActivity.class.getSimpleName())){
+                if(!activityName.equals(PlaceLocateActivityNewUi.class.getSimpleName())){
                     startPlaceLocateActivity();
                 }
                 break;
@@ -67,7 +68,7 @@ public class NavigationAdapter {
     }
 
     private void startPlaceLocateActivity(){
-        Intent intent = new Intent(activity,PlaceLocateActivity.class);
+        Intent intent = new Intent(activity,PlaceLocateActivityNewUi.class);
         activity.startActivity(intent);
         activity.finish();
     }

@@ -17,10 +17,8 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.model.User;
 import com.doglandia.geogame.server.Server;
-import com.doglandia.geogame.server.ServerInterface;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
@@ -226,7 +224,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void startPlaceLocateActivity(){
-        Intent intent = new Intent(this,PlaceLocateActivity.class);
+        Intent intent = new Intent(this,PlaceLocateActivityNewUi.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

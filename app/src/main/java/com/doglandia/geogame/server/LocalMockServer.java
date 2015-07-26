@@ -27,6 +27,8 @@ public class LocalMockServer implements ServerInterface {
     List<PlaceLocateResult> placeLocateResults;
     PlaceDetails placeDetails;
 
+    User user;
+
 
     public LocalMockServer(){
         places = new ArrayList<>();
@@ -49,6 +51,11 @@ public class LocalMockServer implements ServerInterface {
         places.add(place);
 
         placeDetails = new PlaceDetails();
+
+        user = new User();
+        user.setId(9);
+        user.setCurrentLocationId(0);
+        user.setOtherIdentifier("testtesttest");
 
     }
 
@@ -129,7 +136,7 @@ public class LocalMockServer implements ServerInterface {
 
     @Override
     public void noAuthUser(@Body Map<String, String> body, Callback<User> callback) {
-
+        callback.success(user,null);
     }
 
 //    @Override
