@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
@@ -56,6 +57,8 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
     private SignInButton googleSignIn;
     private Button continueWithoutSignIn;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,8 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
             startPlaceLocateActivity();
             return;
         }
+
+        progressBar = (ProgressBar) findViewById(R.id.auth_activity_progress);
 
         googleSignIn = (SignInButton) findViewById(R.id.google_sign_in_button);
         googleSignIn.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +146,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
                 try {
                     connectionResult.startResolutionForResult(this, RC_SIGN_IN);
                     mIsResolving = true;
+                    enableSignInButtons(false);
                 } catch (IntentSender.SendIntentException e) {
                     Log.e(TAG, "Could not resolve ConnectionResult.", e);
                     mIsResolving = false;
@@ -153,6 +159,16 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         }
 
+    }
+
+    private void enableSignInButtons(boolean enable){
+        googleSignIn.setEnabled(enable);
+        continueWithoutSignIn.setEnabled(enable);
+        if(enable){
+            progressBar.setVisibility(View.GONE);
+        }else{
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -231,6 +247,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void noAuthSignIn(){
+        enableSignInButtons(false);
 //        String androidId = Settings.Secure.ANDROID_ID;
         String androidId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
