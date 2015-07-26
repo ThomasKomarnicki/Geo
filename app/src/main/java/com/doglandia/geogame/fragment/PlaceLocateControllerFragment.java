@@ -89,17 +89,7 @@ public class PlaceLocateControllerFragment extends Fragment {
             }
         });
 
-        mapContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                mapContainer.setScale(.35f);
-                mapContainer.setDelta(.3f);
-                mapContainer.setImageCrop(.6f);
-                mapContainer.invalidate();
-                mapContainer.setRespondToClick();
-                mapContainer.setOverlayDrawable(new ColorDrawable(Color.TRANSPARENT));
-            }
-        });
+        reset();
 
 //        mapContainer.startShrinkAnimation();
 
@@ -124,5 +114,21 @@ public class PlaceLocateControllerFragment extends Fragment {
 
     public void clearMap() {
         locatingMapFragment.clearMap();
+    }
+
+    public void reset() {
+        ((PlaceLocateActivityNewUi) getActivity()).setMenuNavigation();
+        mapContainer.post(new Runnable() {
+            @Override
+            public void run() {
+                mapContainer.setScale(.35f);
+                mapContainer.setDelta(.3f);
+                mapContainer.setImageCrop(.6f);
+                mapContainer.setRespondToClick();
+                mapContainer.setOverlayDrawable(new ColorDrawable(Color.TRANSPARENT));
+                mapContainer.invalidate();
+            }
+        });
+
     }
 }

@@ -69,6 +69,7 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
         });
         mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
 
+
         new NavigationAdapter(this);
 
         placeLocateControllerFragment = (PlaceLocateControllerFragment) getSupportFragmentManager().findFragmentById(R.id.place_locate_controller);
@@ -151,6 +152,7 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == START_NEW_LOCATION_RESULT){
+            placeLocateControllerFragment.reset();
             setNewPlace();
         }
     }

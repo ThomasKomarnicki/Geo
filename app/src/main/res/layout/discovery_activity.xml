@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:name="com.doglandia.geogame.map.DiscoverMapFragment"
                 android:id="@+id/discover_map_framgnet"
-                app:mapType="satellite"/>
+                app:mapType="hybrid"/>
 
             <FrameLayout
                 android:layout_width="match_parent"

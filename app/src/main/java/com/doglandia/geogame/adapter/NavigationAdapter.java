@@ -34,37 +34,45 @@ public class NavigationAdapter {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                NavigationAdapter.this.onNavigationItemSelected(menuItem.getItemId(), activity.getLocalClassName());
-
+                boolean result = NavigationAdapter.this.onNavigationItemSelected(menuItem.getItemId(), activity.getClass().getSimpleName());
+                if(!result){
+                    DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.main_nav_drawer);
+                    drawerLayout.closeDrawers();
+                }
                 return true; // I think this is because we consumed it?
             }
 
         });
     }
 
-    public void onNavigationItemSelected(int itemId, String activityName){
+    public boolean onNavigationItemSelected(int itemId, String activityName){
         switch (itemId){
             case R.id.navigation_sub_item_1:
                 if(!activityName.equals(PlaceLocateActivityNewUi.class.getSimpleName())){
                     startPlaceLocateActivity();
+                    return true;
                 }
                 break;
             case R.id.navigation_sub_item_2:
                 if(!activityName.equals(DiscoverActivity.class.getSimpleName())){
                     startDiscoverActivity();
+                    return true;
                 }
                 break;
             case R.id.navigation_sub_item_3:
                 if(!activityName.equals(RecentLocationsActivity.class.getSimpleName())){
                     startRecentLocationsActivity();
+                    return true;
                 }
                 break;
             case R.id.navigation_sub_item_4:
                 if(!activityName.equals(MyPlacesActivity.class.getSimpleName())) {
                     startMyPlacesActivity();
+                    return true;
                 }
                 break;
         }
+        return false;
     }
 
     private void startPlaceLocateActivity(){

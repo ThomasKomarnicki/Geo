@@ -71,7 +71,7 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
                         selectedView.setBackgroundResource(backgroundResourceId);
                     }
                     selectedView = view;
-                    selectedView.setBackgroundColor(view.getContext().getResources().getColor(android.R.color.holo_green_dark));
+                    selectedView.setBackgroundColor(view.getContext().getResources().getColor(R.color.primary_dark));
                 }
 
                 if(listener != null){

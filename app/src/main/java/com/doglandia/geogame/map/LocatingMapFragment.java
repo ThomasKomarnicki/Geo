@@ -195,20 +195,20 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 
     }
 
-    public void getSnapshot(final GoogleMap.SnapshotReadyCallback snapshotReadyCallback){
-        if(googleMap != null) {
-            googleMap.snapshot(snapshotReadyCallback);
-        }else{
-//            this.snapshotReadyCallback = snapshotReadyCallback;
-//            mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
-//                @Override
-//                public void onMapReady(GoogleMap googleMap) {
+//    public void getSnapshot(final GoogleMap.SnapshotReadyCallback snapshotReadyCallback){
+//        if(googleMap != null) {
+//            googleMap.snapshot(snapshotReadyCallback);
+//        }else{
+////            this.snapshotReadyCallback = snapshotReadyCallback;
+////            mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
+////                @Override
+////                public void onMapReady(GoogleMap googleMap) {
+////
+////                }
+////            });
+//        }
 //
-//                }
-//            });
-        }
-
-    }
+//    }
 
 
 }

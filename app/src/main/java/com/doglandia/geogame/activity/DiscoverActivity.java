@@ -1,11 +1,15 @@
 package com.doglandia.geogame.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -38,6 +42,8 @@ public class DiscoverActivity extends AppCompatActivity {
     private FrameLayout streetViewContainer;
 
     private NavigationAdapter navigationAdapter;
+
+    private boolean showingStreetView = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +90,9 @@ public class DiscoverActivity extends AppCompatActivity {
             }
         });
         getSupportFragmentManager().popBackStack();
-        NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this,"Discover");
+        NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
+
+        discoverMapFragment.resetMapZoom();
     }
 
     public void onLocationChangeResult(StreetViewPanoramaLocation streetViewPanoramaLocation){
@@ -106,31 +114,82 @@ public class DiscoverActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().popBackStack();
-                NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this,"Discover");
+                NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
             }
         });
     }
 
     public void setDiscoverToolbar(){
         navigationAdapter.initNavigation();
-        NavigationAdapter.setUpNavDrawerActivity(this,"Discover");
+        NavigationAdapter.setUpNavDrawerActivity(this, "Discover");
     }
 
     public void hideStreetViewFragment(){
-        streetViewContainer.setVisibility(View.INVISIBLE);
-        discoverStreetViewFragment.setVisible(false);
+//        streetViewContainer.setVisibility(View.INVISIBLE);
+//        discoverStreetViewFragment.setVisible(false);
+        hideStreetViewAnimation();
         setDiscoverToolbar();
+        showingStreetView = false;
     }
 
     public void showStreetViewFragment(){
+        showingStreetView = true;
         setStreetViewToolbar();
-        streetViewContainer.setVisibility(View.VISIBLE);
-        discoverStreetViewFragment.setVisible(true);
+//        streetViewContainer.setVisibility(View.VISIBLE);
+//        discoverStreetViewFragment.setVisible(true);
+        showStreetViewAnimation();
+    }
+
+    private void hideStreetViewAnimation(){
+
+        if(Build.VERSION.SDK_INT >=21) {
+            int cx = (streetViewContainer.getLeft() + streetViewContainer.getRight()) / 2;
+            int cy = (streetViewContainer.getTop() + streetViewContainer.getBottom()) / 2;
+
+            int initialRadius = streetViewContainer.getWidth();
+
+            Animator anim = ViewAnimationUtils.createCircularReveal(streetViewContainer, cx, cy, initialRadius, 0);
+            anim.setDuration(500);
+
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    streetViewContainer.setVisibility(View.INVISIBLE);
+                    discoverStreetViewFragment.setVisible(false);
+                }
+            });
+            anim.start();
+        }
+    }
+
+    private void showStreetViewAnimation(){
+        if(Build.VERSION.SDK_INT >=21) {
+            int cx = (streetViewContainer.getLeft() + streetViewContainer.getRight()) / 2;
+            int cy = (streetViewContainer.getTop() + streetViewContainer.getBottom()) / 2;
+
+            int finalRadius = Math.max(streetViewContainer.getWidth(), streetViewContainer.getHeight());
+
+            Animator anim = ViewAnimationUtils.createCircularReveal(streetViewContainer, cx, cy, 0, finalRadius);
+            anim.setDuration(500);
+
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    streetViewContainer.setVisibility(View.VISIBLE);
+                    discoverStreetViewFragment.setVisible(true);
+                }
+            });
+
+            streetViewContainer.setVisibility(View.VISIBLE);
+            anim.start();
+        }
     }
 
     @Override
     public void onBackPressed() {
-       if(streetViewContainer.getVisibility() == View.VISIBLE){
+       if(showingStreetView){
            // hide street view fragment
            hideStreetViewFragment();
 

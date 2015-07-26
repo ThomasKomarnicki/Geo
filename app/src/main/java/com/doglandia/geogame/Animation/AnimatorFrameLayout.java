@@ -77,6 +77,7 @@ public class AnimatorFrameLayout extends FrameLayout {
         setWillNotDraw(false);
         addView(LayoutInflater.from(getContext()).inflate(R.layout.animator_frame_layout,null));
         overlayImage = (ImageView) findViewById(R.id.animator_frame_image);
+        setElevation(5f);
 
 //        clipBoundsPaint = new Paint();
 //        clipBoundsPaint.setStyle(Paint.Style.FILL_AND_STROKE);

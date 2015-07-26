@@ -3,6 +3,7 @@ package com.doglandia.geogame.map;
 import android.os.Bundle;
 
 import com.doglandia.geogame.activity.DiscoverActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -43,4 +44,7 @@ public class DiscoverMapFragment extends SupportMapFragment implements OnMapRead
     }
 
 
+    public void resetMapZoom() {
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(5));
+    }
 }
