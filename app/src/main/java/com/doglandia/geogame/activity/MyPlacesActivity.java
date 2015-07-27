@@ -69,6 +69,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
         if(landscape){
             placeDetailsFragment = (PlaceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.place_details_fragment);
+            getSupportFragmentManager().beginTransaction().hide(placeDetailsFragment).commit();
         }
 
         myPlacesFragment = (MyPlacesFragment) getSupportFragmentManager().findFragmentById(R.id.my_places_fragment);
@@ -124,6 +125,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
     public void onPlaceClick(Place place, int position){
         currentlySelectedPlace = position;
         if(landscape){
+            getSupportFragmentManager().beginTransaction().show(placeDetailsFragment).commit();
             placeDetailsFragment.getPlaceDetails(place);
         }else{
             Intent intent = new Intent(this,PlaceDetailsActivity.class);

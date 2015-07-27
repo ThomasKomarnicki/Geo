@@ -1,4 +1,4 @@
-package com.doglandia.geogame;
+package com.doglandia.geogame.util;
 
 import android.content.Context;
 import android.location.Geocoder;
@@ -20,6 +20,8 @@ public class Util {
     public static boolean isUsingMiles(){
         return Locale.getDefault().equals(Locale.US);
     }
+
+    public static final float PRIMARY_COLOR_HUE = 136f;
 
     public static String getDistanceDisplay(int distance){
         String units;

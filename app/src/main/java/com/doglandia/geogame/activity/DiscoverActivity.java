@@ -67,7 +67,7 @@ public class DiscoverActivity extends AppCompatActivity {
 
     public void onMapLocationClicked(LatLng latLng){
         getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
-        Log.d(this.getLocalClassName(),"on map location clicked "+latLng);
+        Log.d(this.getLocalClassName(), "on map location clicked " + latLng);
         getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
         discoverStreetViewFragment.setLocation(latLng);
     }
@@ -160,6 +160,10 @@ public class DiscoverActivity extends AppCompatActivity {
                 }
             });
             anim.start();
+        }else{
+            // pre 5.1
+            streetViewContainer.setVisibility(View.INVISIBLE);
+            discoverStreetViewFragment.setVisible(false);
         }
     }
 
@@ -184,6 +188,10 @@ public class DiscoverActivity extends AppCompatActivity {
 
             streetViewContainer.setVisibility(View.VISIBLE);
             anim.start();
+        }else{
+            // pre 5.1
+            streetViewContainer.setVisibility(View.VISIBLE);
+            discoverStreetViewFragment.setVisible(true);
         }
     }
 

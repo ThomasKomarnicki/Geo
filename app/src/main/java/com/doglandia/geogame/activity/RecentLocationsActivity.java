@@ -1,6 +1,5 @@
 package com.doglandia.geogame.activity;
 
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +11,9 @@ import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
-import com.doglandia.geogame.Util;
+import com.doglandia.geogame.util.Util;
 import com.doglandia.geogame.adapter.LocateResultsAdapter;
 import com.doglandia.geogame.adapter.NavigationAdapter;
-import com.doglandia.geogame.fragment.error.NoDataFragment;
 import com.doglandia.geogame.fragment.error.NoPlaceLocateResultsFragments;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
 import com.doglandia.geogame.model.PlaceLocateResult;

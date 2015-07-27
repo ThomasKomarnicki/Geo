@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.util.Util;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -56,7 +57,7 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(placeLocateResult.getGuessedLocation());
         googleMap.moveCamera(cameraUpdate);
         googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getGuessedLocation()).title("Guessed Location").icon(BitmapDescriptorFactory.defaultMarker()));
-        googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getActualLocation().getLatLng()).title("Actual Location").icon(BitmapDescriptorFactory.defaultMarker()));
+        googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getActualLocation().getLatLng()).title("Actual Location").icon(BitmapDescriptorFactory.defaultMarker(Util.PRIMARY_COLOR_HUE)));
 
 
         LatLngBounds.Builder builder = LatLngBounds.builder();
