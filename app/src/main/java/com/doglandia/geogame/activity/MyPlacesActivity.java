@@ -1,6 +1,5 @@
 package com.doglandia.geogame.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Geocoder;
@@ -24,7 +23,6 @@ import com.doglandia.geogame.server.Server;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit.Callback;
@@ -39,7 +37,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
     private static final String CURRENTLY_SELECTED_PLACE ="currently_selected_place";
     private static final String PLACES = "places";
 
-    boolean landscape = false;
+    boolean showTwoPane = false;
 
     private PlaceDetailsFragment placeDetailsFragment;
 
@@ -65,9 +63,9 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
         new NavigationAdapter(this);
         NavigationAdapter.setUpNavDrawerActivity(this,"My Places");
 
-        landscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        showTwoPane = getResources().getBoolean(R.bool.show_two_pane_layout);
 
-        if(landscape){
+        if(showTwoPane){
             placeDetailsFragment = (PlaceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.place_details_fragment);
             getSupportFragmentManager().beginTransaction().hide(placeDetailsFragment).commit();
         }
@@ -95,7 +93,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
                         MyPlacesActivity.this.places = places;
                         Log.d(getLocalClassName(), "got " + places.size() + " places");
                         myPlacesFragment.showPlacesList(places);
-                        if(landscape) {
+                        if(showTwoPane) {
                             myPlacesFragment.onPlaceClick(places.get(0), 0);
                         }
                     }
@@ -124,7 +122,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
     public void onPlaceClick(Place place, int position){
         currentlySelectedPlace = position;
-        if(landscape){
+        if(showTwoPane){
             getSupportFragmentManager().beginTransaction().show(placeDetailsFragment).commit();
             placeDetailsFragment.getPlaceDetails(place);
         }else{
@@ -133,11 +131,6 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
             startActivity(intent);
         }
     }
-
-    public boolean isLandscape(){
-        return landscape;
-    }
-
 
     @Override
     public boolean onHeatMapClicked() {

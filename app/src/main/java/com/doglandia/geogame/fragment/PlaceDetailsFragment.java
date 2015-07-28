@@ -90,7 +90,7 @@ public class PlaceDetailsFragment extends Fragment {
 
         int height = (int) (size.x*(9f/16f));
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if(getResources().getBoolean(R.bool.show_two_pane_layout)){
             height = height/2;
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
