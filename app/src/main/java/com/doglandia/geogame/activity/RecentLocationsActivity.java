@@ -72,7 +72,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
                             .commit();
                 }else {
                     Util.GeoCodeLocationGuess(placeLocateResults, RecentLocationsActivity.this);
-                    recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this));
+                    recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this,shouldHighlight()));
                     recentLocationsHolder.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
@@ -89,5 +89,9 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
     @Override
     public void onLocateResultClicked(int index, PlaceLocateResult placeLocateResult) {
         mapFragment.showPlaceLocateResult(placeLocateResult);
+    }
+
+    private boolean shouldHighlight(){
+        return getResources().getBoolean(R.bool.my_places_highlight_row);
     }
 }

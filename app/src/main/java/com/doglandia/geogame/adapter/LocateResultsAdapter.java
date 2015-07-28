@@ -24,10 +24,14 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
 
     private ViewHolder highLightedView;
 
+    private boolean highlight;
+
     private List<PlaceLocateResult> placeLocateResults;
-    public LocateResultsAdapter(List<PlaceLocateResult> placeLocateResultList, LocateResultClickListener locateResultClickListener) {
+    public LocateResultsAdapter(List<PlaceLocateResult> placeLocateResultList,
+                                LocateResultClickListener locateResultClickListener, boolean highlight) {
         this.listener = locateResultClickListener;
         this.placeLocateResults = placeLocateResultList;
+        this.highlight = highlight;
     }
 
     @Override
@@ -47,21 +51,25 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                highLightNewView(holder);
-                listener.onLocateResultClicked(position,placeLocateResult);
+                if(highlight) {
+                    highLightNewView(holder);
+                    listener.onLocateResultClicked(position, placeLocateResult);
+                }
             }
         });
     }
 
     private void highLightNewView(ViewHolder newView){
         if(highLightedView != null){
-            highLightedView.locationCountryTv.setSelected(false);
-            highLightedView.locationCityTv.setSelected(false);
+//            highLightedView.locationCountryTv.setSelected(false);
+//            highLightedView.locationCityTv.setSelected(false);
+            highLightedView.itemView.setBackgroundDrawable(null);
         }
 
         highLightedView = newView;
-        newView.locationCityTv.setSelected(true);
-        newView.locationCountryTv.setSelected(true);
+//        newView.locationCityTv.setSelected(true);
+//        newView.locationCountryTv.setSelected(true);
+        highLightedView.itemView.setBackgroundColor(newView.itemView.getResources().getColor(R.color.primary_dark));
     }
 
     @Override
