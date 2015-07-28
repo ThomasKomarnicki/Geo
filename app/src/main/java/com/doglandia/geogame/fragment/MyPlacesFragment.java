@@ -48,7 +48,7 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
 
     private void initAdapter(List<Place> places) {
         if(getActivity() != null) {
-            MyPlacesAdapter adapter = new MyPlacesAdapter(places, getActivity(), getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+            MyPlacesAdapter adapter = new MyPlacesAdapter(places, getActivity(), shouldHighlight());
             adapter.setListener(MyPlacesFragment.this);
             recyclerView.setAdapter(adapter);
         }
@@ -57,5 +57,9 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
     @Override
     public void onPlaceClick(Place place, int position) {
         ((MyPlacesActivity)getActivity()).onPlaceClick(place,position);
+    }
+
+    private boolean shouldHighlight(){
+        return getResources().getBoolean(R.bool.my_places_highlight_row);
     }
 }
