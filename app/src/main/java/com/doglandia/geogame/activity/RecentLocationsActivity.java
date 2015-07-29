@@ -38,6 +38,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
     private FrameLayout contentFrame;
     private LinearLayout recentLocationsHolder;
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
                             .commit();
                 }else {
                     Util.GeoCodeLocationGuess(placeLocateResults, RecentLocationsActivity.this);
-                    recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this,shouldHighlight()));
+                    recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this,true));
                     recentLocationsHolder.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
