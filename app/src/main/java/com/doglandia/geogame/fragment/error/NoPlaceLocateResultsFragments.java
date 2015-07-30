@@ -6,9 +6,6 @@ import android.view.View;
 import com.doglandia.geogame.activity.PlaceLocateActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 
-/**
- * Created by Thomas on 6/27/2015.
- */
 public class NoPlaceLocateResultsFragments extends NoDataFragment {
     @Override
     public String getMessageText() {

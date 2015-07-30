@@ -29,9 +29,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * Created by Thomas on 6/13/2015.
- */
 public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClickedListener{
 
     private static final String CURRENTLY_SELECTED_PLACE ="currently_selected_place";

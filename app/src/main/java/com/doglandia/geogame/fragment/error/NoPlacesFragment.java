@@ -6,9 +6,6 @@ import android.view.View;
 import com.doglandia.geogame.activity.DiscoverActivity;
 
 
-/**
- * Created by Thomas on 6/27/2015.
- */
 public class NoPlacesFragment extends NoDataFragment {
 
 

@@ -8,9 +8,6 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-/**
- * Created by Thomas on 7/20/2015.
- */
 public class LatLngTypeAdapter extends TypeAdapter<LatLng> {
     @Override
     public void write(JsonWriter out, LatLng value) throws IOException {

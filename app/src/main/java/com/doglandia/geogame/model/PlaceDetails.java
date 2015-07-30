@@ -4,10 +4,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-/**
- * Created by Thomas on 6/16/2015.
- */
-
 
 public class PlaceDetails {
 

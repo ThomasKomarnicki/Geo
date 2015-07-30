@@ -20,9 +20,6 @@ import android.widget.ImageView;
 
 import com.doglandia.geogame.R;
 
-/**
- * Created by Thomas on 7/24/2015.
- */
 public class AnimatorFrameLayout extends FrameLayout {
 
     public interface AnimationListener{
@@ -77,7 +74,7 @@ public class AnimatorFrameLayout extends FrameLayout {
         setWillNotDraw(false);
         addView(LayoutInflater.from(getContext()).inflate(R.layout.animator_frame_layout,null));
         overlayImage = (ImageView) findViewById(R.id.animator_frame_image);
-        setElevation(5f);
+//        setElevation(5f);
 
 //        clipBoundsPaint = new Paint();
 //        clipBoundsPaint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -100,7 +97,7 @@ public class AnimatorFrameLayout extends FrameLayout {
             canvas.clipRect(mClipRect);
 
         }else{
-            Log.d(TAG,"didnt clip canvas");
+            Log.d(TAG,"didn't clip canvas");
         }
         super.onDraw(canvas);
 //        canvas.drawRect(mClipRect,clipBoundsPaint);

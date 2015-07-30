@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.doglandia.geogame.R;
 
-/**
- * Created by Thomas on 6/25/2015.
- */
 public abstract class NoDataFragment extends Fragment implements View.OnClickListener{
 
     private Button startNowButton;

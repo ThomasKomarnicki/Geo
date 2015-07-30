@@ -1,6 +1,5 @@
 package com.doglandia.geogame.fragment;
 
-import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -33,9 +32,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * Created by Thomas on 6/13/2015.
- */
 public class PlaceDetailsFragment extends Fragment {
 
     private TextView cityTv;

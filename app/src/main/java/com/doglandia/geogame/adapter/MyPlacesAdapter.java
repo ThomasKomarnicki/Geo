@@ -13,9 +13,6 @@ import com.doglandia.geogame.model.Place;
 
 import java.util.List;
 
-/**
- * Created by Thomas on 6/13/2015.
- */
 public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHolder> {
 
     public interface OnPlaceClickListener{

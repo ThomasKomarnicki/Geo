@@ -1,6 +1,5 @@
 package com.doglandia.geogame.fragment;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,9 +16,6 @@ import com.doglandia.geogame.model.Place;
 
 import java.util.List;
 
-/**
- * Created by Thomas on 6/13/2015.
- */
 public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlaceClickListener {
 
     private RecyclerView recyclerView;

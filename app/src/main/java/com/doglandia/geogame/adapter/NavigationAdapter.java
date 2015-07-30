@@ -16,9 +16,6 @@ import com.doglandia.geogame.activity.PlaceLocateActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
 
-/**
- * Created by Thomas on 6/10/2015.
- */
 public class NavigationAdapter {
 
     private NavigationView navigationView;

@@ -48,7 +48,7 @@ public class Server {
     private static ServerInterface serverInterface;
 
     public Server(ServerInterface serverInterface){
-        this.serverInterface = serverInterface;
+        Server.serverInterface = serverInterface;
     }
 
 

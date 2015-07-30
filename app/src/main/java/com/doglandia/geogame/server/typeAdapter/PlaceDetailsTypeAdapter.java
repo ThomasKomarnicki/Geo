@@ -9,9 +9,6 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-/**
- * Created by Thomas on 7/20/2015.
- */
 public class PlaceDetailsTypeAdapter extends TypeAdapter<PlaceDetails> {
     @Override
     public void write(JsonWriter out, PlaceDetails value) throws IOException {

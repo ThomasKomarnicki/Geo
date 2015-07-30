@@ -16,9 +16,6 @@ import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 
-/**
- * Created by Thomas on 6/21/2015.
- */
 public class DiscoverStreetViewFragment extends SupportStreetViewPanoramaFragment implements
         OnStreetViewPanoramaReadyCallback, StreetViewPanorama.OnStreetViewPanoramaChangeListener {
 

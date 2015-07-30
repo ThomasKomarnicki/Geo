@@ -15,9 +15,6 @@ import com.doglandia.geogame.map.PlaceHeatMapFragment;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.google.android.gms.maps.GoogleMap;
 
-/**
- * Created by Thomas on 6/19/2015.
- */
 public class HeatDialogMapFragment extends Fragment {
 
     private FrameLayout heatMapHolder;

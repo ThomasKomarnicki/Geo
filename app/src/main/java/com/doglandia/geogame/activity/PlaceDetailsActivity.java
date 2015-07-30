@@ -19,9 +19,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * Created by Thomas on 6/13/2015.
- */
 public class PlaceDetailsActivity extends AppCompatActivity implements OnHeatMapClickedListener, View.OnClickListener{
 
     private PlaceDetailsFragment placeDetailsFragment;

@@ -24,9 +24,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * Created by Thomas on 6/3/2015.
- */
 public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClickListener,GoogleMap.OnMapLongClickListener {
 
     private static final String ACTION_BUTTON_VISIBLE = "action_button_visible";
@@ -149,7 +146,7 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 
     private void onMapLocationClicked(LatLng latLng){
         selectedLocation = latLng;
-        if(floatingActionButton.getVisibility() == floatingActionButton.INVISIBLE){
+        if(floatingActionButton.getVisibility() == FloatingActionButton.INVISIBLE){
             animateFABIn();
         }
         googleMap.clear();

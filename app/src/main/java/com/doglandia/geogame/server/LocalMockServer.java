@@ -18,9 +18,6 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.Path;
 
-/**
- * Created by Thomas on 6/7/2015.
- */
 public class LocalMockServer implements ServerInterface {
 
     ArrayList<Place> places;

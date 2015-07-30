@@ -9,9 +9,6 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-/**
- * Created by Thomas on 7/19/2015.
- */
 public class LocateResultTypeAdapter extends TypeAdapter<PlaceLocateResult> {
     @Override
     public void write(JsonWriter out, PlaceLocateResult placeLocateResult) throws IOException {

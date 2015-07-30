@@ -11,9 +11,6 @@ import com.doglandia.geogame.model.PlaceLocateResult;
 
 import java.util.List;
 
-/**
- * Created by Thomas on 6/10/2015.
- */
 public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdapter.ViewHolder> {
 
     public interface LocateResultClickListener {
@@ -63,7 +60,8 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
         if(highLightedView != null){
 //            highLightedView.locationCountryTv.setSelected(false);
 //            highLightedView.locationCityTv.setSelected(false);
-            highLightedView.itemView.setBackgroundDrawable(null);
+//            highLightedView.itemView.setBackgroundDrawable(null);
+            highLightedView.itemView.setBackground(null);
         }
 
         highLightedView = newView;

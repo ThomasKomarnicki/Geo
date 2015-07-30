@@ -10,10 +10,6 @@ import org.parceler.Parcel;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Thomas on 6/5/2015.
- */
-
 @Parcel
 public class Place {
 

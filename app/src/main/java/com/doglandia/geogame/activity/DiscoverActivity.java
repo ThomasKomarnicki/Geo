@@ -28,9 +28,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * Created by Thomas on 6/21/2015.
- */
 public class DiscoverActivity extends AppCompatActivity {
 
     private DiscoverMapFragment discoverMapFragment;
