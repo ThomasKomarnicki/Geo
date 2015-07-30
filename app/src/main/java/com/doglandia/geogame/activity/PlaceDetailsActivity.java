@@ -42,6 +42,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnHeatMap
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setTitle(place.getCity());
         toolbar.setNavigationOnClickListener(this);
+        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
         placeDetailsFragment = (PlaceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.place_etails_fragment);
 

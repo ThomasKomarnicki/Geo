@@ -61,7 +61,9 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
 //            highLightedView.locationCountryTv.setSelected(false);
 //            highLightedView.locationCityTv.setSelected(false);
 //            highLightedView.itemView.setBackgroundDrawable(null);
-            highLightedView.itemView.setBackground(null);
+//            highLightedView.itemView.setBackground(null);
+            //noinspection deprecation
+            highLightedView.itemView.setBackgroundDrawable(null);
         }
 
         highLightedView = newView;

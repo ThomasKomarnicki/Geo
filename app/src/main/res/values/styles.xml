@@ -19,4 +19,9 @@
     <dimen name="locate_select_button_margin_right">30dp</dimen>
     <dimen name="locate_select_button_margin_bottom">30dp</dimen>
 
+    <style name="TransparentToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
 </resources>

@@ -248,15 +248,15 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
 //        String androidId = Settings.Secure.ANDROID_ID;
         String androidId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
-        Account[] accounts = AccountManager.get(this).getAccounts();
-        for (Account account : accounts) {
-            if (emailPattern.matcher(account.name).matches()) {
-                Log.d(TAG,"possible email: "+account.name);
-                String possibleEmail = account.name;
-
-            }
-        }
+//        Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+//        Account[] accounts = AccountManager.get(this).getAccounts();
+//        for (Account account : accounts) {
+//            if (emailPattern.matcher(account.name).matches()) {
+//                Log.d(TAG,"possible email: "+account.name);
+//                String possibleEmail = account.name;
+//
+//            }
+//        }
 
         Map<String,String> map = new HashMap<>();
         map.put("other_identifier",androidId);

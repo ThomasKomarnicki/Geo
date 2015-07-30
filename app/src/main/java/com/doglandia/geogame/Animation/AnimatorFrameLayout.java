@@ -131,12 +131,12 @@ public class AnimatorFrameLayout extends FrameLayout {
         long duration = 400;
         AnimatorSet shrinkAnimation = new AnimatorSet();
 
-        final float[] values = new float[] {0f, 0.6f};
-        ObjectAnimator clipBoundsAnimation = ObjectAnimator.ofFloat(this, "imageCrop", values);
+//        final float[] values = new float[] {0f, 0.6f};
+        ObjectAnimator clipBoundsAnimation = ObjectAnimator.ofFloat(this, "imageCrop", 0f,.6f);
 
-        ObjectAnimator scaleAnimation = ObjectAnimator.ofFloat(this,"scale",new float[]{1f,.35f});
+        ObjectAnimator scaleAnimation = ObjectAnimator.ofFloat(this,"scale",1f,.35f);
 
-        ObjectAnimator positionAnimation = ObjectAnimator.ofFloat(this,"delta", new float[]{0f,.3f});
+        ObjectAnimator positionAnimation = ObjectAnimator.ofFloat(this,"delta", 0f,.3f);
 
         shrinkAnimation.playTogether(clipBoundsAnimation,scaleAnimation,positionAnimation);
         shrinkAnimation.setDuration(duration);
@@ -177,11 +177,11 @@ public class AnimatorFrameLayout extends FrameLayout {
         AnimatorSet restoreAnimation = new AnimatorSet();
 
         final float[] values = new float[] {.6f, 0f};
-        ObjectAnimator clipBoundsAnimation = ObjectAnimator.ofFloat(this, "imageCrop", values);
+        ObjectAnimator clipBoundsAnimation = ObjectAnimator.ofFloat(this, "imageCrop", 0.6f, 0f);
 
-        ObjectAnimator scaleAnimation = ObjectAnimator.ofFloat(this,"scale",new float[]{.35f,1f});
+        ObjectAnimator scaleAnimation = ObjectAnimator.ofFloat(this,"scale",.35f,1f);
 
-        ObjectAnimator positionAnimation = ObjectAnimator.ofFloat(this,"delta", new float[]{.3f,0f});
+        ObjectAnimator positionAnimation = ObjectAnimator.ofFloat(this,"delta", .3f,0f);
 
         restoreAnimation.playTogether(clipBoundsAnimation,scaleAnimation,positionAnimation);
         restoreAnimation.setDuration(duration);
@@ -251,7 +251,7 @@ public class AnimatorFrameLayout extends FrameLayout {
 
         final int sideLength = (width < height) ? width : height;
 
-        int clipAmount = 0;
+        int clipAmount;
         if(width < height){
             clipAmount = (int) (value *(height - sideLength));
             mClipRect.set(getLeft(), getTop() + clipAmount, getRight(), getBottom() - clipAmount);

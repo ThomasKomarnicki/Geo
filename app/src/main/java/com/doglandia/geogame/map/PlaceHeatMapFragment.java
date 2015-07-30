@@ -63,7 +63,7 @@ public class PlaceHeatMapFragment extends SupportMapFragment {
             builder.data(this.placeDetails.getLocationGuesses());
 
             HeatmapTileProvider heatmapTileProvider = builder.build();
-            TileOverlay overlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatmapTileProvider).fadeIn(true));
+            googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatmapTileProvider).fadeIn(true));
             Log.d("PlaceHeatMapFragment", "added heat tiles");
         }
     }

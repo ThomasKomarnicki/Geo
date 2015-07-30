@@ -55,7 +55,7 @@ public class CurrentLocationManager {
     public void onNewLocationRetrieved(Place place){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(CURRENT_PLACE,new Gson().toJson(place).toString());
+        editor.putString(CURRENT_PLACE,new Gson().toJson(place));
         editor.apply();
     }
 }
