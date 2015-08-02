@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="my_places_highlight_row">true</bool>
-    <bool name="show_two_pane_layout">false</bool>
+    <bool name="show_two_pane_layout">true</bool>
 </resources>

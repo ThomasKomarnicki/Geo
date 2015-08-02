@@ -197,5 +197,4 @@ public class PlaceDetailsFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.INVISIBLE);
     }
-
 }

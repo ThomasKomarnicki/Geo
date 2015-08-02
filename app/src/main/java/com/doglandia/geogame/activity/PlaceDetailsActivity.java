@@ -10,14 +10,8 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.fragment.HeatDialogMapFragment;
 import com.doglandia.geogame.fragment.PlaceDetailsFragment;
 import com.doglandia.geogame.model.Place;
-import com.doglandia.geogame.model.PlaceDetails;
-import com.doglandia.geogame.server.Server;
 
 import org.parceler.Parcels;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class PlaceDetailsActivity extends AppCompatActivity implements OnHeatMapClickedListener, View.OnClickListener{
 
@@ -32,6 +26,11 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnHeatMap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if(getResources().getBoolean(R.bool.show_two_pane_layout)){
+            finish();
+            return;
+        }
+
         Place place = Parcels.unwrap(getIntent().getParcelableExtra("place"));
 
         setContentView(R.layout.place_details_activity);
@@ -40,16 +39,14 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnHeatMap
 
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        toolbar.setTitle(place.getCity());
+//        toolbar.setTitle(place.getCity());
         toolbar.setNavigationOnClickListener(this);
         toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
         placeDetailsFragment = (PlaceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.place_etails_fragment);
 
-
         placeDetailsFragment.getPlaceDetails(place);
     }
-
 
     @Override
     public boolean onHeatMapClicked() {
@@ -73,4 +70,5 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnHeatMap
 //        }
         onBackPressed();
     }
+
 }

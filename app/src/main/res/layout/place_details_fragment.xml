@@ -2,7 +2,8 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/white">
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -47,7 +48,11 @@
                     android:padding="8dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
-                    android:textColor="#FFF"/>
+                    android:textColor="#FFF"
+                    android:shadowColor="@color/text_shadow"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="2"/>
             </RelativeLayout>
 
             <TextView

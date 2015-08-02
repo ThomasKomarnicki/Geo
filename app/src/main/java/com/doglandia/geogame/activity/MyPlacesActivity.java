@@ -1,7 +1,6 @@
 package com.doglandia.geogame.activity;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -14,6 +13,7 @@ import android.widget.ProgressBar;
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
+import com.doglandia.geogame.fragment.HeatDialogMapFragment;
 import com.doglandia.geogame.fragment.MyPlacesFragment;
 import com.doglandia.geogame.fragment.PlaceDetailsFragment;
 import com.doglandia.geogame.fragment.error.NoPlacesFragment;
@@ -33,6 +33,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
     private static final String CURRENTLY_SELECTED_PLACE ="currently_selected_place";
     private static final String PLACES = "places";
+    private static final String TAG = "MyPlacesActivity";
 
     boolean showTwoPane = false;
 
@@ -75,12 +76,13 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
         }
 
         if(places == null) {
+            Log.d(TAG,"places == null, fetching data");
             Server.getInstance().getUserLocations(UserAuth.getAuthUserId(), new Callback<ArrayList<Place>>() {
                 @Override
                 public void success(ArrayList<Place> places, Response response) {
-
                     if (places == null || places.size() == 0) {
                         showNoPlacesMessage();
+                        MyPlacesActivity.this.places = new ArrayList<>();
                     } else if (places != null) {
                         Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
                         for(Place place : places){
@@ -92,6 +94,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
                         myPlacesFragment.showPlacesList(places);
                         if(showTwoPane) {
                             myPlacesFragment.onPlaceClick(places.get(0), 0);
+                            myPlacesFragment.highlightSelected();
                         }
                     }
                 }
@@ -102,6 +105,19 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
                     // TODO show could not connect to server
                 }
             });
+        }else{
+            if (places.size() == 0) {
+                showNoPlacesMessage();
+            } else if (places != null) {
+                progressBar.setVisibility(View.GONE);
+                MyPlacesActivity.this.places = places;
+//                Log.d(getLocalClassName(), "got " + places.size() + " places");
+                myPlacesFragment.showPlacesList(places);
+                if(showTwoPane) {
+                    myPlacesFragment.onPlaceClick(places.get(currentlySelectedPlace), currentlySelectedPlace);
+                    myPlacesFragment.highlightSelected();
+                }
+            }
         }
     }
 
@@ -131,18 +147,23 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
     @Override
     public boolean onHeatMapClicked() {
+        Log.d(TAG,"my places heat map clicked");
+        HeatDialogMapFragment heatDialogMapFragment = new HeatDialogMapFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.heat_map_holder,heatDialogMapFragment,"heat_dialog_map_fragment")
+                .addToBackStack("heat_dialog_map_fragment")
+                .commit();
+
         return false;
     }
 
+
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(CURRENTLY_SELECTED_PLACE,currentlySelectedPlace);
         outState.putParcelable(PLACES, Parcels.wrap(places));
-
-//        if(placeDetailsFragment != null){
-//            getSupportFragmentManager().beginTransaction().remove(placeDetailsFragment).commit();
-//        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -152,5 +173,13 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
             currentlySelectedPlace = savedInstanceState.getInt(CURRENTLY_SELECTED_PLACE,-1);
             places = Parcels.unwrap(savedInstanceState.getParcelable(PLACES));
         }
+    }
+
+    private void setHeatMapToolbar(){
+        // todo
+    }
+
+    private void setNavDrawerToolbar(){
+        // todo
     }
 }

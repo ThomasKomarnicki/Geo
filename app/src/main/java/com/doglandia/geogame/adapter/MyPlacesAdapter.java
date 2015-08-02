@@ -23,7 +23,9 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
 
     private OnPlaceClickListener listener;
 
-    private View selectedView;
+//    private View selectedView;
+
+    private int selectedIndex = -1;
 
     private int backgroundResourceId;
 
@@ -55,20 +57,26 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
             holder.cityTv.setText(place.getCity());
         }
         holder.countryTv.setText(place.getCountry());
+        if(selectedIndex == position){
+            holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.primary_dark));
+        }else{
+            holder.itemView.setBackgroundResource(backgroundResourceId);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(view == selectedView && highlightSelected){
+                if(position == selectedIndex && highlightSelected){
                     return; // do nothing
                 }
 
                 if(highlightSelected) {
 
-                    if (selectedView != null) { // first runm
-                        selectedView.setBackgroundResource(backgroundResourceId);
-                    }
-                    selectedView = view;
-                    selectedView.setBackgroundColor(view.getContext().getResources().getColor(R.color.primary_dark));
+                    int oldSelected = selectedIndex;
+                    selectedIndex = position;
+                    view.setBackgroundColor(view.getContext().getResources().getColor(R.color.primary_dark));
+
+                    MyPlacesAdapter.this.notifyItemChanged(oldSelected);
                 }
 
                 if(listener != null){
@@ -79,6 +87,12 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
         });
     }
 
+    public void setSelectedIndex(int selectedIndex) {
+        int lastSelected = this.selectedIndex;
+        this.selectedIndex = selectedIndex;
+//        notifyItemChanged(lastSelected);
+//        notifyItemChanged(this.selectedIndex);
+    }
 
     @Override
     public int getItemCount() {

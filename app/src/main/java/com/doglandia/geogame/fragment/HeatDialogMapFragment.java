@@ -47,13 +47,15 @@ public class HeatDialogMapFragment extends Fragment {
             getChildFragmentManager().beginTransaction().replace(heatMapHolder.getId(), heatMapFragment).commit();
         }
 
-       PlaceDetailsFragment placeDetailsFragment = (PlaceDetailsFragment) getFragmentManager().findFragmentByTag("place_details_fragment");
-        placeDetailsFragment.setOnPlaceDetailsLoadedListener(new PlaceDetailsFragment.OnPlaceDetailsLoadedListener() {
-            @Override
-            public void onPlaceDetailsLoaded(PlaceDetails placeDetails) {
-                Log.d("HeatDialogMapFragment","on Place details loaded");
-                heatMapFragment.showHeat(placeDetails);
-            }
-        });
+        PlaceDetailsFragment placeDetailsFragment = (PlaceDetailsFragment) getFragmentManager().findFragmentByTag("place_details_fragment");
+        if(placeDetailsFragment != null) {
+            placeDetailsFragment.setOnPlaceDetailsLoadedListener(new PlaceDetailsFragment.OnPlaceDetailsLoadedListener() {
+                @Override
+                public void onPlaceDetailsLoaded(PlaceDetails placeDetails) {
+                    Log.d("HeatDialogMapFragment", "on Place details loaded");
+                    heatMapFragment.showHeat(placeDetails);
+                }
+            });
+        }
     }
 }

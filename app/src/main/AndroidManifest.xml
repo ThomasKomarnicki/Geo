@@ -26,7 +26,7 @@
         <activity android:name=".activity.PlacesListActivity"/>
         <activity android:name=".activity.RecentLocationsActivity"/>
         <activity android:name=".activity.MyPlacesActivity"/>
-        <activity android:name=".activity.PlaceDetailsActivity" android:theme="@style/TransparentToolbarTheme"/>
+        <activity android:name=".activity.PlaceDetailsActivity" />
         <activity android:name=".activity.DiscoverActivity"/>
         <activity
             android:name=".activity.AuthActivity"
