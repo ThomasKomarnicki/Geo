@@ -1,18 +1,20 @@
 package com.doglandia.geogame.map;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.OnHeatMapClickedListener;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.TileOverlay;
-import com.google.android.gms.maps.model.TileOverlayOptions;
-import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by Thomas on 6/15/2015.
@@ -40,7 +42,7 @@ public class PlaceHeatMapFragment extends SupportMapFragment {
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                ((OnHeatMapClickedListener)getActivity()).onHeatMapClicked();
+                ((OnHeatMapClickedListener) getActivity()).onHeatMapClicked();
             }
         });
         Log.d(getTag(), "configMapSettings showHeat");
@@ -57,14 +59,32 @@ public class PlaceHeatMapFragment extends SupportMapFragment {
         }
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(this.placeDetails.getPlace().getLatLng()));
-
+        int overlayRadius = (int) (getResources().getDisplayMetrics().density * 200);
         if(this.placeDetails.getLocationGuesses() != null && !this.placeDetails.getLocationGuesses().isEmpty()) {
-            HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
-            builder.data(this.placeDetails.getLocationGuesses());
+//            HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
+//            builder.data(this.placeDetails.getLocationGuesses());
+//
+//            HeatmapTileProvider heatmapTileProvider = builder.build();
+//            googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatmapTileProvider).fadeIn(true));
+            int size = (int) (getResources().getDisplayMetrics().density * 10);
+            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.map_circle);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, size, size, false);
+            bitmap.recycle();
 
-            HeatmapTileProvider heatmapTileProvider = builder.build();
-            googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatmapTileProvider).fadeIn(true));
-            Log.d("PlaceHeatMapFragment", "added heat tiles");
+            for(LatLng latLng : placeDetails.getLocationGuesses()) {
+//                googleMap.addCircle(new CircleOptions().center(latLng).radius(4000).fillColor(Color.BLACK).visible(true).zIndex(10));
+//                googleMap.addGroundOverlay(new GroundOverlayOptions().position(latLng, 4000).visible(true).zIndex(10).image(BitmapDescriptorFactory.defaultMarker()));
+                googleMap.addMarker(new MarkerOptions().position(latLng).visible(true).icon(BitmapDescriptorFactory.fromBitmap(scaledBitmap)));
+                Log.d("PlaceHeatMapFragment", "added heat tile");
+            }
+            googleMap.setOnMarkerClickListener(null);
+
+        }
+    }
+
+    public void clearHeat() {
+        if(googleMap != null) {
+            googleMap.clear();
         }
     }
 }

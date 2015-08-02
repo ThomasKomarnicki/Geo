@@ -52,6 +52,9 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
 
     @Override
     public void onPlaceClick(Place place, int position) {
+        if(getActivity() == null){
+            return;
+        }
         if(getResources().getBoolean(R.bool.show_two_pane_layout)) {
             MyPlacesAdapter myPlacesAdapter = (MyPlacesAdapter) recyclerView.getAdapter();
             myPlacesAdapter.setSelectedIndex(position);
@@ -62,7 +65,9 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
 
     public void highlightSelected(){
         MyPlacesAdapter myPlacesAdapter = (MyPlacesAdapter) recyclerView.getAdapter();
-        myPlacesAdapter.notifyDataSetChanged();
+        if(myPlacesAdapter != null) {
+            myPlacesAdapter.notifyDataSetChanged();
+        }
     }
 
     private boolean shouldHighlight(){

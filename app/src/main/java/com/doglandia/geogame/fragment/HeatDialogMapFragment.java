@@ -11,15 +11,21 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.map.PlaceHeatMapFragment;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.google.android.gms.maps.GoogleMap;
 
+/**
+ * outer container fragment for place heat map fragment
+ */
 public class HeatDialogMapFragment extends Fragment {
 
     private FrameLayout heatMapHolder;
 
     private PlaceHeatMapFragment heatMapFragment;
+
+
 
     @Nullable
     @Override
@@ -47,15 +53,24 @@ public class HeatDialogMapFragment extends Fragment {
             getChildFragmentManager().beginTransaction().replace(heatMapHolder.getId(), heatMapFragment).commit();
         }
 
+
         PlaceDetailsFragment placeDetailsFragment = (PlaceDetailsFragment) getFragmentManager().findFragmentByTag("place_details_fragment");
+        if(placeDetailsFragment == null){ // should only be null if parent activity is my places activity
+            placeDetailsFragment = ((MyPlacesActivity)getActivity()).getPlaceDetailsFragment();
+        }
         if(placeDetailsFragment != null) {
-            placeDetailsFragment.setOnPlaceDetailsLoadedListener(new PlaceDetailsFragment.OnPlaceDetailsLoadedListener() {
-                @Override
-                public void onPlaceDetailsLoaded(PlaceDetails placeDetails) {
-                    Log.d("HeatDialogMapFragment", "on Place details loaded");
-                    heatMapFragment.showHeat(placeDetails);
-                }
-            });
+            PlaceDetails placeDetails = placeDetailsFragment.getPlaceDetailsObject();
+            if(placeDetails != null){
+                heatMapFragment.showHeat(placeDetails);
+            }else {
+                placeDetailsFragment.setOnPlaceDetailsLoadedListener(new PlaceDetailsFragment.OnPlaceDetailsLoadedListener() {
+                    @Override
+                    public void onPlaceDetailsLoaded(PlaceDetails placeDetails) {
+                        Log.d("HeatDialogMapFragment", "on Place details loaded");
+                        heatMapFragment.showHeat(placeDetails);
+                    }
+                });
+            }
         }
     }
 }

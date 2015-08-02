@@ -8,6 +8,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaceDetailsTypeAdapter extends TypeAdapter<PlaceDetails> {
     @Override
@@ -18,25 +20,53 @@ public class PlaceDetailsTypeAdapter extends TypeAdapter<PlaceDetails> {
     @Override
     public PlaceDetails read(JsonReader in) throws IOException {
         PlaceDetails placeDetails = new PlaceDetails();
-        // TODO not needed
-
-        Place place = new Place();
-        double lat = 0;
-        double lon = 0;
 
         in.beginObject();
 
         while(in.hasNext()){
             switch (in.nextName()){
-                case "id":
-                    place.setId(in.nextInt());
+                case "average_distance":
+                    placeDetails.setAverageDistance((int) in.nextDouble());
                     break;
-                case "user":
-                    place.setUserId(in.nextInt());
+                case "best_distance":
+                    placeDetails.setBestDistance(in.nextInt());
                     break;
-                case "lat":
-                    lat = in.nextDouble();
+                case "place":
+//                    in.beginObject();
+                    Place place = new PlaceTypeAdapter().read(in);
+                    placeDetails.setPlace(place);
+//                    in.endObject();
+                    break;
+                case "location_guesses":
+                    List<LatLng> guesses = new ArrayList<>();
 
+                    in.beginArray();
+                    while(in.hasNext()){
+                        in.beginObject();
+                        double lat = 0;
+                        double lon = 0;
+                        while (in.hasNext()){
+                            switch (in.nextName()){
+                                case "lat":
+                                    lat = in.nextDouble();
+                                    break;
+                                case "lon":
+                                    lon = in.nextDouble();
+                                    break;
+                                default:
+                                    in.skipValue();
+                                    break;
+                            }
+                        }
+                        guesses.add(new LatLng(lat,lon));
+                        in.endObject();
+                    }
+
+
+                    in.endArray();
+
+                    placeDetails.setLocationGuesses(guesses);
+                    break;
             }
         }
 

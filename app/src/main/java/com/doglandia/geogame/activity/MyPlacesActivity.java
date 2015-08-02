@@ -5,6 +5,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +19,7 @@ import com.doglandia.geogame.fragment.MyPlacesFragment;
 import com.doglandia.geogame.fragment.PlaceDetailsFragment;
 import com.doglandia.geogame.fragment.error.NoPlacesFragment;
 import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.server.GeoCodeTask;
 import com.doglandia.geogame.server.Server;
 
 import org.parceler.Parcels;
@@ -36,12 +38,13 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
     private static final String TAG = "MyPlacesActivity";
 
     boolean showTwoPane = false;
+    private boolean showingHeatMap = false;
 
     private PlaceDetailsFragment placeDetailsFragment;
 
     private MyPlacesFragment myPlacesFragment;
 
-    private int currentlySelectedPlace = -1;
+    private int currentlySelectedPlace = 0;
 
     private ArrayList<Place> places;
 
@@ -58,8 +61,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
         contentHolder = (FrameLayout) findViewById(R.id.my_places_content);
         progressBar = (ProgressBar) findViewById(R.id.my_places_progress);
 
-        new NavigationAdapter(this);
-        NavigationAdapter.setUpNavDrawerActivity(this,"My Places");
+        setNavDrawerToolbar();
 
         showTwoPane = getResources().getBoolean(R.bool.show_two_pane_layout);
 
@@ -79,23 +81,33 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
             Log.d(TAG,"places == null, fetching data");
             Server.getInstance().getUserLocations(UserAuth.getAuthUserId(), new Callback<ArrayList<Place>>() {
                 @Override
-                public void success(ArrayList<Place> places, Response response) {
-                    if (places == null || places.size() == 0) {
+                public void success(ArrayList<Place> retrievedPlaces, Response response) {
+
+                    if (retrievedPlaces == null || retrievedPlaces.size() == 0) {
                         showNoPlacesMessage();
                         MyPlacesActivity.this.places = new ArrayList<>();
-                    } else if (places != null) {
-                        Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
-                        for(Place place : places){
-                            place.geocode(geocoder);
-                        }
-                        progressBar.setVisibility(View.GONE);
-                        MyPlacesActivity.this.places = places;
-                        Log.d(getLocalClassName(), "got " + places.size() + " places");
-                        myPlacesFragment.showPlacesList(places);
-                        if(showTwoPane) {
-                            myPlacesFragment.onPlaceClick(places.get(0), 0);
-                            myPlacesFragment.highlightSelected();
-                        }
+                    } else if (retrievedPlaces != null) {
+//                        Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
+//                        for(Place place : places){
+//                            place.geocode(geocoder);
+//                        }
+
+                        MyPlacesActivity.this.places = retrievedPlaces;
+                        GeoCodeTask geoCodeTask = new GeoCodeTask(MyPlacesActivity.this){
+                            @Override
+                            protected void onPostExecute(Void aVoid) {
+                                super.onPostExecute(aVoid);
+                                progressBar.setVisibility(View.GONE);
+
+                                Log.d(getLocalClassName(), "got " + places.size() + " places");
+                                myPlacesFragment.showPlacesList(places);
+                                if(showTwoPane) {
+                                    myPlacesFragment.onPlaceClick(places.get(0), 0);
+                                    myPlacesFragment.highlightSelected();
+                                }
+                            }
+                        };
+                        geoCodeTask.execute(MyPlacesActivity.this.places);
                     }
                 }
 
@@ -147,6 +159,8 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
     @Override
     public boolean onHeatMapClicked() {
+        setHeatMapToolbar();
+        showingHeatMap = true;
         Log.d(TAG,"my places heat map clicked");
         HeatDialogMapFragment heatDialogMapFragment = new HeatDialogMapFragment();
         getSupportFragmentManager()
@@ -177,9 +191,31 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
     private void setHeatMapToolbar(){
         // todo
+        Toolbar toolbar = (Toolbar) findViewById(R.id.recent_locations_toolbar);
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setTitle("Guessed Places");
     }
 
     private void setNavDrawerToolbar(){
-        // todo
+        new NavigationAdapter(this);
+        NavigationAdapter.setUpNavDrawerActivity(this,"My Places");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(showingHeatMap){
+            setNavDrawerToolbar();
+        }
+    }
+
+    public PlaceDetailsFragment getPlaceDetailsFragment() {
+        return placeDetailsFragment;
     }
 }

@@ -25,6 +25,13 @@
                 android:layout_height="250dp"
                 android:id="@+id/place_details_hero_container">
 
+                <!--<FrameLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:id="@+id/place_details_hero_fragment_container">-->
+
+                <!--</FrameLayout>-->
+
                 <fragment
                     xmlns:map="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"

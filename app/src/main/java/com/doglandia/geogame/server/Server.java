@@ -30,7 +30,7 @@ public class Server {
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(Place.class,new PlaceTypeAdapter())
                     .registerTypeAdapter(PlaceLocateResult.class,new LocateResultTypeAdapter())
-//                    .registerTypeAdapter(PlaceDetails.class, new PlaceDetailsTypeAdapter())
+                    .registerTypeAdapter(PlaceDetails.class, new PlaceDetailsTypeAdapter())
                     .registerTypeAdapter(LatLng.class, new LatLngTypeAdapter())
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create();

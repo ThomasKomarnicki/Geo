@@ -1,5 +1,6 @@
 package com.doglandia.geogame.fragment;
 
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.server.Server;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -88,6 +90,9 @@ public class PlaceDetailsFragment extends Fragment {
 
         if(getResources().getBoolean(R.bool.show_two_pane_layout)){
             height = height/2;
+        }else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            //phone landscape
+            height = height/2;
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
         heroContainer.setLayoutParams(params);
@@ -107,9 +112,15 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d("PlaceDetailsFragment","onActivityCreated");
+        Log.d("PlaceDetailsFragment", "onActivityCreated");
 
         headerLiteMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.place_details_lite_map);
+//        GoogleMapOptions options = new GoogleMapOptions()
+//                .mapType(GoogleMap.MAP_TYPE_SATELLITE)
+//                .liteMode(true);
+
+//        headerLiteMapFragment = SupportMapFragment.newInstance(options);
+//        getChildFragmentManager().beginTransaction().replace(R.id.place_details_hero_fragment_container,headerLiteMapFragment).commit();
         headerLiteMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -119,7 +130,7 @@ public class PlaceDetailsFragment extends Fragment {
             }
         });
 
-        Log.d("PlaceDetailsFragment","Activity finished create");
+        Log.d("PlaceDetailsFragment", "Activity finished create");
 
 
     }
@@ -156,21 +167,28 @@ public class PlaceDetailsFragment extends Fragment {
             return;
         }
 
-        Log.d("PlaceDetailsFrag","succesfully initiated header google map");
+        Log.d("PlaceDetailsFrag", "succesfully initiated header google map");
 
-        headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(placeDetails.getPlace().getLatLng()));
-        headerGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-            @Override
-            public void onCameraChange(CameraPosition cameraPosition) {
-                Log.d("PlaceDetailsFrag","camera changed");
-                showView();
-            }
-        });
+        headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(placeDetails.getPlace().getLatLng(),17));
+
+//        headerGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+//            @Override
+//            public void onCameraChange(CameraPosition cameraPosition) {
+//                Log.d("PlaceDetailsFrag","camera changed");
+//                showView();
+//            }
+//        });
 
     }
 
     public void getPlaceDetails(Place place) {
         hideView();
+        if(headerGoogleMap != null) {
+            headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+        }
+        if(heatMapFragment != null){
+            heatMapFragment.clearHeat();
+        }
         Server.getInstance().getLocationDetails(place.getId(), new Callback<PlaceDetails>() {
             @Override
             public void success(PlaceDetails placeDetails, Response response) {
@@ -183,9 +201,13 @@ public class PlaceDetailsFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
-
+                error.printStackTrace();
             }
         });
+    }
+
+    public PlaceDetails getPlaceDetailsObject(){
+        return placeDetails;
     }
 
     private void showView(){
