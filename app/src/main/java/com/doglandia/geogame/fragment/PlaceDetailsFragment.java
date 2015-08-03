@@ -30,11 +30,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 
+import org.parceler.Parcels;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class PlaceDetailsFragment extends Fragment {
+
+    private static final String PLACE_DETAILS = "place_details";
 
     private TextView cityTv;
     private TextView countryTv;
@@ -112,6 +116,7 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setRetainInstance(true);
         Log.d("PlaceDetailsFragment", "onActivityCreated");
 
         headerLiteMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.place_details_lite_map);
@@ -133,6 +138,10 @@ public class PlaceDetailsFragment extends Fragment {
         Log.d("PlaceDetailsFragment", "Activity finished create");
 
 
+        if(savedInstanceState != null && savedInstanceState.containsKey(PLACE_DETAILS)){
+            placeDetails = Parcels.unwrap(savedInstanceState.getParcelable(PLACE_DETAILS));
+            showPlaceDetails(placeDetails);
+        }
     }
 
     public void showPlaceDetails(PlaceDetails placeDetails){
@@ -218,5 +227,11 @@ public class PlaceDetailsFragment extends Fragment {
     private void hideView(){
         progressBar.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(PLACE_DETAILS, Parcels.wrap(placeDetails));
+        super.onSaveInstanceState(outState);
     }
 }
