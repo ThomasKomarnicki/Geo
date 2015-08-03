@@ -63,9 +63,13 @@ public class DiscoverActivity extends AppCompatActivity {
     }
 
     public void onMapLocationClicked(LatLng latLng){
-        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
+        getSupportFragmentManager().beginTransaction()
+                .show(discoverStreetViewFragment)
+                .addToBackStack("discover_street_view_fragment")
+                .setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom,R.anim.abc_shrink_fade_out_from_bottom)
+                .commit();
         Log.d(this.getLocalClassName(), "on map location clicked " + latLng);
-        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
+//        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
         discoverStreetViewFragment.setLocation(latLng);
     }
 
