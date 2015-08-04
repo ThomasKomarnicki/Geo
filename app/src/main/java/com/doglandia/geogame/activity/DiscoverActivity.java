@@ -63,13 +63,13 @@ public class DiscoverActivity extends AppCompatActivity {
     }
 
     public void onMapLocationClicked(LatLng latLng){
-        getSupportFragmentManager().beginTransaction()
-                .show(discoverStreetViewFragment)
-                .addToBackStack("discover_street_view_fragment")
-                .setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom,R.anim.abc_shrink_fade_out_from_bottom)
-                .commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .show(discoverStreetViewFragment)
+//                .addToBackStack("discover_street_view_fragment")
+//                .setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom,R.anim.abc_shrink_fade_out_from_bottom)
+//                .commit();
         Log.d(this.getLocalClassName(), "on map location clicked " + latLng);
-//        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
+        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
         discoverStreetViewFragment.setLocation(latLng);
     }
 
@@ -90,7 +90,12 @@ public class DiscoverActivity extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-        getSupportFragmentManager().popBackStack();
+//        getSupportFragmentManager().popBackStack();
+//        getSupportFragmentManager().beginTransaction()
+//                .setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom, R.anim.abc_shrink_fade_out_from_bottom)
+//                .remove(discoverStreetViewFragment)
+//                .commit();
+        hideStreetViewFragment();
         NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
 
         discoverMapFragment.resetMapZoom();
@@ -114,7 +119,8 @@ public class DiscoverActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().popBackStack();
+//                getSupportFragmentManager().popBackStack();
+                onBackPressed();
                 NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
             }
         });
