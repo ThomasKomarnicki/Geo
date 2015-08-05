@@ -6,51 +6,57 @@
     android:layout_width="match_parent">
 
 
-    <LinearLayout
-
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:id="@+id/discover_activity_coordinator">
 
-        <android.support.design.widget.AppBarLayout
+        <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recent_locations_toolbar"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                android:layout_height="wrap_content">
 
-        </android.support.design.widget.AppBarLayout>
+                <android.support.v7.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recent_locations_toolbar"
+                    app:layout_scrollFlags="scroll|enterAlways"/>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.doglandia.geogame.map.DiscoverMapFragment"
-                android:id="@+id/discover_map_framgnet"
-                app:mapType="hybrid"/>
+            </android.support.design.widget.AppBarLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/discover_street_view_holder">
+                android:layout_height="match_parent">
 
                 <fragment
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:name="com.doglandia.geogame.map.DiscoverStreetViewFragment"
-                    android:id="@+id/discover_steet_view_fragment"/>
+                    android:name="com.doglandia.geogame.map.DiscoverMapFragment"
+                    android:id="@+id/discover_map_framgnet"
+                    app:mapType="hybrid"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/discover_street_view_holder">
+
+                    <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:name="com.doglandia.geogame.map.DiscoverStreetViewFragment"
+                        android:id="@+id/discover_steet_view_fragment"/>
 
 
+                </FrameLayout>
             </FrameLayout>
-        </FrameLayout>
 
-    </LinearLayout>
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 
     <android.support.design.widget.NavigationView

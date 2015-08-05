@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -83,6 +84,7 @@ public class DiscoverActivity extends AppCompatActivity {
             public void success(Place place, Response response) {
                 // TODO zoom out of location // reset map camera
                 // TODO limit places around previously selected places
+                Snackbar.make(DiscoverActivity.this.findViewById(R.id.discover_activity_coordinator),"Location Added",Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
