@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -70,7 +71,11 @@ public class DiscoverActivity extends AppCompatActivity {
 //                .setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom,R.anim.abc_shrink_fade_out_from_bottom)
 //                .commit();
         Log.d(this.getLocalClassName(), "on map location clicked " + latLng);
-        getSupportFragmentManager().beginTransaction().show(discoverStreetViewFragment).addToBackStack("discover_street_view_fragment").commit();
+//        getSupportFragmentManager().popBackStack("discover_street_view_fragment",0);
+        getSupportFragmentManager().beginTransaction()
+                .show(discoverStreetViewFragment)
+//                .addToBackStack("discover_street_view_fragment")
+                .commit();
         discoverStreetViewFragment.setLocation(latLng);
     }
 
@@ -99,8 +104,11 @@ public class DiscoverActivity extends AppCompatActivity {
 //                .commit();
         hideStreetViewFragment();
         NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        getSupportFragmentManager().popBackStack("discover_street_view_fragment",0);
         discoverMapFragment.resetMapZoom();
+
+//        super.onBackPressed(); // don't know why this is needed, maybe back stack isn't cleared?
     }
 
     public void onLocationChangeResult(StreetViewPanoramaLocation streetViewPanoramaLocation){
