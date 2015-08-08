@@ -15,6 +15,7 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by Thomas on 6/7/2015.
@@ -34,10 +35,10 @@ public interface ServerInterface {
     void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);
 
     @GET("/users/{user_id}/locationGuesses/")
-    void getUserLocationGuesses(@Path("user_id")Integer userId, Callback<List<PlaceLocateResult>> callback);
+    void getUserLocationGuesses(@Path("user_id")Integer userId,  @Query("page")Integer page, Callback<List<PlaceLocateResult>> callback);
 
     @GET("/users/{user_id}/locations/")
-    void getUserLocations(@Path("user_id")Integer userId,Callback<ArrayList<Place>> callback);
+    void getUserLocations(@Path("user_id")Integer userId, @Query("page")Integer page,Callback<ArrayList<Place>> callback);
 
     @POST("/locations/")
     void addUserLocation(@Body Place place, Callback<Place> callback);

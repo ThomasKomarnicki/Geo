@@ -64,7 +64,7 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
     }
 
     private void getRecentLocations(){
-        Server.getInstance().getUserLocationGuesses(UserAuth.getAuthUserId(), new Callback<List<PlaceLocateResult>>() {
+        Server.getInstance().getUserLocationGuesses(UserAuth.getAuthUserId(),1, new Callback<List<PlaceLocateResult>>() {
             @Override
             public void success(List<PlaceLocateResult> placeLocateResults, Response response) {
                 if(placeLocateResults == null || placeLocateResults.size() == 0){

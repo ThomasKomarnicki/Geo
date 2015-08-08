@@ -78,45 +78,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
         }
 
         if(places == null) {
-            Log.d(TAG,"places == null, fetching data");
-            Server.getInstance().getUserLocations(UserAuth.getAuthUserId(), new Callback<ArrayList<Place>>() {
-                @Override
-                public void success(ArrayList<Place> retrievedPlaces, Response response) {
-
-                    if (retrievedPlaces == null || retrievedPlaces.size() == 0) {
-                        showNoPlacesMessage();
-                        MyPlacesActivity.this.places = new ArrayList<>();
-                    } else if (retrievedPlaces != null) {
-//                        Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
-//                        for(Place place : places){
-//                            place.geocode(geocoder);
-//                        }
-
-                        MyPlacesActivity.this.places = retrievedPlaces;
-                        GeoCodeTask geoCodeTask = new GeoCodeTask(MyPlacesActivity.this){
-                            @Override
-                            protected void onPostExecute(Void aVoid) {
-                                super.onPostExecute(aVoid);
-                                progressBar.setVisibility(View.GONE);
-
-                                Log.d(getLocalClassName(), "got " + places.size() + " places");
-                                myPlacesFragment.showPlacesList(places);
-                                if(showTwoPane) {
-                                    myPlacesFragment.onPlaceClick(places.get(0), 0);
-                                    myPlacesFragment.highlightSelected();
-                                }
-                            }
-                        };
-                        geoCodeTask.execute(MyPlacesActivity.this.places);
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    progressBar.setVisibility(View.GONE);
-                    // TODO show could not connect to server
-                }
-            });
+            getPlacesFromServer(1);
         }else{
             if (places.size() == 0) {
                 showNoPlacesMessage();
@@ -131,6 +93,56 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
                 }
             }
         }
+    }
+
+    public void getPlacesFromServer(int page){
+        Log.d(TAG,"places == null, fetching data");
+        Server.getInstance().getUserLocations(UserAuth.getAuthUserId(),page, new Callback<ArrayList<Place>>() {
+            @Override
+            public void success(ArrayList<Place> retrievedPlaces, Response response) {
+
+                if (retrievedPlaces == null || retrievedPlaces.size() == 0) {
+                    showNoPlacesMessage();
+                    MyPlacesActivity.this.places = new ArrayList<>();
+                } else if (retrievedPlaces != null) {
+//                        Geocoder geocoder = new Geocoder(MyPlacesActivity.this, Locale.getDefault());
+//                        for(Place place : places){
+//                            place.geocode(geocoder);
+//                        }
+
+                    if(places == null) {
+                        places = retrievedPlaces;
+                    }else{
+                        places.addAll(retrievedPlaces);
+                    }
+                    GeoCodeTask geoCodeTask = new GeoCodeTask(MyPlacesActivity.this){
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            progressBar.setVisibility(View.GONE);
+
+                            Log.d(getLocalClassName(), "got " + places.size() + " places");
+                            myPlacesFragment.showPlacesList(places);
+                            if(showTwoPane) {
+                                myPlacesFragment.onPlaceClick(places.get(0), 0);
+                                myPlacesFragment.highlightSelected();
+                            }
+                        }
+                    };
+                    geoCodeTask.execute(retrievedPlaces);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                progressBar.setVisibility(View.GONE);
+
+
+                if(places == null){
+                    // TODO show could not connect to server
+                }
+            }
+        });
     }
 
     private void showNoPlacesMessage(){

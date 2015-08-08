@@ -13,12 +13,16 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.adapter.MyPlacesAdapter;
 import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.util.BottomScrollListener;
 
 import java.util.List;
 
 public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlaceClickListener {
 
     private RecyclerView recyclerView;
+
+    private BottomScrollListener bottomScrollListener;
+    int page = 1;
 
     @Nullable
     @Override
@@ -35,6 +39,14 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        bottomScrollListener = new BottomScrollListener(recyclerView, new BottomScrollListener.OnBottomScrolledListener() {
+            @Override
+            public void onBottomScrolled() {
+                page++;
+                ((MyPlacesActivity)getActivity()).getPlacesFromServer(page);
+            }
+        });
+
 //        int userId = getArguments().getInt("user_id",0);
     }
 
@@ -44,9 +56,14 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
 
     private void initAdapter(List<Place> places) {
         if(getActivity() != null) {
-            MyPlacesAdapter adapter = new MyPlacesAdapter(places, getActivity(), shouldHighlight());
-            adapter.setListener(MyPlacesFragment.this);
-            recyclerView.setAdapter(adapter);
+            if(recyclerView.getAdapter() == null) {
+                MyPlacesAdapter adapter = new MyPlacesAdapter(places, getActivity(), shouldHighlight());
+                adapter.setListener(MyPlacesFragment.this);
+                recyclerView.setAdapter(adapter);
+            }else{
+                MyPlacesAdapter myPlacesAdapter = (MyPlacesAdapter) recyclerView.getAdapter();
+                myPlacesAdapter.notifyDataSetChanged();
+            }
         }
     }
 

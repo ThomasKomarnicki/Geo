@@ -17,6 +17,7 @@ import java.util.Random;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public class LocalMockServer implements ServerInterface {
 
@@ -110,12 +111,12 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void getUserLocationGuesses(@Path("user_id") Integer userId, Callback<List<PlaceLocateResult>> callback) {
+    public void getUserLocationGuesses(@Path("user_id") Integer userId, Integer page, Callback<List<PlaceLocateResult>> callback) {
         callback.success(placeLocateResults,null);
     }
 
     @Override
-    public void getUserLocations(@Path("user_id") Integer userId, Callback<ArrayList<Place>> callback) {
+    public void getUserLocations(@Path("user_id") Integer userId, Integer page, Callback<ArrayList<Place>> callback) {
         callback.success(places,null);
 //        callback.success(new ArrayList<Place>(),null);
     }
