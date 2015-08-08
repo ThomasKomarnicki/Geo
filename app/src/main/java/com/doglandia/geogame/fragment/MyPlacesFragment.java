@@ -63,6 +63,7 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
             }else{
                 MyPlacesAdapter myPlacesAdapter = (MyPlacesAdapter) recyclerView.getAdapter();
                 myPlacesAdapter.notifyDataSetChanged();
+                bottomScrollListener.onNewPageLoaded();
             }
         }
     }

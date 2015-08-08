@@ -12,7 +12,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.doglandia.geogame.R;
-import com.doglandia.geogame.activity.PlaceLocateActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;

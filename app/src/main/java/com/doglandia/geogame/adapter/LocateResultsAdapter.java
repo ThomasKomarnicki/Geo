@@ -92,4 +92,10 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
 
         }
     }
+
+    public void addPage(List<PlaceLocateResult> placeLocateResults) {
+        this.placeLocateResults.addAll(placeLocateResults);
+        notifyDataSetChanged();
+    }
+
 }

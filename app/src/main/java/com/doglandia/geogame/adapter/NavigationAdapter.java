@@ -12,7 +12,6 @@ import android.view.View;
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.DiscoverActivity;
 import com.doglandia.geogame.activity.MyPlacesActivity;
-import com.doglandia.geogame.activity.PlaceLocateActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
 

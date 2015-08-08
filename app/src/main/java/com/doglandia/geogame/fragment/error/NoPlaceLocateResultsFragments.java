@@ -3,7 +3,6 @@ package com.doglandia.geogame.fragment.error;
 import android.content.Intent;
 import android.view.View;
 
-import com.doglandia.geogame.activity.PlaceLocateActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 
 public class NoPlaceLocateResultsFragments extends NoDataFragment {

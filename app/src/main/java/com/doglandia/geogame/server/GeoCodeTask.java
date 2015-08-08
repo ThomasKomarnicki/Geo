@@ -24,3 +24,4 @@ public class GeoCodeTask extends AsyncTask<List<Place>,Void,Void> {
     }
 
 }
+

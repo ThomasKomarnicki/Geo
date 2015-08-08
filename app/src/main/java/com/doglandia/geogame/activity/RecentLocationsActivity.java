@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -11,6 +12,10 @@ import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
+import com.doglandia.geogame.model.Place;
+import com.doglandia.geogame.server.GeoCodeRecentLocationTask;
+import com.doglandia.geogame.server.GeoCodeTask;
+import com.doglandia.geogame.util.BottomScrollListener;
 import com.doglandia.geogame.util.Util;
 import com.doglandia.geogame.adapter.LocateResultsAdapter;
 import com.doglandia.geogame.adapter.NavigationAdapter;
@@ -18,6 +23,8 @@ import com.doglandia.geogame.fragment.error.NoPlaceLocateResultsFragments;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.server.Server;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -30,6 +37,8 @@ import retrofit.client.Response;
  */
 public class RecentLocationsActivity extends AppCompatActivity implements LocateResultsAdapter.LocateResultClickListener {
 
+    private static final String PLACE_LOCATE_RESULTS = "place_locate_results";
+
     private RecyclerView recyclerView;
 //    private Toolbar toolbar;
     private FrameLayout mapFragmentHolder;
@@ -38,6 +47,12 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
     private FrameLayout contentFrame;
     private LinearLayout recentLocationsHolder;
     private ProgressBar progressBar;
+
+    private int page = 1;
+
+    private BottomScrollListener bottomScrollListener;
+
+    private List<PlaceLocateResult> placeLocateResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,25 +73,63 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
         mapFragmentHolder = (FrameLayout) findViewById(R.id.recent_locations_map_holder);
         mapFragment = (PlaceLocateResultMapFragment) getSupportFragmentManager().findFragmentById(R.id.recent_locations_map);
 
-        NavigationAdapter.setUpNavDrawerActivity(this,"Recent Places");
+        NavigationAdapter.setUpNavDrawerActivity(this, "Recent Places");
 
-        getRecentLocations();
+        if(savedInstanceState != null && savedInstanceState.containsKey(PLACE_LOCATE_RESULTS)){
+            placeLocateResults = Parcels.unwrap(savedInstanceState.getParcelable(PLACE_LOCATE_RESULTS));
+        }
+
+        getRecentLocations(1);
+
+        bottomScrollListener = new BottomScrollListener(recyclerView, new BottomScrollListener.OnBottomScrolledListener() {
+            @Override
+            public void onBottomScrolled() {
+                page++;
+                getRecentLocations(page);
+            }
+        });
     }
 
-    private void getRecentLocations(){
-        Server.getInstance().getUserLocationGuesses(UserAuth.getAuthUserId(),1, new Callback<List<PlaceLocateResult>>() {
+    private void showContent(){
+        recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this, true));
+    }
+
+    private void getRecentLocations(final int page){
+        Server.getInstance().getUserLocationGuesses(UserAuth.getAuthUserId(),page, new Callback<List<PlaceLocateResult>>() {
             @Override
-            public void success(List<PlaceLocateResult> placeLocateResults, Response response) {
-                if(placeLocateResults == null || placeLocateResults.size() == 0){
+            public void success(final List<PlaceLocateResult> placeLocateResults, Response response) {
+                if(page == 1 && (placeLocateResults == null || placeLocateResults.size() == 0)){
                     getSupportFragmentManager().beginTransaction()
                             .add(contentFrame.getId(),new NoPlaceLocateResultsFragments(),"no_recent_locations_fragment")
                             .commit();
+                    progressBar.setVisibility(View.GONE);
                 }else {
-                    Util.GeoCodeLocationGuess(placeLocateResults, RecentLocationsActivity.this);
-                    recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this,true));
-                    recentLocationsHolder.setVisibility(View.VISIBLE);
+                    if(RecentLocationsActivity.this.placeLocateResults == null){
+                        RecentLocationsActivity.this.placeLocateResults = placeLocateResults;
+                    }else{
+                        RecentLocationsActivity.this.placeLocateResults.addAll(placeLocateResults);
+                    }
+
+                    GeoCodeRecentLocationTask geoCodeTask = new GeoCodeRecentLocationTask(RecentLocationsActivity.this) {
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            progressBar.setVisibility(View.GONE);
+
+                            if (recyclerView.getAdapter() == null) {
+//                                recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this, true));
+                                showContent();
+                            } else {
+                                LocateResultsAdapter locateResultsAdapter = (LocateResultsAdapter) recyclerView.getAdapter();
+                                locateResultsAdapter.notifyDataSetChanged();
+//                                locateResultsAdapter.addPage(placeLocateResults);
+                            }
+                            recentLocationsHolder.setVisibility(View.VISIBLE);
+
+                        }
+                    };
+                    geoCodeTask.execute(placeLocateResults);
                 }
-                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -94,5 +147,11 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
 
     private boolean shouldHighlight(){
         return getResources().getBoolean(R.bool.my_places_highlight_row);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(PLACE_LOCATE_RESULTS, Parcels.wrap(placeLocateResults));
+        super.onSaveInstanceState(outState);
     }
 }
