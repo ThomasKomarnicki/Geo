@@ -77,9 +77,10 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
 
         if(savedInstanceState != null && savedInstanceState.containsKey(PLACE_LOCATE_RESULTS)){
             placeLocateResults = Parcels.unwrap(savedInstanceState.getParcelable(PLACE_LOCATE_RESULTS));
+            showContent();
+        }else {
+            getRecentLocations(1);
         }
-
-        getRecentLocations(1);
 
         bottomScrollListener = new BottomScrollListener(recyclerView, new BottomScrollListener.OnBottomScrolledListener() {
             @Override
@@ -91,6 +92,8 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
     }
 
     private void showContent(){
+        progressBar.setVisibility(View.GONE);
+        recentLocationsHolder.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(new LocateResultsAdapter(placeLocateResults, RecentLocationsActivity.this, true));
     }
 

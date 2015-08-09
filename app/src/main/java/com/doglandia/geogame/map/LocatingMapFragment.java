@@ -76,12 +76,7 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
             @Override
             public void onClick(View v) {
                 animateFABOut();
-                if(getActivity().getClass().equals(PlaceLocateActivity.class)) {
-                    ((PlaceLocateActivity) getActivity()).onLocationSelected(selectedLocation);
-                }else{
-                    // TODO new ui activity
-                    ((PlaceLocateActivityNewUi) getActivity()).onLocationSelected(selectedLocation);
-                }
+                ((PlaceLocateActivityNewUi) getActivity()).onLocationSelected(selectedLocation);
             }
         });
 

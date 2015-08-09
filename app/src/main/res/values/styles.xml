@@ -24,4 +24,8 @@
         <item name="windowActionBarOverlay">true</item>
         <item name="android:windowActionBarOverlay">true</item>
     </style>
+
+    <style name="recent_locations_title_text_appearance" parent="TextAppearance.AppCompat.Display1">
+
+    </style>
 </resources>

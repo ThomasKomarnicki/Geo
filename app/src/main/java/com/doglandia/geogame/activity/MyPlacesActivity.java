@@ -101,7 +101,7 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
             @Override
             public void success(ArrayList<Place> retrievedPlaces, Response response) {
 
-                if (retrievedPlaces == null || retrievedPlaces.size() == 0) {
+                if (places == null && (retrievedPlaces == null || retrievedPlaces.size() == 0)) {
                     showNoPlacesMessage();
                     MyPlacesActivity.this.places = new ArrayList<>();
                 } else if (retrievedPlaces != null) {
