@@ -17,6 +17,7 @@ import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.HeatDialogMapFragment;
 import com.doglandia.geogame.fragment.MyPlacesFragment;
 import com.doglandia.geogame.fragment.PlaceDetailsFragment;
+import com.doglandia.geogame.fragment.error.ButtonLessNoDataFragment;
 import com.doglandia.geogame.fragment.error.NoPlacesFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.GeoCodeTask;
@@ -140,6 +141,9 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
 
                 if(places == null){
                     // TODO show could not connect to server
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.error_content, new ButtonLessNoDataFragment())
+                            .commit();
                 }
             }
         });

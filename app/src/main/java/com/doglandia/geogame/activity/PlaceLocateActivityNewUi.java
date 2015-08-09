@@ -73,8 +73,14 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
         new NavigationAdapter(this);
 
         placeLocateControllerFragment = (PlaceLocateControllerFragment) getSupportFragmentManager().findFragmentById(R.id.place_locate_controller);
+    }
 
-        showUserCurrentLocation();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(place == null){
+            showUserCurrentLocation();
+        }
     }
 
     @Override

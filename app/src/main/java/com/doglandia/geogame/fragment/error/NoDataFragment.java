@@ -13,9 +13,9 @@ import com.doglandia.geogame.R;
 
 public abstract class NoDataFragment extends Fragment implements View.OnClickListener{
 
-    private Button startNowButton;
+    protected Button startNowButton;
 
-    private TextView text;
+    protected TextView text;
 
     @Nullable
     @Override

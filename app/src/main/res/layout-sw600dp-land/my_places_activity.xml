@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:background="@android:color/white">
+                    android:background="@color/background_material_light">
 
                     <fragment
                         android:layout_width="0dp"
@@ -55,7 +55,7 @@
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@android:color/white">
+                            android:background="@color/background_material_light">
 
                             <fragment
                                 android:layout_width="match_parent"
@@ -82,6 +82,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/my_places_progress"
                     android:layout_gravity="center" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/error_content"></FrameLayout>
             </FrameLayout>
 
         </LinearLayout>

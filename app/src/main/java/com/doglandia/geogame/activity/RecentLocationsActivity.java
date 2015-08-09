@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
+import com.doglandia.geogame.fragment.error.ButtonLessNoDataFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.GeoCodeRecentLocationTask;
 import com.doglandia.geogame.server.GeoCodeTask;
@@ -139,6 +140,10 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
             public void failure(RetrofitError error) {
                 progressBar.setVisibility(View.GONE);
                 // TODO show could not connect to server, with retry button maybe?
+                recentLocationsHolder.setVisibility(View.VISIBLE);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.error_content, new ButtonLessNoDataFragment())
+                        .commit();
             }
         });
     }
@@ -154,7 +159,9 @@ public class RecentLocationsActivity extends AppCompatActivity implements Locate
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(PLACE_LOCATE_RESULTS, Parcels.wrap(placeLocateResults));
+        if(placeLocateResults != null) {
+            outState.putParcelable(PLACE_LOCATE_RESULTS, Parcels.wrap(placeLocateResults));
+        }
         super.onSaveInstanceState(outState);
     }
 }
