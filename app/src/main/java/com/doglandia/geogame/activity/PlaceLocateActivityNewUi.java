@@ -140,7 +140,7 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
         intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
 
-        Server.getInstance().postLocateResult(placeLocateResult, new Callback<Place>() {
+        Server.getInstance().postLocateResult(placeLocateResult, UserAuth.getAuthUserToken(), new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
                 PlaceLocateActivityNewUi.this.place = place;

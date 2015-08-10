@@ -84,7 +84,7 @@ public class DiscoverActivity extends AppCompatActivity {
         place.setLatLng(latLng);
         place.setUserId(UserAuth.getAuthUserId());
 
-        Server.getInstance().addUserLocation(place, new Callback<Place>() {
+        Server.getInstance().addUserLocation(place, UserAuth.getAuthUserToken(), new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
                 // TODO zoom out of location // reset map camera

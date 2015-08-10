@@ -29,7 +29,7 @@ public interface ServerInterface {
     void getCurrentLocation(Callback<Place> callback);
 
     @POST("/locationGuess/")
-    void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback);
+    void postLocateResult(@Body PlaceLocateResult placeLocateResult, @Query("auth_token") String authToken,Callback<Place> callback);
 
     @GET("/locations/{location_id}/details")
     void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);
@@ -41,7 +41,7 @@ public interface ServerInterface {
     void getUserLocations(@Path("user_id")Integer userId, @Query("page")Integer page,Callback<ArrayList<Place>> callback);
 
     @POST("/locations/")
-    void addUserLocation(@Body Place place, Callback<Place> callback);
+    void addUserLocation(@Body Place place, @Query("auth_token") String authToken, Callback<Place> callback);
 
     @POST("/users/google_auth/")
     void googleAuth(@Body Map<String,String> body, Callback<User> callback);

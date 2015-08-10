@@ -90,7 +90,7 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, Callback<Place> callback) {
+    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, String authToken, Callback<Place> callback) {
 
     }
 
@@ -122,7 +122,7 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void addUserLocation(@Body Place place, Callback<Place> callback) {
+    public void addUserLocation(@Body Place place, String authToken, Callback<Place> callback) {
 
     }
 

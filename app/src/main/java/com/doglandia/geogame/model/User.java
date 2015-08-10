@@ -12,6 +12,7 @@ public class User {
     int currentLocation;
     String googleAuthId;
     String otherIdentifier;
+    String authToken;
 
     public int getId() {
         return id;
@@ -39,5 +40,9 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getAuthToken() {
+        return authToken;
     }
 }

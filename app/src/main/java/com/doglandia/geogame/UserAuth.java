@@ -42,6 +42,10 @@ public class UserAuth {
         return authUser.getId();
     }
 
+    public static String getAuthUserToken(){
+        return authUser.getAuthToken();
+    }
+
     public static int getAuthUserCurrentLocation(){
         Log.d(TAG,"getting current location id = "+authUser.getCurrentLocationId());
         return authUser.getCurrentLocationId();
