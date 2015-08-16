@@ -237,7 +237,7 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void startPlaceLocateActivity(){
-        Intent intent = new Intent(this,PlaceLocateActivityNewUi.class);
+        Intent intent = new Intent(this,PlaceLocateBaseActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

@@ -24,6 +24,7 @@ public class Place {
     private String city;
     private String state;
     private String country;
+    private String dateAdded;
 
     public Place(){
 
@@ -98,5 +99,9 @@ public class Place {
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
     }
 }

@@ -50,6 +50,9 @@ public class PlaceTypeAdapter extends TypeAdapter<Place> {
                 case "lon":
                     lon = in.nextDouble();
                     break;
+                case "date_added":
+                    place.setDateAdded(in.nextString());
+                    break;
             }
         }
 
