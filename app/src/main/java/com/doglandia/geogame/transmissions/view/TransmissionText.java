@@ -1,5 +1,6 @@
 package com.doglandia.geogame.transmissions.view;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -9,7 +10,10 @@ import android.widget.TextView;
  */
 public class TransmissionText extends TextView {
 
+    private String messageToDisplay;
+    private int numCharsDisplayed = 0;
 
+    private ObjectAnimator objectAnimator;
 
     public TransmissionText(Context context) {
         super(context);
@@ -28,5 +32,25 @@ public class TransmissionText extends TextView {
 
     private void init(){
         setText("");
+
+    }
+
+    public void setMessageToDisplay(String message){
+        this.messageToDisplay = message;
+        objectAnimator = ObjectAnimator.ofInt(this,"numCharsDisplayed",0,numCharsDisplayed);
+    }
+
+    public void startTextAnimation(){
+        objectAnimator.start();
+    }
+
+    public void showFullText(){
+        stopTextAnimation();
+        setText(messageToDisplay);
+        invalidate();
+    }
+
+    public void stopTextAnimation(){
+
     }
 }
