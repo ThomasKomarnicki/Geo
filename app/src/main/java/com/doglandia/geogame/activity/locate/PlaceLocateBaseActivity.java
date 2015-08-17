@@ -1,4 +1,4 @@
-package com.doglandia.geogame.activity;
+package com.doglandia.geogame.activity.locate;
 
 import android.content.Intent;
 import android.location.Geocoder;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
+import com.doglandia.geogame.activity.LocatePlaceResultsActivity;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.PlaceLocateControllerFragment;
 import com.doglandia.geogame.model.Place;
@@ -70,7 +71,7 @@ public class PlaceLocateBaseActivity extends AppCompatActivity {
                 PlaceLocateBaseActivity.this.place = place;
 //                placeLocateControllerFragment.setPosition(place.getLatLng());
                 if(showOnCompletion){
-                    setNewPlace();
+                    placeLocateControllerFragment.setPosition(place.getLatLng());
                 }
 
             }

@@ -25,6 +25,8 @@ public class UserAuth {
     public static final String AUTH_STATE = "auth_state";
     public static final String GEO_SERVER_USER = "user";
 
+    private static final String IS_FIRST_RUN = "is_first_run";
+
     private static final String TAG = "UserAuth";
 
     private static User authUser;
@@ -102,7 +104,7 @@ public class UserAuth {
         Gson gson = getGson();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(GEO_SERVER_USER,gson.toJson(authUser));
+        editor.putString(GEO_SERVER_USER, gson.toJson(authUser));
         editor.commit();
     }
 
@@ -111,6 +113,17 @@ public class UserAuth {
                 .registerTypeAdapter(Place.class,new PlaceTypeAdapter())
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
+    }
+
+    public static boolean isFirstRun(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(IS_FIRST_RUN,false) != true;
+    }
+
+    public static void finishedFirstRun(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(IS_FIRST_RUN,true);
     }
 
 

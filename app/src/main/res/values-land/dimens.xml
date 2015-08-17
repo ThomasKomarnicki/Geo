@@ -2,4 +2,5 @@
 <resources>
 
     <dimen name="nav_drawer_margin_offset">-16dp</dimen>
+    <dimen name="console_width">350dp</dimen>
 </resources>

@@ -3,17 +3,13 @@ package com.doglandia.geogame.map;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.doglandia.geogame.R;
-import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
-import com.doglandia.geogame.activity.PlaceLocateBaseActivity;
+import com.doglandia.geogame.activity.locate.PlaceLocateBaseActivity;
 import com.doglandia.geogame.view.GuessHereInfoWindow;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;

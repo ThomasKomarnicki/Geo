@@ -1,7 +1,6 @@
 package com.doglandia.geogame.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.AsyncTask;
@@ -9,13 +8,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
+import com.doglandia.geogame.activity.locate.PlaceLocateBaseActivity;
+import com.doglandia.geogame.activity.locate.PlaceLocateIntroduction;
 import com.doglandia.geogame.model.User;
 import com.doglandia.geogame.server.Server;
 import com.google.android.gms.auth.GoogleAuthException;
@@ -30,7 +30,6 @@ import com.google.android.gms.plus.Plus;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -237,7 +236,13 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void startPlaceLocateActivity(){
-        Intent intent = new Intent(this,PlaceLocateBaseActivity.class);
+        Class activityClass;
+        if(UserAuth.isFirstRun(this)){
+            activityClass = PlaceLocateIntroduction.class;
+        }else{
+            activityClass = PlaceLocateBaseActivity.class;
+        }
+        Intent intent = new Intent(this,activityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="nav_drawer_margin_offset">-8dp</dimen>
+
+    <dimen name="console_width">-1dp</dimen>
 </resources>
