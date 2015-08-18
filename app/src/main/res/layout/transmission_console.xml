@@ -8,13 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/transmission_text"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginBottom="40dp"
+        android:id="@+id/transmission_text" />
 
     <com.doglandia.geogame.transmissions.view.ContinueText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:textAppearance="@style/transmission_continue_text" />
+        android:textAppearance="@style/transmission_continue_text"
+        android:id="@+id/continue_text" />
 
 </RelativeLayout>

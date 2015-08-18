@@ -12,6 +12,9 @@ public class TransmissionText extends TextView {
 
     private String messageToDisplay;
     private int numCharsDisplayed = 0;
+    public interface OnTransmissionTextAnimationEnd {
+        void onTransmissionEnded();
+    }
 
     private ObjectAnimator objectAnimator;
 
