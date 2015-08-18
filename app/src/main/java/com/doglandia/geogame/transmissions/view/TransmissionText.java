@@ -9,6 +9,9 @@ import android.widget.TextView;
  */
 public class TransmissionText extends TextView {
 
+    public interface OnTransmissionTextAnimationEnd {
+        void onTransmissionEnded();
+    }
 
 
     public TransmissionText(Context context) {

@@ -10,7 +10,8 @@
         android:layout_gravity="center"
         android:minHeight="150dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:id="@+id/transmission_console">
 
     </com.doglandia.geogame.transmissions.view.TransmissionConsole>
 

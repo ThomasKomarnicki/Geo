@@ -2,7 +2,10 @@ package com.doglandia.geogame.transmissions.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.doglandia.geogame.R;
@@ -10,7 +13,7 @@ import com.doglandia.geogame.R;
 /**
  * Created by Thomas on 8/16/2015.
  */
-public class TransmissionConsole extends LinearLayout {
+public class TransmissionConsole extends FrameLayout {
 
     private TransmissionText transmissionText;
     private ContinueText continueText;
@@ -31,6 +34,10 @@ public class TransmissionConsole extends LinearLayout {
     }
 
     private void init(){
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.transmission_console,null);
+        addView(view);
+        transmissionText = (TransmissionText) findViewById(R.id.transmission_text);
+        continueText = (ContinueText) findViewById(R.id.continue_text);
 //        setBackground(getResources().getDrawable(R.drawable.transmission_console_background));
 //        transmissionText = new TransmissionText(getContext());
 //        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -41,6 +48,9 @@ public class TransmissionConsole extends LinearLayout {
 //        params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        addView();
 
+    }
+
+    public void animateText(String text, TransmissionText.OnTransmissionTextAnimationEnd onTransmissionTextAnimationEnd){
 
     }
 
