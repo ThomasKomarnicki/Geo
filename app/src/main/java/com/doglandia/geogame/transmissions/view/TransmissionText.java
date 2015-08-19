@@ -2,6 +2,7 @@ package com.doglandia.geogame.transmissions.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -52,5 +53,11 @@ public class TransmissionText extends TextView {
 
     public void stopTextAnimation(){
 
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        setText(messageToDisplay.substring(0,numCharsDisplayed));
+        super.onDraw(canvas);
     }
 }
