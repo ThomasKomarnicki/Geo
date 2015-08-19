@@ -4,19 +4,22 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.doglandia.geogame.R;
+import com.doglandia.geogame.transmissions.TransmissionTextListener;
 
 /**
- * Created by Thomas on 8/16/2015.
+ * is given an array of Strings to play in succession
+ * is notified of touch events to the encapsulating fragment/view
  */
 public class TransmissionConsole extends FrameLayout {
 
     private TransmissionText transmissionText;
     private ContinueText continueText;
+
+    private String[] text;
+    private int currentTextIndex;
 
     public TransmissionConsole(Context context) {
         super(context);
@@ -50,7 +53,11 @@ public class TransmissionConsole extends FrameLayout {
 
     }
 
-    public void animateText(String text, TransmissionText.OnTransmissionTextAnimationEnd onTransmissionTextAnimationEnd){
+    public void animateText(String[] text){
+
+    }
+
+    public void onScreenClick(){
 
     }
 

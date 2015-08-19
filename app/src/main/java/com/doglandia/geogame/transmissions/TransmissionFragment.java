@@ -9,15 +9,12 @@ import android.view.ViewGroup;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.transmissions.view.TransmissionConsole;
-import com.doglandia.geogame.transmissions.view.TransmissionText;
 
 /**
  * Extend this fragment to create series of transmissions, each transmission is started with
  * animateText
  */
-public class TransmissionFragment extends Fragment implements View.OnClickListener{
-
-
+public class TransmissionFragment extends Fragment implements View.OnClickListener, TransmissionTextListener {
 
 
     private TransmissionConsole transmissionConsole;
@@ -35,13 +32,18 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
         return view;
     }
 
-    private void animateText(String text, TransmissionText.OnTransmissionTextAnimationEnd onTransmissionTextAnimationEnd){
-        transmissionConsole.animateText(text, onTransmissionTextAnimationEnd);
+    private void animateText(String... text){
+        transmissionConsole.animateText(text);
     }
 
     @Override
     public void onClick(View v) {
         // continue / end current animation
+
+    }
+
+    @Override
+    public void onTransmissionEnd() {
 
     }
 }
