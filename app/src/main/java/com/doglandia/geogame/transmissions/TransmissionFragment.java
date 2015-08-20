@@ -32,7 +32,7 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
         return view;
     }
 
-    private void animateText(String... text){
+    public void animateText(String... text){
         transmissionConsole.animateText(text);
     }
 

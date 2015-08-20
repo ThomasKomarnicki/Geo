@@ -41,15 +41,6 @@ public class TransmissionConsole extends FrameLayout {
         addView(view);
         transmissionText = (TransmissionText) findViewById(R.id.transmission_text);
         continueText = (ContinueText) findViewById(R.id.continue_text);
-//        setBackground(getResources().getDrawable(R.drawable.transmission_console_background));
-//        transmissionText = new TransmissionText(getContext());
-//        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        params.setMargins(0,0,0, (int) (getResources().getDisplayMetrics().density * 20));
-//        addView(transmissionText, params);
-//
-//        continueText = new ContinueText(getContext());
-//        params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        addView();
 
     }
 
@@ -62,10 +53,16 @@ public class TransmissionConsole extends FrameLayout {
 
     private void startAnimatingText(String text){
         transmissionText.setMessageToDisplay(text);
-        transmissionText.startTextAnimation();
+        transmissionText.startTextAnimation(new TransmissionTextListener() {
+            @Override
+            public void onTransmissionEnd() {
+                continueText.startBlinking();
+            }
+        });
     }
 
     public void onScreenClick(){
+        continueText.stopBlinking();
         currentTextIndex++;
         startAnimatingText(text[currentTextIndex]);
     }
