@@ -39,6 +39,7 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         // continue / end current animation
+        transmissionConsole.onScreenClick();
 
     }
 

@@ -54,18 +54,20 @@ public class TransmissionConsole extends FrameLayout {
     }
 
     public void animateText(String[] text){
-
+        this.text = text;
+        currentTextIndex = 0;
+        startAnimatingText(text[currentTextIndex]);
 
     }
 
     private void startAnimatingText(String text){
-        currentTextIndex = 0;
         transmissionText.setMessageToDisplay(text);
         transmissionText.startTextAnimation();
     }
 
     public void onScreenClick(){
-
+        currentTextIndex++;
+        startAnimatingText(text[currentTextIndex]);
     }
 
 }
