@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.doglandia.geogame.transmissions.TransmissionTextListener;
@@ -14,6 +15,7 @@ import com.doglandia.geogame.transmissions.TransmissionTextListener;
  */
 public class TransmissionText extends TextView {
 
+    private static final String TAG = "TransmissionText";
     private String messageToDisplay;
     private int numCharsDisplayed = 0;
 
@@ -43,7 +45,12 @@ public class TransmissionText extends TextView {
     public void setMessageToDisplay(String message){
         this.messageToDisplay = message;
         numCharsDisplayed = 0;
-        objectAnimator = ObjectAnimator.ofInt(this,"numCharsDisplayed",0,numCharsDisplayed);
+        objectAnimator = ObjectAnimator.ofInt(this,"numCharsDisplayed",0,messageToDisplay.length());
+    }
+
+    public void setNumCharsDisplayed(int value){
+        this.numCharsDisplayed = value;
+        invalidate();
     }
 
     public void startTextAnimation(final TransmissionTextListener transmissionTextListener){
@@ -84,7 +91,9 @@ public class TransmissionText extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        setText(messageToDisplay.substring(0,numCharsDisplayed));
+        Log.d(TAG, "drawing transmission text, " + numCharsDisplayed + " / " + messageToDisplay.length());
+        setText(messageToDisplay.substring(0, numCharsDisplayed));
         super.onDraw(canvas);
+
     }
 }

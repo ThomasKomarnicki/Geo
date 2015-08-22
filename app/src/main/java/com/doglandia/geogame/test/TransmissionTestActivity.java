@@ -11,15 +11,22 @@ import com.doglandia.geogame.transmissions.TransmissionFragment;
  */
 public class TransmissionTestActivity extends AppCompatActivity {
 
+    TransmissionFragment transmissionFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new FrameLayout(this));
 
-        TransmissionFragment transmissionFragment = new TransmissionFragment();
+        transmissionFragment = new TransmissionFragment();
         getSupportFragmentManager().beginTransaction()
                 .add(android.R.id.content,transmissionFragment)
                 .commit();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         transmissionFragment.animateText("TRANSMISSION TEXT 1",
                 "LONGER TRANSMISSION TEXT, KEEEPOOO WEEEPOOO KEEEE ARARARARARAR PLEASE NO HELP");
