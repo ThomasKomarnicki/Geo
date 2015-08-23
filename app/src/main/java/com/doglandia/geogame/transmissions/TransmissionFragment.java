@@ -16,8 +16,19 @@ import com.doglandia.geogame.transmissions.view.TransmissionConsole;
  */
 public class TransmissionFragment extends Fragment implements View.OnClickListener, TransmissionTextListener {
 
+    private static final String TRANSMISSION_TEXTS = "transmission_texts";
+
+    public static TransmissionFragment createInstance(String... texts){
+        TransmissionFragment transmissionFragment = new TransmissionFragment();
+        Bundle args = new Bundle();
+        args.putStringArray(TRANSMISSION_TEXTS, texts);
+        transmissionFragment.setArguments(args);
+        return transmissionFragment;
+    }
+
 
     private TransmissionConsole transmissionConsole;
+    private TransmissionTextListener transmissionEndedTextListener;
 
     @Nullable
     @Override
@@ -32,8 +43,16 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
         return view;
     }
 
-    public void animateText(String... text){
-        transmissionConsole.animateText(text);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        String[] text = getArguments().getStringArray(TRANSMISSION_TEXTS);
+        animateText(text);
+    }
+
+    private void animateText(String... text){
+        transmissionConsole.animateText(text, this);
     }
 
     @Override
@@ -45,6 +64,12 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onTransmissionEnd() {
+        if(transmissionEndedTextListener != null){
+            transmissionEndedTextListener.onTransmissionEnd();
+        }
+    }
 
+    public void setTransmissionEndedTextListener(TransmissionTextListener transmissionEndedTextListener) {
+        this.transmissionEndedTextListener = transmissionEndedTextListener;
     }
 }

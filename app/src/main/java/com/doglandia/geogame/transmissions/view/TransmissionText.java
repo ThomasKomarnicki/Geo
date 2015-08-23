@@ -38,6 +38,7 @@ public class TransmissionText extends TextView {
     }
 
     private void init(){
+        setWillNotDraw(false);
         setText("");
 
     }
@@ -46,15 +47,18 @@ public class TransmissionText extends TextView {
         this.messageToDisplay = message;
         numCharsDisplayed = 0;
         objectAnimator = ObjectAnimator.ofInt(this,"numCharsDisplayed",0,messageToDisplay.length());
+        objectAnimator.setDuration(messageToDisplay.length() * 32);
     }
 
     public void setNumCharsDisplayed(int value){
+        Log.d(TAG,"numCharsDisplayed set to "+value);
         this.numCharsDisplayed = value;
         invalidate();
     }
 
     public void startTextAnimation(final TransmissionTextListener transmissionTextListener){
         this.transmissionTextListener = transmissionTextListener;
+        objectAnimator.setStartDelay(250);
         objectAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -77,23 +81,29 @@ public class TransmissionText extends TextView {
             }
         });
         objectAnimator.start();
+        setWillNotDraw(false);
     }
 
     public void showFullText(){
         stopTextAnimation();
         setText(messageToDisplay);
-        invalidate();
     }
 
     public void stopTextAnimation(){
-
+        objectAnimator.end();
+        transmissionTextListener.onTransmissionEnd();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         Log.d(TAG, "drawing transmission text, " + numCharsDisplayed + " / " + messageToDisplay.length());
-        setText(messageToDisplay.substring(0, numCharsDisplayed));
+        if(!messageToDisplay.equals(getText().toString())) {
+            setText(messageToDisplay.substring(0, numCharsDisplayed));
+        }
         super.onDraw(canvas);
+    }
 
+    public boolean isAnimating() {
+        return objectAnimator != null && objectAnimator.isRunning();
     }
 }

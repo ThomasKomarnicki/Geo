@@ -5,7 +5,7 @@
     android:id="@+id/transmission_content">
     
     <com.doglandia.geogame.transmissions.view.TransmissionConsole
-        android:layout_width="@dimen/console_width"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:minHeight="150dp"

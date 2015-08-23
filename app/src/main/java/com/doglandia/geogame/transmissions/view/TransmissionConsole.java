@@ -2,6 +2,7 @@ package com.doglandia.geogame.transmissions.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,11 +16,14 @@ import com.doglandia.geogame.transmissions.TransmissionTextListener;
  */
 public class TransmissionConsole extends FrameLayout {
 
+    private static final String TAG = "TransmissionConsole";
     private TransmissionText transmissionText;
     private ContinueText continueText;
 
     private String[] text;
     private int currentTextIndex;
+
+    private TransmissionTextListener transmissionTextListener;
 
     public TransmissionConsole(Context context) {
         super(context);
@@ -44,7 +48,8 @@ public class TransmissionConsole extends FrameLayout {
 
     }
 
-    public void animateText(String[] text){
+    public void animateText(String[] text, TransmissionTextListener transmissionTextListener){
+        this.transmissionTextListener = transmissionTextListener;
         this.text = text;
         currentTextIndex = 0;
         startAnimatingText(text[currentTextIndex]);
@@ -56,6 +61,7 @@ public class TransmissionConsole extends FrameLayout {
         transmissionText.startTextAnimation(new TransmissionTextListener() {
             @Override
             public void onTransmissionEnd() {
+                Log.d(TAG,"transmission Ended");
                 continueText.startBlinking();
             }
         });
@@ -63,8 +69,14 @@ public class TransmissionConsole extends FrameLayout {
 
     public void onScreenClick(){
         continueText.stopBlinking();
-        currentTextIndex++;
-        startAnimatingText(text[currentTextIndex]);
+        if(transmissionText.isAnimating()){
+            transmissionText.showFullText();
+        }
+        else if(currentTextIndex < text.length-1) {
+            currentTextIndex++;
+            startAnimatingText(text[currentTextIndex]);
+        }else{
+            transmissionTextListener.onTransmissionEnd();
+        }
     }
-
 }
