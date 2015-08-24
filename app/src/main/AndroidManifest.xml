@@ -25,14 +25,20 @@
         <activity android:name=".activity.PlaceDetailsActivity" />
         <activity android:name=".activity.DiscoverActivity"/>
         <activity android:name=".activity.locate.PlaceLocateBaseActivity"/>
-        <activity android:name=".activity.locate.PlaceLocateIntroduction"/>
-        <activity android:name=".test.TransmissionTestActivity">
+        <activity android:name=".activity.locate.PlaceLocateIntroduction">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity android:name=".test.TransmissionTestActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
         <activity
             android:name=".activity.AuthActivity"
             android:label="@string/app_name">
@@ -42,13 +48,7 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".activity.PlaceLocateActivityNewUi">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".activity.PlaceLocateActivityNewUi"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
