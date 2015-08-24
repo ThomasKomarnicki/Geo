@@ -1,6 +1,8 @@
 package com.doglandia.geogame.adapter;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -114,7 +116,9 @@ public class NavigationAdapter {
                 }
             }
         });
-        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        Drawable drawable = activity.getResources().getDrawable(R.drawable.ic_menu_black_24dp);
+        drawable.setColorFilter(activity.getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
+        toolbar.setNavigationIcon(drawable);
 
         new NavigationAdapter(activity);
     }
