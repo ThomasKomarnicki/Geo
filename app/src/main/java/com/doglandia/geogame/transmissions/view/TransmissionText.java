@@ -51,7 +51,7 @@ public class TransmissionText extends TextView {
     }
 
     public void setNumCharsDisplayed(int value){
-        Log.d(TAG,"numCharsDisplayed set to "+value);
+//        Log.d(TAG,"numCharsDisplayed set to "+value);
         this.numCharsDisplayed = value;
         invalidate();
     }
@@ -96,7 +96,7 @@ public class TransmissionText extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "drawing transmission text, " + numCharsDisplayed + " / " + messageToDisplay.length());
+//        Log.d(TAG, "drawing transmission text, " + numCharsDisplayed + " / " + messageToDisplay.length());
         if(!messageToDisplay.equals(getText().toString())) {
             setText(messageToDisplay.substring(0, numCharsDisplayed));
         }

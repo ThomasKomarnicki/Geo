@@ -51,38 +51,25 @@ public class ContinueText extends TextView {
     public void startBlinking(){
 //        setAlpha(1);
         setVisibility(View.VISIBLE);
-        alphaAnimation = AnimatorInflater.loadAnimator(getContext(),R.animator.blinking_text);
-        alphaAnimation.setTarget(this);
+        if(alphaAnimation == null){
+            alphaAnimation = AnimatorInflater.loadAnimator(getContext(),R.animator.blinking_text);
+            alphaAnimation.setTarget(this);
+            alphaAnimation.start();
+        }else{
+            alphaAnimation.resume();
+        }
 //        alphaAnimation = ObjectAnimator.ofFloat(this,"alpha",0,1);
 
 //        alphaAnimation.setDuration(500);
-        alphaAnimation.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                Log.d(TAG,"started blink animation");
-            }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Log.d(TAG,"ended blink animation");
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-        alphaAnimation.start();
     }
 
     public void stopBlinking(){
         setAlpha(0);
-        alphaAnimation.cancel();
+        if(alphaAnimation != null){
+//            alphaAnimation.cancel();
+            alphaAnimation.pause();
+        }
     }
 
     @Override

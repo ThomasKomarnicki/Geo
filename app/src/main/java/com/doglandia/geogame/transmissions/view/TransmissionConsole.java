@@ -65,6 +65,7 @@ public class TransmissionConsole extends FrameLayout {
                 continueText.startBlinking();
             }
         });
+        continueText.stopBlinking();
     }
 
     public void onScreenClick(){

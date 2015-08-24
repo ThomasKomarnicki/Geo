@@ -64,6 +64,7 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onTransmissionEnd() {
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
         if(transmissionEndedTextListener != null){
             transmissionEndedTextListener.onTransmissionEnd();
         }
