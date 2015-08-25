@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent" android:layout_height="250dp"
     android:background="@drawable/transmission_console_background"
     android:padding="12dp">
 
@@ -14,11 +14,10 @@
     <com.doglandia.geogame.transmissions.view.ContinueText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:textAppearance="@style/transmission_continue_text"
         android:id="@+id/continue_text"
-        android:layout_below="@+id/transmission_text"
         android:text="Continue"
         android:textColor="@color/transmission_text_color" />
 

@@ -49,7 +49,7 @@ public class UserAuth {
     }
 
     public static int getAuthUserCurrentLocation(){
-        Log.d(TAG,"getting current location id = "+authUser.getCurrentLocationId());
+//        Log.d(TAG,"getting current location id = "+authUser.getCurrentLocationId());
         return authUser.getCurrentLocationId();
     }
 
