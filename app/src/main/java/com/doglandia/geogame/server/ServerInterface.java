@@ -4,6 +4,7 @@ import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.model.User;
+import com.doglandia.geogame.model.response.LocationGuessResult;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public interface ServerInterface {
     void getCurrentLocation(Callback<Place> callback);
 
     @POST("/locationGuess/")
-    void postLocateResult(@Body PlaceLocateResult placeLocateResult, @Query("auth_token") String authToken,Callback<Place> callback);
+    void postLocateResult(@Body PlaceLocateResult placeLocateResult, @Query("auth_token") String authToken,Callback<LocationGuessResult> callback);
 
     @GET("/locations/{location_id}/details")
     void getLocationDetails(@Path("location_id")Integer locationId, Callback<PlaceDetails> callback);

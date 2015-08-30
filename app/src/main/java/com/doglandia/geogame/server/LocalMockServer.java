@@ -7,6 +7,7 @@ import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.model.User;
+import com.doglandia.geogame.model.response.LocationGuessResult;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class LocalMockServer implements ServerInterface {
     }
 
     @Override
-    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, String authToken, Callback<Place> callback) {
+    public void postLocateResult(@Body PlaceLocateResult placeLocateResult, String authToken, Callback<LocationGuessResult> callback) {
 
     }
 

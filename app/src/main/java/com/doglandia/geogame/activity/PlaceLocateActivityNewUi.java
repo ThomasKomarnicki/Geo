@@ -155,18 +155,18 @@ public class PlaceLocateActivityNewUi extends AppCompatActivity {
         intent.putExtra("locate_result", Parcels.wrap(placeLocateResult));
         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
 
-        Server.getInstance().postLocateResult(placeLocateResult, UserAuth.getAuthUserToken(), new Callback<Place>() {
-            @Override
-            public void success(Place place, Response response) {
-                PlaceLocateActivityNewUi.this.place = place;
-                UserAuth.setCurrentLocation(place.getId(),PlaceLocateActivityNewUi.this);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-            }
-        });
+//        Server.getInstance().postLocateResult(placeLocateResult, UserAuth.getAuthUserToken(), new Callback<Place>() {
+//            @Override
+//            public void success(Place place, Response response) {
+//                PlaceLocateActivityNewUi.this.place = place;
+//                UserAuth.setCurrentLocation(place.getId(),PlaceLocateActivityNewUi.this);
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                error.printStackTrace();
+//            }
+//        });
     }
 
     @Override

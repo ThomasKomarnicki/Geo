@@ -11,15 +11,15 @@ import java.util.List;
 /**
  * Created by Thomas on 8/2/2015.
  */
-public class GeoCodeTask extends AsyncTask<List<Place>,Void,Void> {
+public class GeoCodeTask extends AsyncTask<Place,Void,Void> {
 
     private Context context;
     public GeoCodeTask(Context context){
         this.context = context;
     }
     @Override
-    protected Void doInBackground(List<Place>... params) {
-        Util.GeoCodePlaces(params[0],context);
+    protected Void doInBackground(Place... params) {
+        Util.GeoCodePlaces(params,context);
         return null;
     }
 

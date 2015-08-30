@@ -3,18 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/main_app_bar">
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/main_app_bar">-->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/main_toolbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/main_toolbar"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent"/>-->
 
 
-    </android.support.design.widget.AppBarLayout>
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <FrameLayout
 
@@ -25,27 +25,69 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".6"
         android:orientation="vertical"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="40dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="16dp">
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="distance: 2500 mi"
-            android:id="@+id/results_distance"
-            android:textSize="16sp" />
+            android:layout_alignTop="@+id/results_state"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="distance:"
+                android:id="@+id/results_distance"
+                android:textSize="16sp"
+                android:layout_alignTop="@+id/results_state"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2500 mi"
+                android:id="@+id/result_distance_value"
+                android:textSize="34sp"
+                android:layout_alignStart="@+id/results_score"
+                android:layout_below="@+id/results_distance" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score:"
+                android:id="@+id/results_score"
+                android:textSize="16sp"
+                android:layout_marginRight="32dp"
+                android:layout_alignStart="@+id/results_distance"
+                android:layout_below="@+id/result_distance_value" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:id="@+id/result_score_value"
+                android:textSize="34sp"
+                android:layout_alignStart="@+id/results_distance"
+                android:layout_below="@+id/results_score" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Country"
             android:id="@+id/results_country"
-            android:textSize="45sp" />
+            android:textSize="45sp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,7 +95,7 @@
             android:text="City,"
             android:id="@+id/results_city"
             android:textSize="34sp"
-            android:layout_marginTop="48dp" />
+            android:layout_below="@+id/results_state" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +103,19 @@
             android:text="State"
             android:id="@+id/results_state"
             android:textSize="34sp"
-            android:layout_marginTop="12dp" />
-    </LinearLayout>
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/results_country"
+            android:layout_marginTop="40dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next Location"
+            android:id="@+id/next_location_button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

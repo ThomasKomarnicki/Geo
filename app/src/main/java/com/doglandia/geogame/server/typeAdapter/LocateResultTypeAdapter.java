@@ -1,5 +1,7 @@
 package com.doglandia.geogame.server.typeAdapter;
 
+import android.util.JsonToken;
+
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.google.android.gms.maps.model.LatLng;
@@ -49,6 +51,8 @@ public class LocateResultTypeAdapter extends TypeAdapter<PlaceLocateResult> {
                 case "lon":
                     lon = in.nextDouble();
                     break;
+                case "score":
+                    placeLocateResult.setScore(in.nextInt());
 
             }
         }

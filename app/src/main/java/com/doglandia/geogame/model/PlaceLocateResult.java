@@ -23,7 +23,7 @@ public class PlaceLocateResult {
     String distanceString;
     int distance = -1;
 
-//    int score;
+    int score;
 
 
     public PlaceLocateResult(){
@@ -58,10 +58,10 @@ public class PlaceLocateResult {
         return user;
     }
 
-    public int getScore(){
-        Log.d("PlaceLocateResult","get score == "+(getDistance()/10000));
-        return getDistance() / 10000;
-    }
+//    public int getScore(){
+//        Log.d("PlaceLocateResult","get score == "+(getDistance()/10000));
+//        return getDistance() / 10000;
+//    }
 
     private void setDistance(){
         float[] result = new float[1];
@@ -94,5 +94,13 @@ public class PlaceLocateResult {
             setDistance();
         }
         return distance;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

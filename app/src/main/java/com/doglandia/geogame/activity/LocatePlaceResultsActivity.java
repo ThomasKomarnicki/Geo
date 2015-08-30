@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
@@ -25,6 +26,9 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
     private TextView stateTv;
     private TextView cityTv;
     private TextView distanceTv;
+    private TextView scoreTv;
+
+    private Button nextLocationButton;
 
     private PlaceLocateResult placeLocateResult;
     @Override
@@ -35,28 +39,37 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
         countryTv = (TextView) findViewById(R.id.results_country);
         stateTv = (TextView) findViewById(R.id.results_state);
         cityTv = (TextView) findViewById(R.id.results_city);
-        distanceTv = (TextView) findViewById(R.id.results_distance);
+        distanceTv = (TextView) findViewById(R.id.result_distance_value);
+        scoreTv = (TextView) findViewById(R.id.result_score_value);
+        nextLocationButton = (Button) findViewById(R.id.next_location_button);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        toolbar.setTitle("Results");
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(Activity.RESULT_OK);
-                finish();
-            }
-        });
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+//        setSupportActionBar(toolbar);
+//        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+//        toolbar.setTitle("Results");
+//
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setResult(Activity.RESULT_OK);
+//                finish();
+//            }
+//        });
 
         placeLocateResult = Parcels.unwrap(getIntent().getParcelableExtra("locate_result"));
 
         addMapFragment();
 
-        placeLocateResult.getActualLocation().geocode(new Geocoder(this,Locale.getDefault()));
+        placeLocateResult.getActualLocation().geocode(new Geocoder(this, Locale.getDefault()));
 
-        showLocationDetails(placeLocateResult.getActualLocation());
+        showLocationDetails(placeLocateResult);
+
+        nextLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -68,7 +81,8 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.locate_place_results_fragment_holder, fragment,RESULT_MAP_FRAGMENT_TAG).commit();
     }
 
-    private void showLocationDetails(Place place) {
+    private void showLocationDetails(PlaceLocateResult placeLocateResult) {
+        Place place = placeLocateResult.getActualLocation();
         countryTv.setText(place.getCountry());
         cityTv.setText(place.getCity() + ",");
         if(place.getState() != null) {
@@ -76,6 +90,7 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
         }
 
         distanceTv.setText(getDistanceText(placeLocateResult));
+        scoreTv.setText(String.valueOf(placeLocateResult.getScore()));
 
     }
 

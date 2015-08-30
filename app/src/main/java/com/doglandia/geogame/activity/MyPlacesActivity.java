@@ -130,7 +130,8 @@ public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClic
                             }
                         }
                     };
-                    geoCodeTask.execute(retrievedPlaces);
+                    Place[] placesArray = new Place[retrievedPlaces.size()];
+                    geoCodeTask.execute(retrievedPlaces.toArray(placesArray));
                 }
             }
 

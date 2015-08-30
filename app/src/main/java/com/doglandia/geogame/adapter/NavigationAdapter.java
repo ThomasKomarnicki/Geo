@@ -16,6 +16,7 @@ import com.doglandia.geogame.activity.DiscoverActivity;
 import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
+import com.doglandia.geogame.activity.locate.PlaceLocateBaseActivity;
 
 public class NavigationAdapter {
 
@@ -32,7 +33,7 @@ public class NavigationAdapter {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                boolean result = NavigationAdapter.this.onNavigationItemSelected(menuItem.getItemId(), activity.getClass().getSimpleName());
+                boolean result = NavigationAdapter.this.onNavigationItemSelected(menuItem.getItemId(), activity);
                 if(!result){
                     DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.main_nav_drawer);
                     drawerLayout.closeDrawers();
@@ -43,28 +44,28 @@ public class NavigationAdapter {
         });
     }
 
-    public boolean onNavigationItemSelected(int itemId, String activityName){
+    public boolean onNavigationItemSelected(int itemId, AppCompatActivity activity){
         switch (itemId){
             case R.id.navigation_sub_item_1:
-                if(!activityName.equals(PlaceLocateActivityNewUi.class.getSimpleName())){
+                if(!activity.getClass().getSuperclass().equals(PlaceLocateBaseActivity.class)) {
                     startPlaceLocateActivity();
                     return true;
                 }
                 break;
             case R.id.navigation_sub_item_2:
-                if(!activityName.equals(DiscoverActivity.class.getSimpleName())){
+                if(!(activity instanceof DiscoverActivity)){
                     startDiscoverActivity();
                     return true;
                 }
                 break;
             case R.id.navigation_sub_item_3:
-                if(!activityName.equals(RecentLocationsActivity.class.getSimpleName())){
+                if(!(activity instanceof RecentLocationsActivity)){
                     startRecentLocationsActivity();
                     return true;
                 }
                 break;
             case R.id.navigation_sub_item_4:
-                if(!activityName.equals(MyPlacesActivity.class.getSimpleName())) {
+                if(!(activity instanceof MyPlacesActivity)) {
                     startMyPlacesActivity();
                     return true;
                 }

@@ -37,21 +37,21 @@ public class Util {
         return distance + " "+units;
     }
 
-    public static void GeoCodePlaces(List<Place> places, Context context){
-        long startTime = System.currentTimeMillis();
+    public static void GeoCodePlaces(Place[] places, Context context){
+//        long startTime = System.currentTimeMillis();
         Geocoder geocoder = new Geocoder(context);
         for(Place place : places){
             place.geocode(geocoder);
         }
-        Log.d(TAG, "geocode time for "+places.size()+" places: "+(System.currentTimeMillis() - startTime));
+//        Log.d(TAG, "geocode time for "+places.size()+" places: "+(System.currentTimeMillis() - startTime));
     }
 
     public static void GeoCodeLocationGuess(List<PlaceLocateResult> places, Context context){
-        long startTime = System.currentTimeMillis();
+//        long startTime = System.currentTimeMillis();
         Geocoder geocoder = new Geocoder(context);
         for(PlaceLocateResult place : places){
             place.getActualLocation().geocode(geocoder);
         }
-        Log.d(TAG, "geocode time for "+places.size()+" places: "+(System.currentTimeMillis() - startTime));
+//        Log.d(TAG, "geocode time for "+places.size()+" places: "+(System.currentTimeMillis() - startTime));
     }
 }
