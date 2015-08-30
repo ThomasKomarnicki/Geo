@@ -161,4 +161,13 @@ public class PlaceLocateControllerFragment extends Fragment {
 //            }
 //        });
 //    }
+
+    public void reset(){
+        if(locatingMapFragment.isAdded()) {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
+                    .commit();
+        }
+    }
 }

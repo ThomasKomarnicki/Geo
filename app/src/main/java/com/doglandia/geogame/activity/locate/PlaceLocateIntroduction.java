@@ -2,6 +2,7 @@ package com.doglandia.geogame.activity.locate;
 
 import android.os.Bundle;
 
+import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.transmissions.TransmissionFragment;
 import com.doglandia.geogame.transmissions.TransmissionTextListener;
 
@@ -21,10 +22,25 @@ public class PlaceLocateIntroduction extends PlaceLocateBaseActivity {
                 "click on a location on the map and then press the \"Select this Location\" button to lock in the location. "
         );
         getSupportFragmentManager().beginTransaction()
-                .add(android.R.id.content,transmissionFragment)
+                .add(android.R.id.content,transmissionFragment,"transmission_fragment")
                 .commitAllowingStateLoss();
 
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TransmissionFragment transmissionFragment = (TransmissionFragment) getSupportFragmentManager().findFragmentByTag("transmission_fragment");
+        if(transmissionFragment != null) {
+            transmissionFragment.setTransmissionEndedTextListener(new TransmissionTextListener() {
+                @Override
+                public void onTransmissionEnd() {
+                    UserAuth.finishedFirstRun(PlaceLocateIntroduction.this);
+                }
+            });
+        }
     }
 }

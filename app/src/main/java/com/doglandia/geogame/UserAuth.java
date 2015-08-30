@@ -124,6 +124,7 @@ public class UserAuth {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_FIRST_RUN,true);
+        editor.commit();
     }
 
 
