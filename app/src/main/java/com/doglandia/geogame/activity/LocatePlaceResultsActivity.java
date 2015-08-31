@@ -101,6 +101,6 @@ public class LocatePlaceResultsActivity extends AppCompatActivity {
     }
 
     private static String getDistanceText(PlaceLocateResult placeLocateResult) {
-        return "distance: "+placeLocateResult.getDistanceString();
+        return placeLocateResult.getDistanceString();
     }
 }

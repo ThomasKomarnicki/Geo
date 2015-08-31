@@ -90,7 +90,7 @@ public class PlaceLocateBaseActivity extends AppCompatActivity {
         final CalculatingLocationResultsFragment calculatingLocationResultsFragment = new CalculatingLocationResultsFragment();
         calculatingLocationResultsFragment.show(getSupportFragmentManager(), "calculating_location_results_fragment");
 
-        PlaceLocateResult placeLocateResult = new PlaceLocateResult(UserAuth.getAuthUserId());
+        final PlaceLocateResult placeLocateResult = new PlaceLocateResult(UserAuth.getAuthUserId());
         placeLocateResult.setGuessedLocation(latLng);
         placeLocateResult.setActualLocation(place);
 
@@ -113,6 +113,8 @@ public class PlaceLocateBaseActivity extends AppCompatActivity {
                         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
 
                         placeLocateControllerFragment.reset();
+                        placeLocateControllerFragment.setPosition(place.getLatLng());
+
                     }
                 }.execute(locationGuessResult.getLocationGuessResult().getActualLocation());
 

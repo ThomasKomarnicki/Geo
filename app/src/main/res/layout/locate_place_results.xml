@@ -39,7 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/results_state"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,14 +108,21 @@
             android:layout_below="@+id/results_country"
             android:layout_marginTop="40dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next Location"
-            android:id="@+id/next_location_button"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="32dp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linearLayout">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Location"
+                android:id="@+id/next_location_button"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="27dp"
+                android:layout_gravity="center_horizontal" />
+        </FrameLayout>
 
     </RelativeLayout>
 

@@ -36,10 +36,12 @@ public class BottomScrollListener {
                 pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
 
                 if (loading) {
-                    if ((visibleItemCount + pastVisibleItems) >= (totalItemCount - 8)) {
-                        loading = false;
-                        onBottomScrolledListener.onBottomScrolled();
-                        Log.d("BottomScrollListener", "Last Item");
+                    if (totalItemCount >= 20) {
+                        if ((visibleItemCount + pastVisibleItems) >= (totalItemCount - 8)) {
+                            loading = false;
+                            onBottomScrolledListener.onBottomScrolled();
+                            Log.d("BottomScrollListener", "Last Item");
+                        }
                     }
                 }
             }
