@@ -1,5 +1,6 @@
 package com.doglandia.geogame.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,13 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
 
     private LocateResultClickListener listener;
 
-    private ViewHolder highLightedView;
+//    private ViewHolder highLightedView;
+
+    private int highlightPosition = -1;
 
     private boolean highlight;
+
+    private Drawable highlightDrawable;
 
     private List<PlaceLocateResult> placeLocateResults;
     public LocateResultsAdapter(List<PlaceLocateResult> placeLocateResultList,
@@ -29,6 +34,8 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
         this.listener = locateResultClickListener;
         this.placeLocateResults = placeLocateResultList;
         this.highlight = highlight;
+
+
     }
 
     @Override
@@ -49,27 +56,18 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
             @Override
             public void onClick(View v) {
                 if(highlight) {
-                    highLightNewView(holder);
+                    highlightPosition = position;
                     listener.onLocateResultClicked(position, placeLocateResult);
+                    notifyDataSetChanged();
                 }
             }
         });
-    }
 
-    private void highLightNewView(ViewHolder newView){
-        if(highLightedView != null){
-//            highLightedView.locationCountryTv.setSelected(false);
-//            highLightedView.locationCityTv.setSelected(false);
-//            highLightedView.itemView.setBackgroundDrawable(null);
-//            highLightedView.itemView.setBackground(null);
-            //noinspection deprecation
-            highLightedView.itemView.setBackgroundDrawable(null);
+        if(position == highlightPosition){
+            holder.itemView.setBackgroundColor(holder.itemView.getResources().getColor(R.color.primary_dark));
+        }else{
+            holder.itemView.setBackground(null);
         }
-
-        highLightedView = newView;
-//        newView.locationCityTv.setSelected(true);
-//        newView.locationCountryTv.setSelected(true);
-        highLightedView.itemView.setBackgroundColor(newView.itemView.getResources().getColor(R.color.primary_dark));
     }
 
     @Override
