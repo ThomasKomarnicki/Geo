@@ -54,7 +54,7 @@ public class PlaceDetailsFragment extends Fragment {
 
     private PlaceDetails placeDetails;
 
-    private PlaceHeatMapFragment heatMapFragment;
+//    private PlaceHeatMapFragment heatMapFragment;
 
     public interface OnPlaceDetailsLoadedListener{
         void onPlaceDetailsLoaded(PlaceDetails placeDetails);
@@ -80,7 +80,7 @@ public class PlaceDetailsFragment extends Fragment {
         heroContainer = (RelativeLayout) view.findViewById(R.id.place_details_hero_container);
 
 
-        heatMapFragment = (PlaceHeatMapFragment) getChildFragmentManager().findFragmentById(R.id.place_details_heat_map);
+//        heatMapFragment = (PlaceHeatMapFragment) getChildFragmentManager().findFragmentById(R.id.place_details_heat_map);
 
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
@@ -160,7 +160,7 @@ public class PlaceDetailsFragment extends Fragment {
     }
 
     private void initHeatMap(PlaceDetails placeDetails){
-        heatMapFragment.showHeat(placeDetails);
+//        heatMapFragment.showHeat(placeDetails);
     }
     private void initHeaderMap(){
         if(placeDetails == null || headerGoogleMap == null){
@@ -186,9 +186,9 @@ public class PlaceDetailsFragment extends Fragment {
         if(headerGoogleMap != null) {
             headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
         }
-        if(heatMapFragment != null){
-            heatMapFragment.clearHeat();
-        }
+//        if(heatMapFragment != null){
+//            heatMapFragment.clearHeat();
+//        }
         Server.getInstance().getLocationDetails(place.getId(), new Callback<PlaceDetails>() {
             @Override
             public void success(PlaceDetails placeDetails, Response response) {
