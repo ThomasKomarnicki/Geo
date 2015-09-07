@@ -54,15 +54,6 @@
             android:layout_weight=".6"
             android:id="@+id/profile_stats_location_map_frame">
 
-            <fragment
-                xmlns:map="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                map:cameraZoom="17"
-                map:mapType="satellite"
-                map:liteMode="true"
-                android:id="@+id/profile_stats_location_map" />
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

@@ -15,6 +15,7 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.activity.DiscoverActivity;
 import com.doglandia.geogame.activity.MyPlacesActivity;
 import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
+import com.doglandia.geogame.activity.ProfileStatsActivity;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
 import com.doglandia.geogame.activity.locate.PlaceLocateBaseActivity;
 
@@ -34,7 +35,7 @@ public class NavigationAdapter {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 boolean result = NavigationAdapter.this.onNavigationItemSelected(menuItem.getItemId(), activity);
-                if(!result){
+                if (!result) {
                     DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.main_nav_drawer);
                     drawerLayout.closeDrawers();
                 }
@@ -71,12 +72,18 @@ public class NavigationAdapter {
                 }
                 break;
             case R.id.navigation_sub_item_5:
-                if(!(activity instanceof MyPlacesActivity)) {
-                    startMyPlacesActivity();
+                if(!(activity instanceof ProfileStatsActivity)) {
+                    startUserProfileStatsActivity();
                     return true;
                 }
         }
         return false;
+    }
+
+    private void startUserProfileStatsActivity() {
+        Intent intent = new Intent(activity,ProfileStatsActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     private void startPlaceLocateActivity(){

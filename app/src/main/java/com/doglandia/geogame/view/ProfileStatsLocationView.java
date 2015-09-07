@@ -56,4 +56,9 @@ public class ProfileStatsLocationView extends FrameLayout {
     public void setDistanceText(String formattedDistanceText){
         this.averageDistanceText.setText(formattedDistanceText);
     }
+
+    public int setMapFrameId(int id){
+        mapFrame.setId(id);
+        return mapFrame.getId();
+    }
 }

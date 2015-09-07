@@ -16,6 +16,11 @@ import com.doglandia.geogame.server.GeoCodeTask;
 import com.doglandia.geogame.server.Server;
 import com.doglandia.geogame.util.Util;
 import com.doglandia.geogame.view.ProfileStatsLocationView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import org.parceler.Parcels;
 
@@ -27,6 +32,12 @@ import retrofit.client.Response;
  * Created by Thomas on 9/6/2015.
  */
 public class ProfileStatsFragment extends Fragment {
+
+    private static final int HARDEST_LOCATION_MAP_FRAME_ID = 0X69;
+    private static final int EASIEST_LOCATION_MAP_FRAME_ID = 0X70;
+    private static final int BEST_GUESS_LOCATION_MAP_FRAME_ID = 0X71;
+
+    private static final float MAP_FRAGMENT_ZOOM = 17f;
 
     public static ProfileStatsFragment getInstance(int userId, String authToken){
         ProfileStatsFragment profileStatsFragment = new ProfileStatsFragment();
@@ -109,7 +120,7 @@ public class ProfileStatsFragment extends Fragment {
 
     }
 
-    private void attachProfileStatsData(UserProfileStats userProfileStats){
+    private void attachProfileStatsData(final UserProfileStats userProfileStats){
         progressBar.setVisibility(View.GONE);
 
         level.setText(String.valueOf(userProfileStats.getLevel()));
@@ -121,18 +132,60 @@ public class ProfileStatsFragment extends Fragment {
             hardestLocation.setCity(userProfileStats.getHardestLocation().getCity());
             hardestLocation.setCountry(userProfileStats.getHardestLocation().getCountry());
             hardestLocation.setDistanceText("Average Distance: " + Util.getDistanceDisplay(userProfileStats.getHardestLocationAverage()));
+
+            SupportMapFragment supportMapFragment = createLiteModeMapFragment(hardestLocation.setMapFrameId(HARDEST_LOCATION_MAP_FRAME_ID));
+            supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userProfileStats.getHardestLocation().getLatLng(),MAP_FRAGMENT_ZOOM));
+                }
+            });
+        }else{
+            hardestLocation.setVisibility(View.GONE);
         }
 
         if(userProfileStats.getEasiestLocation() != null) {
             easiestLocation.setCity(userProfileStats.getEasiestLocation().getCity());
             easiestLocation.setCountry(userProfileStats.getEasiestLocation().getCountry());
             easiestLocation.setDistanceText("Average Distance: " + Util.getDistanceDisplay(userProfileStats.getEasiestLocationAverage()));
+
+            SupportMapFragment supportMapFragment = createLiteModeMapFragment(easiestLocation.setMapFrameId(EASIEST_LOCATION_MAP_FRAME_ID));
+            supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userProfileStats.getEasiestLocation().getLatLng(), MAP_FRAGMENT_ZOOM));
+                }
+            });
+        }else{
+            easiestLocation.setVisibility(View.GONE);
         }
 
         if(userProfileStats.getBestGuessLocation() != null) {
-            hardestLocation.setCity(userProfileStats.getBestGuessLocation().getCity());
-            hardestLocation.setCountry(userProfileStats.getBestGuessLocation().getCountry());
-            hardestLocation.setDistanceText("Best Target Distance: " + Util.getDistanceDisplay(userProfileStats.getBestGuess()));
+            closestLocationGuess.setCity(userProfileStats.getBestGuessLocation().getCity());
+            closestLocationGuess.setCountry(userProfileStats.getBestGuessLocation().getCountry());
+            closestLocationGuess.setDistanceText("Best Target Distance: " + Util.getDistanceDisplay(userProfileStats.getBestGuess()));
+
+            SupportMapFragment supportMapFragment = createLiteModeMapFragment(closestLocationGuess.setMapFrameId(BEST_GUESS_LOCATION_MAP_FRAME_ID));
+            supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userProfileStats.getBestGuessLocation().getLatLng(), MAP_FRAGMENT_ZOOM));
+                }
+            });
+        }else{
+            closestLocationGuess.setVisibility(View.GONE);
         }
+    }
+
+
+    private SupportMapFragment createLiteModeMapFragment(int containerId){
+        GoogleMapOptions options = new GoogleMapOptions()
+                .mapType(GoogleMap.MAP_TYPE_SATELLITE)
+                .liteMode(true);
+
+        SupportMapFragment supportMapFragment = SupportMapFragment.newInstance(options);
+        getChildFragmentManager().beginTransaction().add(containerId,supportMapFragment).commit();
+
+        return supportMapFragment;
     }
 }
