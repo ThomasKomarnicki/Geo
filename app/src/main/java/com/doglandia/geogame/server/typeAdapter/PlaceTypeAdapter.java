@@ -1,5 +1,8 @@
 package com.doglandia.geogame.server.typeAdapter;
 
+import android.util.JsonToken;
+import android.util.Log;
+
 import com.doglandia.geogame.model.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.TypeAdapter;
@@ -29,6 +32,12 @@ public class PlaceTypeAdapter extends TypeAdapter<Place> {
     @Override
     public Place read(JsonReader in) throws IOException {
         Place place = new Place();
+
+        Log.d("PlaceTypeAdater", "peek before begin object: " + in.peek().name());
+        if(in.peek().ordinal() == JsonToken.NULL.ordinal()){
+            in.nextNull();
+            return null;
+        }
 
         in.beginObject();
 

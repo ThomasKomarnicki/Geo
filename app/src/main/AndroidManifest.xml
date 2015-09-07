@@ -25,7 +25,9 @@
         <activity android:name=".activity.PlaceDetailsActivity" />
         <activity android:name=".activity.DiscoverActivity"/>
         <activity android:name=".activity.locate.PlaceLocateDefaultActivity"/>
+        <activity android:name=".activity.ProfileStatsActivity"/>
         <activity android:name=".activity.locate.PlaceLocateIntroduction">
+
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 

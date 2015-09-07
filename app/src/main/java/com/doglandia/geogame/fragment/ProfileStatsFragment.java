@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
@@ -58,7 +59,13 @@ public class ProfileStatsFragment extends Fragment {
     private ProfileStatsLocationView easiestLocation;
     private ProfileStatsLocationView closestLocationGuess;
 
+    private TextView hardestLocationTitle;
+    private TextView easiestLocationTitle;
+    private TextView closestLocationGuessTitle;
+
     private ProgressBar progressBar;
+
+    private ScrollView scrollView;
 
     private UserProfileStats userProfileStats;
 
@@ -75,7 +82,14 @@ public class ProfileStatsFragment extends Fragment {
         easiestLocation = (ProfileStatsLocationView) view.findViewById(R.id.profile_stats_easiest_location);
         closestLocationGuess = (ProfileStatsLocationView) view.findViewById(R.id.profile_stats_closest_location_guess);
 
+        hardestLocationTitle = (TextView) view.findViewById(R.id.profile_stats_hardest_location_title);
+        easiestLocationTitle = (TextView) view.findViewById(R.id.profile_stats_easiest_location_title);
+        closestLocationGuessTitle = (TextView) view.findViewById(R.id.profile_stats_closest_location_guess_title);
+
         progressBar = (ProgressBar) view.findViewById(R.id.profile_stats_progress);
+
+        scrollView = (ScrollView) view.findViewById(R.id.profile_stats_scrollview);
+        scrollView.setVisibility(View.GONE);
 
         return view;
     }
@@ -121,8 +135,6 @@ public class ProfileStatsFragment extends Fragment {
     }
 
     private void attachProfileStatsData(final UserProfileStats userProfileStats){
-        progressBar.setVisibility(View.GONE);
-
         level.setText(String.valueOf(userProfileStats.getLevel()));
         locationsGuessed.setText(String.valueOf(userProfileStats.getLocationGuessCount()));
         locationsDiscovered.setText(String.valueOf(userProfileStats.getLocationCount()));
@@ -137,11 +149,13 @@ public class ProfileStatsFragment extends Fragment {
             supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
+                    googleMap.getUiSettings().setMapToolbarEnabled(false);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userProfileStats.getHardestLocation().getLatLng(),MAP_FRAGMENT_ZOOM));
                 }
             });
         }else{
             hardestLocation.setVisibility(View.GONE);
+            hardestLocationTitle.setVisibility(View.GONE);
         }
 
         if(userProfileStats.getEasiestLocation() != null) {
@@ -153,11 +167,13 @@ public class ProfileStatsFragment extends Fragment {
             supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
+                    googleMap.getUiSettings().setMapToolbarEnabled(false);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userProfileStats.getEasiestLocation().getLatLng(), MAP_FRAGMENT_ZOOM));
                 }
             });
         }else{
             easiestLocation.setVisibility(View.GONE);
+            easiestLocationTitle.setVisibility(View.GONE);
         }
 
         if(userProfileStats.getBestGuessLocation() != null) {
@@ -169,12 +185,17 @@ public class ProfileStatsFragment extends Fragment {
             supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
+                    googleMap.getUiSettings().setMapToolbarEnabled(false);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userProfileStats.getBestGuessLocation().getLatLng(), MAP_FRAGMENT_ZOOM));
                 }
             });
         }else{
             closestLocationGuess.setVisibility(View.GONE);
+            closestLocationGuessTitle.setVisibility(View.GONE);
         }
+
+        progressBar.setVisibility(View.GONE);
+        scrollView.setVisibility(View.VISIBLE);
     }
 
 
