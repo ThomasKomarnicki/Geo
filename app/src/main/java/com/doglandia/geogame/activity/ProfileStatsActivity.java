@@ -11,7 +11,7 @@ import com.doglandia.geogame.fragment.ProfileStatsFragment;
 /**
  * Created by Thomas on 9/6/2015.
  */
-public class ProfileStatsActivity extends AppCompatActivity {
+public class ProfileStatsActivity extends CalligraphyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

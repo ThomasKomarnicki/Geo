@@ -31,7 +31,7 @@ import retrofit.client.Response;
 /**
  * Created by Thomas on 7/23/2015.
  */
-public class PlaceLocateActivityNewUi extends AppCompatActivity {
+public class PlaceLocateActivityNewUi extends CalligraphyActivity {
 
     private static final int START_NEW_LOCATION_RESULT = 0x420;
 

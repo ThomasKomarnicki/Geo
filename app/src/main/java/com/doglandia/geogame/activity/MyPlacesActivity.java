@@ -32,7 +32,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MyPlacesActivity extends AppCompatActivity implements OnHeatMapClickedListener{
+public class MyPlacesActivity extends CalligraphyActivity implements OnHeatMapClickedListener{
 
     private static final String CURRENTLY_SELECTED_PLACE ="currently_selected_place";
     private static final String PLACES = "places";

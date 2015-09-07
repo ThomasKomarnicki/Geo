@@ -13,7 +13,7 @@ import com.doglandia.geogame.model.Place;
 
 import org.parceler.Parcels;
 
-public class PlaceDetailsActivity extends AppCompatActivity implements OnHeatMapClickedListener, View.OnClickListener{
+public class PlaceDetailsActivity extends CalligraphyActivity implements OnHeatMapClickedListener, View.OnClickListener{
 
     private PlaceDetailsFragment placeDetailsFragment;
 

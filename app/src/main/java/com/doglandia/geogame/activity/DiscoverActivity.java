@@ -30,7 +30,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class DiscoverActivity extends AppCompatActivity {
+public class DiscoverActivity extends CalligraphyActivity {
 
     private DiscoverMapFragment discoverMapFragment;
 

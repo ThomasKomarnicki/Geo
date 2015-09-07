@@ -18,7 +18,7 @@ import org.parceler.Parcels;
 
 import java.util.Locale;
 
-public class LocatePlaceResultsActivity extends AppCompatActivity {
+public class LocatePlaceResultsActivity extends CalligraphyActivity {
 
     private static final String RESULT_MAP_FRAGMENT_TAG = "result_map_fragment";
 

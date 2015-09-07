@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
+import com.doglandia.geogame.activity.CalligraphyActivity;
 import com.doglandia.geogame.activity.LocatePlaceResultsActivity;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.CalculatingLocationResultsFragment;
@@ -30,7 +31,7 @@ import retrofit.client.Response;
 /**
  * Created by Thomas on 8/16/2015.
  */
-public class PlaceLocateBaseActivity extends AppCompatActivity {
+public class PlaceLocateBaseActivity extends CalligraphyActivity {
 
     private static final int START_NEW_LOCATION_RESULT = 0x420;
 

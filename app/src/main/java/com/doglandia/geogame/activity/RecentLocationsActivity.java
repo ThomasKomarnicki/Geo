@@ -36,7 +36,7 @@ import retrofit.client.Response;
 /**
  * Created by Thomas on 6/10/2015.
  */
-public class RecentLocationsActivity extends AppCompatActivity implements LocateResultsAdapter.LocateResultClickListener {
+public class RecentLocationsActivity extends CalligraphyActivity implements LocateResultsAdapter.LocateResultClickListener {
 
     private static final String PLACE_LOCATE_RESULTS = "place_locate_results";
 

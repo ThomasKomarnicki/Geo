@@ -10,7 +10,7 @@ import com.doglandia.geogame.R;
 /**
  * Created by Thomas on 6/5/2015.
  */
-public class PlacesListActivity extends AppCompatActivity {
+public class PlacesListActivity extends CalligraphyActivity {
 
     private RecyclerView recyclerView;
 

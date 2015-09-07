@@ -35,7 +35,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class AuthActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+public class AuthActivity extends CalligraphyActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 
     private static final String TAG = "AuthActivity";

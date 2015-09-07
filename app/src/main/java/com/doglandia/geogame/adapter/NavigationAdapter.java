@@ -31,6 +31,8 @@ public class NavigationAdapter {
 
     public void initNavigation(){
         navigationView = (NavigationView) activity.findViewById(R.id.main_navigation_view);
+        navigationView.inflateHeaderView(R.layout.navigation_header);
+        navigationView.setItemBackgroundResource(R.drawable.nav_background);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
