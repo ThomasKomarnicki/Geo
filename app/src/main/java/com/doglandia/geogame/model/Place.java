@@ -13,8 +13,6 @@ import java.util.List;
 @Parcel
 public class Place {
 
-
-
     int id = -1;
 
     int userId;
@@ -104,4 +102,5 @@ public class Place {
     public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
     }
+
 }

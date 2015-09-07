@@ -14,4 +14,8 @@
     <item
         android:id="@+id/navigation_sub_item_4"
         android:title="My Places"/>
+
+    <item
+        android:id="@+id/navigation_sub_item_5"
+        android:title="My Places"/>
 </menu>

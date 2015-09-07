@@ -70,6 +70,11 @@ public class NavigationAdapter {
                     return true;
                 }
                 break;
+            case R.id.navigation_sub_item_5:
+                if(!(activity instanceof MyPlacesActivity)) {
+                    startMyPlacesActivity();
+                    return true;
+                }
         }
         return false;
     }

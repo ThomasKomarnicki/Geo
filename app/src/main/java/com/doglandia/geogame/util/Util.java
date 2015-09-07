@@ -41,7 +41,9 @@ public class Util {
 //        long startTime = System.currentTimeMillis();
         Geocoder geocoder = new Geocoder(context);
         for(Place place : places){
-            place.geocode(geocoder);
+            if(place != null) {
+                place.geocode(geocoder);
+            }
         }
 //        Log.d(TAG, "geocode time for "+places.size()+" places: "+(System.currentTimeMillis() - startTime));
     }

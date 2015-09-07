@@ -76,7 +76,7 @@ public class PlaceDetailsFragment extends Fragment {
         avgTv = (TextView) view.findViewById(R.id.place_details_average);
         bestTv = (TextView) view.findViewById(R.id.place_details_best_guess);
 
-        heatMapContainer = (FrameLayout) view.findViewById(R.id.place_details_heat_map_container);
+//        heatMapContainer = (FrameLayout) view.findViewById(R.id.place_details_heat_map_container);
         heroContainer = (RelativeLayout) view.findViewById(R.id.place_details_hero_container);
 
 
