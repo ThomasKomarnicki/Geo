@@ -26,6 +26,7 @@ public class UserAuth {
     public static final String GEO_SERVER_USER = "user";
 
     private static final String IS_FIRST_RUN = "is_first_run";
+    private static final String IS_DISCOVER_FIRST_RUN = "is_discover_first_run";
 
     private static final String TAG = "UserAuth";
 
@@ -117,16 +118,27 @@ public class UserAuth {
 
     public static boolean isFirstRun(Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getBoolean(IS_FIRST_RUN,false) != true;
+        return preferences.getBoolean(IS_FIRST_RUN,true);
     }
 
     public static void finishedFirstRun(Context context){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(IS_FIRST_RUN,true);
+        editor.putBoolean(IS_FIRST_RUN,false);
         editor.commit();
     }
 
+    public static boolean isDiscoverFirstRun(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(IS_DISCOVER_FIRST_RUN,true);
+    }
+
+    public static void finishedDiscoverFirstRun(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(IS_DISCOVER_FIRST_RUN,false);
+        editor.commit();
+    }
 
 
 

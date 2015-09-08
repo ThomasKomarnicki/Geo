@@ -22,6 +22,8 @@ import com.doglandia.geogame.map.DiscoverMapFragment;
 import com.doglandia.geogame.map.DiscoverStreetViewFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.Server;
+import com.doglandia.geogame.transmissions.TransmissionFragment;
+import com.doglandia.geogame.transmissions.TransmissionTextListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 import com.google.gson.JsonObject;
@@ -30,7 +32,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class DiscoverActivity extends CalligraphyActivity {
+public class DiscoverActivity extends CalligraphyActivity implements TransmissionTextListener {
 
     private DiscoverMapFragment discoverMapFragment;
 
@@ -62,6 +64,22 @@ public class DiscoverActivity extends CalligraphyActivity {
 
         discoverStreetViewFragment = (DiscoverStreetViewFragment) getSupportFragmentManager().findFragmentById(R.id.discover_steet_view_fragment);
         discoverStreetViewFragment.setVisible(false);
+
+        if(UserAuth.isDiscoverFirstRun(this)){
+            TransmissionFragment transmissionFragment = TransmissionFragment.createInstance("Here you can select locations");
+            getSupportFragmentManager().beginTransaction()
+                    .add(android.R.id.content,transmissionFragment,"transmission_fragment")
+                    .commitAllowingStateLoss();
+
+            transmissionFragment.setTransmissionEndedTextListener(this);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TransmissionFragment transmissionFragment = (TransmissionFragment) getSupportFragmentManager().findFragmentByTag("transmission_fragment");
+        transmissionFragment.setTransmissionEndedTextListener(this);
     }
 
     public void onMapLocationClicked(LatLng latLng){
@@ -81,8 +99,6 @@ public class DiscoverActivity extends CalligraphyActivity {
         Server.getInstance().addUserLocation(place, UserAuth.getAuthUserToken(), new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {
-                // TODO zoom out of location // reset map camera
-                // TODO limit places around previously selected places
                 Snackbar.make(DiscoverActivity.this.findViewById(R.id.discover_activity_coordinator),"Location Added",Snackbar.LENGTH_SHORT).show();
             }
 
@@ -207,5 +223,10 @@ public class DiscoverActivity extends CalligraphyActivity {
                 super.onBackPressed();
             }
         }
+    }
+
+    @Override
+    public void onTransmissionEnd() {
+
     }
 }
