@@ -18,6 +18,7 @@ import com.doglandia.geogame.activity.PlaceLocateActivityNewUi;
 import com.doglandia.geogame.activity.ProfileStatsActivity;
 import com.doglandia.geogame.activity.RecentLocationsActivity;
 import com.doglandia.geogame.activity.locate.PlaceLocateBaseActivity;
+import com.doglandia.geogame.activity.locate.PlaceLocateDefaultActivity;
 
 public class NavigationAdapter {
 
@@ -31,7 +32,9 @@ public class NavigationAdapter {
 
     public void initNavigation(){
         navigationView = (NavigationView) activity.findViewById(R.id.main_navigation_view);
-        navigationView.inflateHeaderView(R.layout.navigation_header);
+        if(navigationView.findViewById(R.id.geo_header_frame) == null) {
+            navigationView.inflateHeaderView(R.layout.navigation_header);
+        }
         navigationView.setItemBackgroundResource(R.drawable.nav_background);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -89,7 +92,7 @@ public class NavigationAdapter {
     }
 
     private void startPlaceLocateActivity(){
-        Intent intent = new Intent(activity,PlaceLocateActivityNewUi.class);
+        Intent intent = new Intent(activity,PlaceLocateDefaultActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }
@@ -112,7 +115,16 @@ public class NavigationAdapter {
         activity.finish();
     }
 
-    public static void setUpNavDrawerActivity(AppCompatActivity activity, String title){
+    public boolean onBackPressed(){
+        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.main_nav_drawer);
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers();
+            return true;
+        }
+        return false;
+    }
+
+    public static NavigationAdapter setUpNavDrawerActivity(AppCompatActivity activity, String title){
         final DrawerLayout navDrawer = (DrawerLayout) activity.findViewById(R.id.main_nav_drawer);
 
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.recent_locations_toolbar);
@@ -135,6 +147,6 @@ public class NavigationAdapter {
         drawable.setColorFilter(activity.getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
         toolbar.setNavigationIcon(drawable);
 
-        new NavigationAdapter(activity);
+        return new NavigationAdapter(activity);
     }
 }

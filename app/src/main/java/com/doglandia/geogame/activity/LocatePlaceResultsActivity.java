@@ -84,9 +84,11 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
     private void showLocationDetails(PlaceLocateResult placeLocateResult) {
         Place place = placeLocateResult.getActualLocation();
         countryTv.setText(place.getCountry());
-        cityTv.setText(place.getCity() + ",");
+        cityTv.setText(place.getCity());
         if(place.getState() != null) {
             stateTv.setText(place.getState());
+        }else{
+            stateTv.setText("");
         }
 
         distanceTv.setText(getDistanceText(placeLocateResult));

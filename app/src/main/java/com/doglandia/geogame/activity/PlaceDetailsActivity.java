@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.fragment.HeatDialogMapFragment;
@@ -19,7 +20,9 @@ public class PlaceDetailsActivity extends CalligraphyActivity implements OnHeatM
 
     private FrameLayout heatMapHolder;
 
-    private Toolbar toolbar;
+//    private Toolbar toolbar;
+
+    private ImageView backButton;
 
 
     @Override
@@ -37,11 +40,14 @@ public class PlaceDetailsActivity extends CalligraphyActivity implements OnHeatM
 
         heatMapHolder = (FrameLayout) findViewById(R.id.heat_map_holder);
 
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-//        toolbar.setTitle(place.getCity());
-        toolbar.setNavigationOnClickListener(this);
-        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        backButton = (ImageView) findViewById(R.id.place_details_back);
+        backButton.setOnClickListener(this);
+        backButton.setClickable(true);
+//        toolbar = (Toolbar) findViewById(R.id.place_details_back);
+//        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+////        toolbar.setTitle(place.getCity());
+//        toolbar.setNavigationOnClickListener(this);
+//        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
         placeDetailsFragment = (PlaceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.place_etails_fragment);
 

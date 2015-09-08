@@ -49,8 +49,8 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
 
         holder.locationCityTv.setText(placeLocateResult.getActualLocation().getCity());
         holder.locationCountryTv.setText(placeLocateResult.getActualLocation().getCountry());
-        holder.distanceTv.setText("distance: "+placeLocateResult.getDistanceString());
-        holder.scoreTv.setText("Score: "+String.valueOf(placeLocateResult.getScore()));
+        holder.distanceTv.setText(placeLocateResult.getDistanceString());
+        holder.scoreTv.setText(String.valueOf(placeLocateResult.getScore()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

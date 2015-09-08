@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +30,13 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
     private SupportMapFragment mSupportMapFragment;
     private GoogleMap googleMap;
 
-//    private FloatingActionButton floatingActionButton;
-
     private LatLng selectedLocation;
+
+    private Marker marker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.locate_fragment,null);
-//        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.locate_fragment_action_button);
-//        floatingActionButton.setVisibility(View.INVISIBLE);
         return view;
     }
 
@@ -84,42 +83,11 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
                     }
                 });
 
-//                googleMap.getUiSettings().setAllGesturesEnabled(false);
             }
         });
 
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                animateFABOut();
-//                ((PlaceLocateActivityNewUi) getActivity()).onLocationSelected(selectedLocation);
-//            }
-//        });
-
     }
 
-//    private void animateFABOut(){
-//        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_out);
-//        animation.setAnimationListener(new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                floatingActionButton.setVisibility(View.INVISIBLE);
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        });
-//        animation.setDuration(500);
-//        floatingActionButton.startAnimation(animation);
-//
-//    }
 
     public void restoreControls(){
         googleMap.getUiSettings().setRotateGesturesEnabled(false);
@@ -128,14 +96,6 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
         googleMap.setOnMapClickListener(LocatingMapFragment.this);
         googleMap.setOnMapLongClickListener(LocatingMapFragment.this);
     }
-
-//    private void animateFABIn(){
-//        floatingActionButton.setVisibility(View.VISIBLE);
-//        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_in);
-//        animation.setDuration(500);
-//        floatingActionButton.startAnimation(animation);
-//
-//    }
 
     @Override
     public void onMapClick(LatLng latLng) {
@@ -161,12 +121,16 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 //        }
         googleMap.clear();
 
-        Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+        marker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.target_marker)));
         marker.showInfoWindow();
     }
 
     public void clearMap(){
 //        floatingActionButton.setVisibility(View.INVISIBLE);
+        Log.d("LocatingMapFragment", "map cleared");
+        if(marker != null) {
+            marker.remove();
+        }
         googleMap.clear();
         CameraUpdate defaultMapLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(0,0),1);
         googleMap.moveCamera(defaultMapLocation);
@@ -188,35 +152,12 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
         super.onViewStateRestored(savedInstanceState);
         if(savedInstanceState != null) {
 
-//            if (savedInstanceState.getBoolean(ACTION_BUTTON_VISIBLE, false)) {
-//                floatingActionButton.setVisibility(View.VISIBLE);
-//            }
             if (savedInstanceState.containsKey(MARKER_LOCATION)) {
                 selectedLocation = savedInstanceState.getParcelable(MARKER_LOCATION);
-//                if(googleMap != null) {
-//                    onMapLocationClicked(selectedLocation); // this function expects to always have valid googleMap
-//                    // shouldn't every get called?
-//                }
             }
 
         }
 
     }
-
-//    public void getSnapshot(final GoogleMap.SnapshotReadyCallback snapshotReadyCallback){
-//        if(googleMap != null) {
-//            googleMap.snapshot(snapshotReadyCallback);
-//        }else{
-////            this.snapshotReadyCallback = snapshotReadyCallback;
-////            mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
-////                @Override
-////                public void onMapReady(GoogleMap googleMap) {
-////
-////                }
-////            });
-//        }
-//
-//    }
-
 
 }

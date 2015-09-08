@@ -43,6 +43,8 @@ public class DiscoverActivity extends CalligraphyActivity {
     private NavigationAdapter navigationAdapter;
 
     private boolean showingStreetView = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +54,7 @@ public class DiscoverActivity extends CalligraphyActivity {
         streetViewContainer = (FrameLayout) findViewById(R.id.discover_street_view_map_container);
         streetViewContainer.setVisibility(View.INVISIBLE);
 
-        navigationAdapter = new NavigationAdapter(this);
-        NavigationAdapter.setUpNavDrawerActivity(this,"Discover");
+        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this,"Discover");
 
         toolbar =  (Toolbar)findViewById(R.id.recent_locations_toolbar);
 
@@ -61,20 +62,13 @@ public class DiscoverActivity extends CalligraphyActivity {
 
         discoverStreetViewFragment = (DiscoverStreetViewFragment) getSupportFragmentManager().findFragmentById(R.id.discover_steet_view_fragment);
         discoverStreetViewFragment.setVisible(false);
-//        getSupportFragmentManager().beginTransaction().hide(discoverStreetViewFragment).commit();
     }
 
     public void onMapLocationClicked(LatLng latLng){
-//        getSupportFragmentManager().beginTransaction()
-//                .show(discoverStreetViewFragment)
-//                .addToBackStack("discover_street_view_fragment")
-//                .setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom,R.anim.abc_shrink_fade_out_from_bottom)
-//                .commit();
+
         Log.d(this.getLocalClassName(), "on map location clicked " + latLng);
-//        getSupportFragmentManager().popBackStack("discover_street_view_fragment",0);
         getSupportFragmentManager().beginTransaction()
                 .show(discoverStreetViewFragment)
-//                .addToBackStack("discover_street_view_fragment")
                 .commit();
         discoverStreetViewFragment.setLocation(latLng);
     }
@@ -97,11 +91,6 @@ public class DiscoverActivity extends CalligraphyActivity {
                 error.printStackTrace();
             }
         });
-//        getSupportFragmentManager().popBackStack();
-//        getSupportFragmentManager().beginTransaction()
-//                .setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom, R.anim.abc_shrink_fade_out_from_bottom)
-//                .remove(discoverStreetViewFragment)
-//                .commit();
         hideStreetViewFragment();
         NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -114,7 +103,6 @@ public class DiscoverActivity extends CalligraphyActivity {
     public void onLocationChangeResult(StreetViewPanoramaLocation streetViewPanoramaLocation){
         if(streetViewPanoramaLocation == null){
             showNoLocationToast();
-//            getSupportFragmentManager().beginTransaction().hide(discoverStreetViewFragment).commit();
         }else{
            showStreetViewFragment();
         }
@@ -142,8 +130,6 @@ public class DiscoverActivity extends CalligraphyActivity {
     }
 
     public void hideStreetViewFragment(){
-//        streetViewContainer.setVisibility(View.INVISIBLE);
-//        discoverStreetViewFragment.setVisible(false);
         hideStreetViewAnimation();
         setDiscoverToolbar();
         showingStreetView = false;
@@ -152,8 +138,6 @@ public class DiscoverActivity extends CalligraphyActivity {
     public void showStreetViewFragment(){
         showingStreetView = true;
         setStreetViewToolbar();
-//        streetViewContainer.setVisibility(View.VISIBLE);
-//        discoverStreetViewFragment.setVisible(true);
         showStreetViewAnimation();
     }
 
@@ -214,12 +198,14 @@ public class DiscoverActivity extends CalligraphyActivity {
 
     @Override
     public void onBackPressed() {
-       if(showingStreetView){
-           // hide street view fragment
-           hideStreetViewFragment();
+        if(!navigationAdapter.onBackPressed()) {
+            if (showingStreetView) {
+                // hide street view fragment
+                hideStreetViewFragment();
 
-       }else{
-           super.onBackPressed();
-       }
+            } else {
+                super.onBackPressed();
+            }
+        }
     }
 }

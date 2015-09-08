@@ -3,4 +3,5 @@
 
     <bool name="my_places_highlight_row">false</bool>
     <bool name="show_two_pane_layout">false</bool>
+    <bool name="custom_transmission_size">false</bool>
 </resources>

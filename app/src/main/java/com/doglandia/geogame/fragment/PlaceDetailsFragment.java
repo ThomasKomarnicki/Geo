@@ -96,8 +96,8 @@ public class PlaceDetailsFragment extends Fragment {
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
         heroContainer.setLayoutParams(params);
-        LinearLayout.LayoutParams squareParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,width);
-        heatMapContainer.setLayoutParams(squareParams);
+//        LinearLayout.LayoutParams squareParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,width);
+//        heatMapContainer.setLayoutParams(squareParams);
 
         return view;
     }

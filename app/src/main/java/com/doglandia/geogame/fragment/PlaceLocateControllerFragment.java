@@ -163,6 +163,7 @@ public class PlaceLocateControllerFragment extends Fragment {
 //    }
 
     public void reset(){
+        clearMap();
         if(locatingMapFragment.isAdded()) {
             getChildFragmentManager()
                     .beginTransaction()

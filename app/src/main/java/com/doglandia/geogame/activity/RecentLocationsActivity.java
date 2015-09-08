@@ -55,6 +55,8 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
 
     private List<PlaceLocateResult> placeLocateResults;
 
+    private NavigationAdapter navigationAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,7 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
         mapFragmentHolder = (FrameLayout) findViewById(R.id.recent_locations_map_holder);
         mapFragment = (PlaceLocateResultMapFragment) getSupportFragmentManager().findFragmentById(R.id.recent_locations_map);
 
-        NavigationAdapter.setUpNavDrawerActivity(this, "Recent Places");
+        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, "Recent Places");
 
         if(savedInstanceState != null && savedInstanceState.containsKey(PLACE_LOCATE_RESULTS)){
             placeLocateResults = Parcels.unwrap(savedInstanceState.getParcelable(PLACE_LOCATE_RESULTS));
@@ -90,6 +92,8 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
                 getRecentLocations(page);
             }
         });
+
+
     }
 
     private void showContent(){
@@ -163,5 +167,12 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
             outState.putParcelable(PLACE_LOCATE_RESULTS, Parcels.wrap(placeLocateResults));
         }
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!navigationAdapter.onBackPressed()){
+            super.onBackPressed();
+        }
     }
 }

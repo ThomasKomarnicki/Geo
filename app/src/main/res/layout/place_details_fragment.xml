@@ -68,7 +68,8 @@
                 android:id="@+id/place_details_country"
                 android:layout_marginTop="16dp"
                 android:textSize="34sp"
-                android:layout_marginLeft="16dp" />
+                android:layout_marginLeft="16dp"
+                fontPath="fonts/Orbitron-Regular.ttf"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,7 +79,8 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginLeft="16dp"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                fontPath="fonts/Orbitron-Bold.ttf"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +99,8 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginLeft="16dp"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                fontPath="fonts/Orbitron-Bold.ttf"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,15 +111,16 @@
                 android:layout_marginTop="16dp"
                 android:textSize="34sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Other Guesses:"
-                android:id="@+id/textView"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="16dp"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Other Guesses:"-->
+                <!--android:id="@+id/textView"-->
+                <!--android:layout_marginTop="40dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold"-->
+                <!--fontPath="fonts/Orbitron-Bold.ttf"/>-->
 
             <!--<FrameLayout-->
                 <!--android:layout_width="match_parent"-->

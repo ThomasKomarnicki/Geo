@@ -42,6 +42,8 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
 
     private Place place;
 
+    private NavigationAdapter navigationAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
             }
         });
 
-        new NavigationAdapter(this);
+        navigationAdapter = new NavigationAdapter(this);
 
         placeLocateControllerFragment = (PlaceLocateControllerFragment) getSupportFragmentManager().findFragmentById(R.id.place_locate_controller);
     }
@@ -73,7 +75,7 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
             public void success(Place place, Response response) {
                 PlaceLocateBaseActivity.this.place = place;
 //                placeLocateControllerFragment.setPosition(place.getLatLng());
-                if(showOnCompletion){
+                if (showOnCompletion) {
                     placeLocateControllerFragment.setPosition(place.getLatLng());
                 }
 
@@ -87,6 +89,8 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
     }
 
     public void onLocationSelected(LatLng latLng){
+
+
 
         final CalculatingLocationResultsFragment calculatingLocationResultsFragment = new CalculatingLocationResultsFragment();
         calculatingLocationResultsFragment.show(getSupportFragmentManager(), "calculating_location_results_fragment");
@@ -106,15 +110,15 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
+                        placeLocateControllerFragment.reset();
+                        placeLocateControllerFragment.setPosition(place.getLatLng());
+
                         calculatingLocationResultsFragment.dismissAllowingStateLoss();
                         Intent intent = new Intent(PlaceLocateBaseActivity.this, LocatePlaceResultsActivity.class);
 
 //                      place.geocode(new Geocoder(PlaceLocateBaseActivity.this));
                         intent.putExtra("locate_result", Parcels.wrap(locationGuessResult.getLocationGuessResult()));
                         startActivityForResult(intent, START_NEW_LOCATION_RESULT);
-
-                        placeLocateControllerFragment.reset();
-                        placeLocateControllerFragment.setPosition(place.getLatLng());
 
                     }
                 }.execute(locationGuessResult.getLocationGuessResult().getActualLocation());
@@ -135,6 +139,13 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
 //            placeLocateControllerFragment.reset();
 //            setNewPlace();
 //        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!navigationAdapter.onBackPressed()) {
+            super.onBackPressed();
+        }
     }
 
     private void setNewPlace(){

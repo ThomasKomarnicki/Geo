@@ -53,6 +53,8 @@ public class MyPlacesActivity extends CalligraphyActivity implements OnHeatMapCl
 
     private ProgressBar progressBar;
 
+    private NavigationAdapter navigationAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,13 +222,15 @@ public class MyPlacesActivity extends CalligraphyActivity implements OnHeatMapCl
     }
 
     private void setNavDrawerToolbar(){
-        new NavigationAdapter(this);
+        navigationAdapter = new NavigationAdapter(this);
         NavigationAdapter.setUpNavDrawerActivity(this,"My Places");
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if(!navigationAdapter.onBackPressed()){
+            super.onBackPressed();
+        }
         if(showingHeatMap){
             setNavDrawerToolbar();
         }

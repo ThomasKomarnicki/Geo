@@ -3,9 +3,11 @@ package com.doglandia.geogame.transmissions;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.transmissions.view.TransmissionConsole;
@@ -37,6 +39,7 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
 
         transmissionConsole = (TransmissionConsole) view.findViewById(R.id.transmission_console);
 
+
         view.setClickable(true);
         view.setOnClickListener(this);
 
@@ -46,6 +49,13 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if(getResources().getBoolean(R.bool.custom_transmission_size)){
+            transmissionConsole.setLayoutParams(new FrameLayout.LayoutParams(
+                    (int)getResources().getDimension(R.dimen.transmission_console_width),
+                    (int)getResources().getDimension(R.dimen.transmission_console_height),
+                    Gravity.CENTER));
+        }
 
         String[] text = getArguments().getStringArray(TRANSMISSION_TEXTS);
         animateText(text);

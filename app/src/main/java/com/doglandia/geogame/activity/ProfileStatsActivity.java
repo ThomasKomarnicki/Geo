@@ -13,11 +13,13 @@ import com.doglandia.geogame.fragment.ProfileStatsFragment;
  */
 public class ProfileStatsActivity extends CalligraphyActivity {
 
+    private NavigationAdapter navigationAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_stats);
-        NavigationAdapter.setUpNavDrawerActivity(this, "Agent Statistics");
+        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, "Agent Statistics");
 
         int userId = UserAuth.getAuthUserId();
         String authToken = UserAuth.getAuthUserToken();
@@ -25,5 +27,12 @@ public class ProfileStatsActivity extends CalligraphyActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.profile_Stats_fragment_container, ProfileStatsFragment.getInstance(userId,authToken))
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!navigationAdapter.onBackPressed()){
+            super.onBackPressed();
+        }
     }
 }

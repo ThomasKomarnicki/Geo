@@ -19,7 +19,6 @@
         android:theme="@style/AppThemeDark" >
 
         <activity android:name=".activity.LocatePlaceResultsActivity" />
-        <activity android:name=".activity.PlacesListActivity"/>
         <activity android:name=".activity.RecentLocationsActivity"/>
         <activity android:name=".activity.MyPlacesActivity"/>
         <activity android:name=".activity.PlaceDetailsActivity" />
