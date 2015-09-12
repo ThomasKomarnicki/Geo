@@ -1,10 +1,9 @@
 package com.doglandia.geogame.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -13,15 +12,11 @@ import android.widget.ProgressBar;
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.fragment.error.ButtonLessNoDataFragment;
-import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.GeoCodeRecentLocationTask;
-import com.doglandia.geogame.server.GeoCodeTask;
 import com.doglandia.geogame.util.BottomScrollListener;
-import com.doglandia.geogame.util.Util;
 import com.doglandia.geogame.adapter.LocateResultsAdapter;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.error.NoPlaceLocateResultsFragments;
-import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
 import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.server.Server;
 
@@ -43,7 +38,7 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
     private RecyclerView recyclerView;
 //    private Toolbar toolbar;
     private FrameLayout mapFragmentHolder;
-    private PlaceLocateResultMapFragment mapFragment;
+//    private PlaceLocateResultMapFragment mapFragment;
 
     private FrameLayout contentFrame;
     private LinearLayout recentLocationsHolder;
@@ -74,7 +69,7 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mapFragmentHolder = (FrameLayout) findViewById(R.id.recent_locations_map_holder);
-        mapFragment = (PlaceLocateResultMapFragment) getSupportFragmentManager().findFragmentById(R.id.recent_locations_map);
+//        mapFragment = (PlaceLocateResultMapFragment) getSupportFragmentManager().findFragmentById(R.id.recent_locations_map);
 
         navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, "Recent Places");
 
@@ -154,7 +149,11 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
 
     @Override
     public void onLocateResultClicked(int index, PlaceLocateResult placeLocateResult) {
-        mapFragment.showPlaceLocateResult(placeLocateResult);
+//        mapFragment.showPlaceLocateResult(placeLocateResult);
+        Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
+        intent.putExtra("locate_result",Parcels.wrap(placeLocateResult));
+        startActivity(intent);
+        // todo
     }
 
     private boolean shouldHighlight(){

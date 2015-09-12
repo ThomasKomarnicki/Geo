@@ -22,18 +22,18 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
 
 //    private ViewHolder highLightedView;
 
-    private int highlightPosition = -1;
+//    private int highlightPosition = -1;
 
-    private boolean highlight;
+//    private boolean highlight;
 
-    private Drawable highlightDrawable;
+//    private Drawable highlightDrawable;
 
     private List<PlaceLocateResult> placeLocateResults;
     public LocateResultsAdapter(List<PlaceLocateResult> placeLocateResultList,
                                 LocateResultClickListener locateResultClickListener, boolean highlight) {
         this.listener = locateResultClickListener;
         this.placeLocateResults = placeLocateResultList;
-        this.highlight = highlight;
+//        this.highlight = highlight;
 
 
     }
@@ -55,19 +55,19 @@ public class LocateResultsAdapter extends RecyclerView.Adapter<LocateResultsAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(highlight) {
-                    highlightPosition = position;
+//                if(highlight) {
+//                    highlightPosition = position;
                     listener.onLocateResultClicked(position, placeLocateResult);
-                    notifyDataSetChanged();
-                }
+//                    notifyDataSetChanged();
+//                }
             }
         });
 
-        if(position == highlightPosition){
-            holder.itemView.setBackgroundColor(holder.itemView.getResources().getColor(R.color.primary_dark));
-        }else{
-            holder.itemView.setBackground(null);
-        }
+//        if(position == highlightPosition){
+//            holder.itemView.setBackgroundColor(holder.itemView.getResources().getColor(R.color.primary_dark));
+//        }else{
+//            holder.itemView.setBackground(null);
+//        }
     }
 
     @Override

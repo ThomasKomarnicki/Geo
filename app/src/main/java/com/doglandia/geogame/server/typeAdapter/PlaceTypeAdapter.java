@@ -33,7 +33,7 @@ public class PlaceTypeAdapter extends TypeAdapter<Place> {
     public Place read(JsonReader in) throws IOException {
         Place place = new Place();
 
-        Log.d("PlaceTypeAdater", "peek before begin object: " + in.peek().name());
+//        Log.d("PlaceTypeAdater", "peek before begin object: " + in.peek().name());
         if(in.peek().ordinal() == JsonToken.NULL.ordinal()){
             in.nextNull();
             return null;

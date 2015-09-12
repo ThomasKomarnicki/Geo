@@ -1,5 +1,7 @@
 package com.doglandia.geogame.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.parceler.Parcel;
 
 /**
@@ -13,9 +15,11 @@ public class UserProfileStats {
     int locationCount;
     int locationGuessCount;
 
+    @SerializedName("easiest_location_avg")
     int easiestLocationAverage;
     Place easiestLocation;
 
+    @SerializedName("hardest_location_avg")
     int hardestLocationAverage;
     Place hardestLocation;
 

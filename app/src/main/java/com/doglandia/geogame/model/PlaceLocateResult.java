@@ -103,4 +103,8 @@ public class PlaceLocateResult {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 }

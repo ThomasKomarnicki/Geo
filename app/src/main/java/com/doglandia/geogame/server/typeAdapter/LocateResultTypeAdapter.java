@@ -53,6 +53,10 @@ public class LocateResultTypeAdapter extends TypeAdapter<PlaceLocateResult> {
                     break;
                 case "score":
                     placeLocateResult.setScore(in.nextInt());
+                    break;
+                case "distance":
+                    placeLocateResult.setDistance(in.nextInt());
+                    break;
 
             }
         }
