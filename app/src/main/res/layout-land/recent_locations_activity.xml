@@ -41,21 +41,6 @@
                     android:layout_weight=".5"
                     android:id="@+id/recent_locations_recycler_view" />
 
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".5"
-                    android:id="@+id/recent_locations_map_holder">
-
-                    <fragment
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:name="com.doglandia.geogame.map.PlaceLocateResultMapFragment"
-                        android:id="@+id/recent_locations_map"/>
-                    <!--app:mapType="normal"-->
-                    <!--app:liteMode="true"/>-->
-                </FrameLayout>
-
             </LinearLayout>
 
             <ProgressBar
