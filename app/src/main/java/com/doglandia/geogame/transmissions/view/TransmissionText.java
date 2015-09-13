@@ -4,16 +4,23 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.doglandia.geogame.R;
 import com.doglandia.geogame.transmissions.TransmissionTextListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by Thomas on 8/16/2015.
  */
-public class TransmissionText extends TextView {
+public class TransmissionText extends FrameLayout {
 
     private static final String TAG = "TransmissionText";
     private String messageToDisplay;
@@ -21,6 +28,9 @@ public class TransmissionText extends TextView {
 
     private ObjectAnimator objectAnimator;
     private TransmissionTextListener transmissionTextListener;
+
+    private TextView transmissionText;
+    private TextView ghostText;
 
     public TransmissionText(Context context) {
         super(context);
@@ -38,8 +48,54 @@ public class TransmissionText extends TextView {
     }
 
     private void init(){
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.transmission_text, null);
+        transmissionText = (TextView) view.findViewById(R.id.transmission_text_main);
+        ghostText = (TextView) view.findViewById(R.id.transmission_text_ghost);
+
+        addView(view);
+
         setWillNotDraw(false);
-        setText("");
+        transmissionText.setText("");
+
+
+
+    }
+
+    /**
+     *
+     * @param tv
+     */
+    private void measureText(TextView tv){
+        TextPaint textPaint = tv.getPaint();
+
+        final String[] words = messageToDisplay.split(" ");
+        ArrayList<String> resolvedLines = new ArrayList<>();
+
+        StringBuilder currentLine = new StringBuilder();
+
+        for(int i = 0; i < words.length; i++){
+            String word = words[i] + " ";
+            currentLine.append(word);
+            int viewWidth = getWidth();
+            if(textPaint.measureText(currentLine.toString()) > viewWidth){
+                currentLine.delete(currentLine.length()-word.length()-1,currentLine.length()); // -1 is for the last space
+                resolvedLines.add(currentLine.toString());
+                currentLine = new StringBuilder();
+                i--; // will cause stack overflow if one word is longer than width
+            }
+        }
+
+        StringBuilder newMessage = new StringBuilder();
+        for(String string : resolvedLines){
+            newMessage.append(string);
+            newMessage.append("\n");
+        }
+
+        if(currentLine.length() > 0){
+            newMessage.append(currentLine.toString());
+        }
+
+        messageToDisplay = newMessage.toString();
 
     }
 
@@ -47,7 +103,15 @@ public class TransmissionText extends TextView {
         this.messageToDisplay = message;
         numCharsDisplayed = 0;
         objectAnimator = ObjectAnimator.ofInt(this,"numCharsDisplayed",0,messageToDisplay.length());
-        objectAnimator.setDuration(messageToDisplay.length() * 32);
+        objectAnimator.setDuration(messageToDisplay.length() * 32); // add a letter every 2 ish frames
+
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                measureText(transmissionText);
+
+            }
+        }, 32);
     }
 
     public void setNumCharsDisplayed(int value){
@@ -86,7 +150,7 @@ public class TransmissionText extends TextView {
 
     public void showFullText(){
         stopTextAnimation();
-        setText(messageToDisplay);
+        transmissionText.setText(messageToDisplay);
     }
 
     public void stopTextAnimation(){
@@ -97,8 +161,8 @@ public class TransmissionText extends TextView {
     @Override
     protected void onDraw(Canvas canvas) {
 //        Log.d(TAG, "drawing transmission text, " + numCharsDisplayed + " / " + messageToDisplay.length());
-        if(!messageToDisplay.equals(getText().toString())) {
-            setText(messageToDisplay.substring(0, numCharsDisplayed));
+        if(!messageToDisplay.equals(transmissionText.getText().toString())) {
+            transmissionText.setText(messageToDisplay.substring(0, numCharsDisplayed));
         }
         super.onDraw(canvas);
     }

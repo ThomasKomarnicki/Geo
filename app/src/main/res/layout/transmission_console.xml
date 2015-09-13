@@ -7,7 +7,6 @@
     <com.doglandia.geogame.transmissions.view.TransmissionText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/transmission_text"
         android:id="@+id/transmission_text"
         fontPath="fonts/Orbitron-Regular.ttf"
         android:lineSpacingExtra="2dp"

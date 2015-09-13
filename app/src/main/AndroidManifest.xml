@@ -25,14 +25,7 @@
         <activity android:name=".activity.DiscoverActivity"/>
         <activity android:name=".activity.locate.PlaceLocateDefaultActivity"/>
         <activity android:name=".activity.ProfileStatsActivity"/>
-        <activity android:name=".activity.locate.PlaceLocateIntroduction">
-
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".activity.locate.PlaceLocateIntroduction"/>
         <!--<activity android:name=".test.TransmissionTestActivity">-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
