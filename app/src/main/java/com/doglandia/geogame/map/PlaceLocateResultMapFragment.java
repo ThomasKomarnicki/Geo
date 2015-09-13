@@ -2,6 +2,7 @@ package com.doglandia.geogame.map;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.model.PlaceLocateResult;
@@ -31,6 +32,13 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         if(getArguments() != null && getArguments().containsKey("locate_result")) {
             placeLocateResult = Parcels.unwrap(getArguments().getParcelable("locate_result"));
         }
@@ -45,7 +53,7 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
                         return true;
                     }
                 });
-                if(placeLocateResult != null) {
+                if (placeLocateResult != null) {
                     showPlaceLocateResult(placeLocateResult);
                 }
 
@@ -67,6 +75,7 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
         LatLngBounds bounds = builder.build();
 
         cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, (int) (32 * getResources().getDisplayMetrics().density));
+
         googleMap.animateCamera(cameraUpdate);
         showLine(placeLocateResult);
     }

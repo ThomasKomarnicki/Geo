@@ -37,7 +37,7 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
 
     private RecyclerView recyclerView;
 //    private Toolbar toolbar;
-    private FrameLayout mapFragmentHolder;
+//    private FrameLayout mapFragmentHolder;
 //    private PlaceLocateResultMapFragment mapFragment;
 
     private FrameLayout contentFrame;
@@ -68,8 +68,7 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mapFragmentHolder = (FrameLayout) findViewById(R.id.recent_locations_map_holder);
-//        mapFragment = (PlaceLocateResultMapFragment) getSupportFragmentManager().findFragmentById(R.id.recent_locations_map);
+//        mapFragmentHolder = (FrameLayout) findViewById(R.id.recent_locations_map_holder);
 
         navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, "Recent Places");
 

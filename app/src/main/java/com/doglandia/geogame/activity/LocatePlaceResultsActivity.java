@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.map.PlaceLocateResultMapFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.server.GeoCodeTask;
 
 import org.parceler.Parcels;
 
@@ -27,6 +29,7 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
     private TextView cityTv;
     private TextView distanceTv;
     private TextView scoreTv;
+    private RelativeLayout resultsHolder;
 
     private Button nextLocationButton;
 
@@ -42,6 +45,8 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
         distanceTv = (TextView) findViewById(R.id.result_distance_value);
         scoreTv = (TextView) findViewById(R.id.result_score_value);
         nextLocationButton = (Button) findViewById(R.id.next_location_button);
+        resultsHolder = (RelativeLayout) findViewById(R.id.results_holder);
+        resultsHolder.setVisibility(View.INVISIBLE);
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
 //        setSupportActionBar(toolbar);
@@ -60,9 +65,18 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
 
         addMapFragment();
 
-        placeLocateResult.getActualLocation().geocode(new Geocoder(this, Locale.getDefault()));
+        GeoCodeTask geoCodeTask = new GeoCodeTask(this){
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                showLocationDetails(placeLocateResult);
+            }
+        };
+        geoCodeTask.execute(placeLocateResult.getActualLocation());
 
-        showLocationDetails(placeLocateResult);
+//        placeLocateResult.getActualLocation().geocode(new Geocoder(this, Locale.getDefault()));
+
+
 
         nextLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +107,7 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
 
         distanceTv.setText(getDistanceText(placeLocateResult));
         scoreTv.setText(String.valueOf(placeLocateResult.getScore()));
+        resultsHolder.setVisibility(View.VISIBLE);
 
     }
 

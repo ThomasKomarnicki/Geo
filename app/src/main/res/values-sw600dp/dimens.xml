@@ -2,4 +2,5 @@
 <resources>
 
     <dimen name="transmission_console_width">400dp</dimen>
+    <dimen name="locate_result_row_margins">100dp</dimen>
 </resources>

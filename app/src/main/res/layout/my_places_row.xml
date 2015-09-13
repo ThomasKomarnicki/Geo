@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:background="?android:attr/selectableItemBackground"
-    android:minHeight="180dp">
+    android:minHeight="180dp"
+    android:foreground="@drawable/nav_background">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:background="@drawable/nav_background"
         android:layout_gravity="center_vertical">
 
         <TextView
