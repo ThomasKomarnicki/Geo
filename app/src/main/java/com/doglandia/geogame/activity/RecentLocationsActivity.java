@@ -151,6 +151,7 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
 //        mapFragment.showPlaceLocateResult(placeLocateResult);
         Intent intent = new Intent(this,LocatePlaceResultsActivity.class);
         intent.putExtra("locate_result",Parcels.wrap(placeLocateResult));
+        intent.putExtra(LocatePlaceResultsActivity.FROM_RECENT_LOCATIONS,false);
         startActivity(intent);
         // todo
     }

@@ -1,13 +1,10 @@
 package com.doglandia.geogame.activity;
 
-import android.app.Activity;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
@@ -18,9 +15,9 @@ import com.doglandia.geogame.server.GeoCodeTask;
 
 import org.parceler.Parcels;
 
-import java.util.Locale;
-
 public class LocatePlaceResultsActivity extends CalligraphyActivity {
+
+    public static final String FROM_RECENT_LOCATIONS = "from_recent_locations";
 
     private static final String RESULT_MAP_FRAGMENT_TAG = "result_map_fragment";
 
@@ -29,9 +26,12 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
     private TextView cityTv;
     private TextView distanceTv;
     private TextView scoreTv;
-    private RelativeLayout resultsHolder;
+    private View resultsHolder;
 
     private Button nextLocationButton;
+
+    private AppBarLayout appBarLayout;
+    private Toolbar toolbar;
 
     private PlaceLocateResult placeLocateResult;
     @Override
@@ -45,8 +45,26 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
         distanceTv = (TextView) findViewById(R.id.result_distance_value);
         scoreTv = (TextView) findViewById(R.id.result_score_value);
         nextLocationButton = (Button) findViewById(R.id.next_location_button);
-        resultsHolder = (RelativeLayout) findViewById(R.id.results_holder);
+        resultsHolder = findViewById(R.id.results_holder);
         resultsHolder.setVisibility(View.INVISIBLE);
+
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        boolean fromRecentLocations = getIntent().getBooleanExtra(FROM_RECENT_LOCATIONS,true);
+        if(!fromRecentLocations){
+            nextLocationButton.setVisibility(View.INVISIBLE);
+            toolbar.setTitle("Locate Result");
+            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }else{
+            appBarLayout.setVisibility(View.GONE);
+        }
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
 //        setSupportActionBar(toolbar);

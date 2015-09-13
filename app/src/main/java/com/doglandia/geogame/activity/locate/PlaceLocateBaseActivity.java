@@ -139,6 +139,7 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
 //            placeLocateControllerFragment.reset();
 //            setNewPlace();
 //        }
+        placeLocateControllerFragment.reset();
     }
 
     @Override

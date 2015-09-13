@@ -32,7 +32,7 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 
     private LatLng selectedLocation;
 
-    private Marker marker;
+//    private Marker marker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,6 +86,8 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
             }
         });
 
+
+
     }
 
 
@@ -121,16 +123,17 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 //        }
         googleMap.clear();
 
-        marker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.target_marker)));
+        Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.target_marker)));
         marker.showInfoWindow();
     }
 
     public void clearMap(){
 //        floatingActionButton.setVisibility(View.INVISIBLE);
         Log.d("LocatingMapFragment", "map cleared");
-        if(marker != null) {
-            marker.remove();
-        }
+//        if(marker != null) {
+//            marker.remove();
+//            marker.setVisible(false);
+//        }
         googleMap.clear();
         CameraUpdate defaultMapLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(0,0),1);
         googleMap.moveCamera(defaultMapLocation);

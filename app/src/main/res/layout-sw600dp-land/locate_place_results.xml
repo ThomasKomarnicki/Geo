@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_bar_layout">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="40dp"
+            android:id="@+id/results_holder"
+            android:layout_weight=".5"
+            android:layout_marginLeft="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City,"
+                android:id="@+id/results_city"
+                android:textSize="42sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                fontPath="fonts/Orbitron-Bold.ttf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State"
+                android:id="@+id/results_state"
+                android:textSize="32sp"
+                android:layout_below="@+id/results_city"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                fontPath="fonts/Orbitron-Regular.ttf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country"
+                android:id="@+id/results_country"
+                android:textSize="32sp"
+                fontPath="fonts/Orbitron-Regular.ttf"
+                android:layout_below="@+id/results_state"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="16dp" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout"
+                android:layout_alignEnd="@+id/frameLayout"
+                android:layout_below="@+id/results_state"
+                android:layout_marginTop="32dp"
+                android:layout_toEndOf="@+id/results_country">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DISTANCE:"
+                        android:id="@+id/results_distance"
+                        android:textSize="20sp"
+                        android:layout_alignTop="@+id/results_state"
+                        android:layout_alignParentEnd="true"
+                        fontPath="fonts/Orbitron-Regular.ttf"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2500 mi"
+                        android:id="@+id/result_distance_value"
+                        android:textSize="42sp"
+                        android:layout_alignStart="@+id/results_score"
+                        android:layout_below="@+id/results_distance" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SCORE:"
+                        android:id="@+id/results_score"
+                        android:textSize="20sp"
+                        android:layout_marginRight="32dp"
+                        android:layout_alignStart="@+id/results_distance"
+                        android:layout_below="@+id/result_distance_value"
+                        fontPath="fonts/Orbitron-Regular.ttf"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:id="@+id/result_score_value"
+                        android:textSize="42sp"
+                        android:layout_alignStart="@+id/results_distance"
+                        android:layout_below="@+id/results_score"
+                        android:textColor="@color/primary" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/frameLayout"
+                android:layout_below="@+id/linearLayout">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next Location"
+                    android:id="@+id/next_location_button"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="32dp"
+                    android:layout_gravity="center_horizontal" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/locate_place_results_fragment_holder"
+            android:layout_weight=".5">
+
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>
