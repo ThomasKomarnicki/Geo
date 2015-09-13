@@ -46,6 +46,8 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
 
     private boolean showingStreetView = false;
 
+    private boolean awaitingInitialStreetViewResult = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,9 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
     protected void onResume() {
         super.onResume();
         TransmissionFragment transmissionFragment = (TransmissionFragment) getSupportFragmentManager().findFragmentByTag("transmission_fragment");
-        transmissionFragment.setTransmissionEndedTextListener(this);
+        if(transmissionFragment != null) {
+            transmissionFragment.setTransmissionEndedTextListener(this);
+        }
     }
 
     public void onMapLocationClicked(LatLng latLng){
@@ -88,6 +92,8 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
         getSupportFragmentManager().beginTransaction()
                 .show(discoverStreetViewFragment)
                 .commit();
+
+        awaitingInitialStreetViewResult = true; // set this to differentiate between click and street view navigation
         discoverStreetViewFragment.setLocation(latLng);
     }
 
@@ -119,8 +125,9 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
     public void onLocationChangeResult(StreetViewPanoramaLocation streetViewPanoramaLocation){
         if(streetViewPanoramaLocation == null){
             showNoLocationToast();
-        }else{
-           showStreetViewFragment();
+        }else if(awaitingInitialStreetViewResult){
+            showStreetViewFragment();
+            awaitingInitialStreetViewResult = false;
         }
     }
 

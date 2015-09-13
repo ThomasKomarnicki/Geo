@@ -18,5 +18,6 @@
         app:fabSize="normal"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="@dimen/locate_select_button_margin_right"
-        android:layout_marginBottom="@dimen/locate_select_button_margin_bottom" />
+        android:layout_marginBottom="@dimen/locate_select_button_margin_bottom"
+        android:src="@drawable/ic_map_white_36dp" />
 </FrameLayout>
