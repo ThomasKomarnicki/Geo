@@ -9,7 +9,7 @@
         android:id="@+id/profile_stats_progress"/>
     <ScrollView
         android:layout_width="match_parent" android:layout_height="match_parent"
-        android:id="@+id/profile_stats_scrollview">
+        android:id="@+id/profile_stats_content_scroll_view">
 
         <LinearLayout
             android:layout_width="match_parent"

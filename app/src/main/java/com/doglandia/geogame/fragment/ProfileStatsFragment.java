@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.doglandia.geogame.R;
@@ -65,7 +64,7 @@ public class ProfileStatsFragment extends Fragment {
 
     private ProgressBar progressBar;
 
-    private ScrollView scrollView;
+    private View contentView;
 
     private UserProfileStats userProfileStats;
 
@@ -88,8 +87,11 @@ public class ProfileStatsFragment extends Fragment {
 
         progressBar = (ProgressBar) view.findViewById(R.id.profile_stats_progress);
 
-        scrollView = (ScrollView) view.findViewById(R.id.profile_stats_scrollview);
-        scrollView.setVisibility(View.GONE);
+        contentView = view.findViewById(R.id.profile_stats_content_view);
+        if(contentView == null){
+            contentView = view.findViewById(R.id.profile_stats_content_scroll_view);
+        }
+        contentView.setVisibility(View.GONE);
 
         return view;
     }
@@ -108,6 +110,7 @@ public class ProfileStatsFragment extends Fragment {
             Server.getInstance().getProfileStats(getArguments().getInt("user_id"), getArguments().getString("auth_token"), new Callback<UserProfileStats>() {
                 @Override
                 public void success(final UserProfileStats userProfileStats, Response response) {
+                    ProfileStatsFragment.this.userProfileStats = userProfileStats;
                     if(getActivity() != null) {
                         Place[] places = new Place[3];
                         places[0] = userProfileStats.getEasiestLocation();
@@ -195,7 +198,7 @@ public class ProfileStatsFragment extends Fragment {
         }
 
         progressBar.setVisibility(View.GONE);
-        scrollView.setVisibility(View.VISIBLE);
+        contentView.setVisibility(View.VISIBLE);
     }
 
 
@@ -209,4 +212,14 @@ public class ProfileStatsFragment extends Fragment {
 
         return supportMapFragment;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(userProfileStats != null){
+            outState.putParcelable("user_profile_stats",Parcels.wrap(userProfileStats));
+        }
+    }
+
+
 }

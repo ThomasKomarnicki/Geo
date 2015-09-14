@@ -25,9 +25,9 @@ public class ProfileStatsActivity extends CalligraphyActivity {
         String authToken = UserAuth.getAuthUserToken();
 
         FrameLayout fragmentContainer = (FrameLayout) findViewById(R.id.profile_stats_fragment_container);
-        if(fragmentContainer.getChildCount() == 0) {
+        if(getSupportFragmentManager().findFragmentByTag("profile_stats_fragment") == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.profile_stats_fragment_container, ProfileStatsFragment.getInstance(userId, authToken))
+                    .add(R.id.profile_stats_fragment_container, ProfileStatsFragment.getInstance(userId, authToken),"profile_stats_fragment")
                     .commit();
         }
     }
