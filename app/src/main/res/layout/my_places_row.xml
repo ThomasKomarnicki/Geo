@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="?android:attr/selectableItemBackground"
     android:minHeight="180dp"
-    android:foreground="@drawable/nav_background">
+    android:foreground="@drawable/green_bottom_background">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

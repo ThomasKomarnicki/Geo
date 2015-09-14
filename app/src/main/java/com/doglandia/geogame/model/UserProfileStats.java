@@ -16,11 +16,11 @@ public class UserProfileStats {
     int locationGuessCount;
 
     @SerializedName("easiest_location_avg")
-    int easiestLocationAverage;
+    double easiestLocationAverage;
     Place easiestLocation;
 
     @SerializedName("hardest_location_avg")
-    int hardestLocationAverage;
+    double hardestLocationAverage;
     Place hardestLocation;
 
     int bestGuess;
@@ -40,7 +40,7 @@ public class UserProfileStats {
     }
 
     public int getEasiestLocationAverage() {
-        return easiestLocationAverage;
+        return (int) easiestLocationAverage;
     }
 
     public Place getEasiestLocation() {
@@ -48,7 +48,7 @@ public class UserProfileStats {
     }
 
     public int getHardestLocationAverage() {
-        return hardestLocationAverage;
+        return (int) hardestLocationAverage;
     }
 
     public Place getHardestLocation() {

@@ -35,6 +35,9 @@ public class PlaceLocateControllerFragment extends Fragment {
     private LocatingMapFragment locatingMapFragment;
     private StreetViewMapFragment streetViewMapFragment;
 
+    private View locatingMapContainer;
+    private View streetMapContainer;
+
 //    private LatLng currentLatLng;
 
     @Nullable
@@ -54,6 +57,9 @@ public class PlaceLocateControllerFragment extends Fragment {
             }
         });
 
+        locatingMapContainer = view.findViewById(R.id.place_locate_map_container);
+        streetMapContainer = view.findViewById(R.id.place_locate_street_container);
+
         return view;
     }
 
@@ -61,81 +67,43 @@ public class PlaceLocateControllerFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(streetViewMapFragment == null){
-            streetViewMapFragment = new StreetViewMapFragment();
-        }
-        if(locatingMapFragment == null){
-            locatingMapFragment = new LocatingMapFragment();
-        }
+//        if(streetViewMapFragment == null){
+//            streetViewMapFragment = new StreetViewMapFragment();
+//        }
+//        if(locatingMapFragment == null){
+//            locatingMapFragment = new LocatingMapFragment();
+//        }
 
+        streetViewMapFragment = (StreetViewMapFragment) getChildFragmentManager().findFragmentById(R.id.place_locate_street_map_fragment);
+        locatingMapFragment = (LocatingMapFragment) getChildFragmentManager().findFragmentById(R.id.place_locate_locating_map_fragment);
 
-
-
-
-        getChildFragmentManager()
-                .beginTransaction()
-                .add(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
-                .commit();
-
-//        mapContainer.setContentFragment(locatingMapFragment);
-//
 //        getChildFragmentManager()
 //                .beginTransaction()
-//                .add(streetViewContainer.getId(),streetViewMapFragment, "street_view_map_fragment")
+//                .add(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
 //                .commit();
-//
-//        mapContainer.setAnimationListener(new AnimatorFrameLayout.AnimationListener() {
-//            @Override
-//            public void onShrinkStart() {
-//                ((PlaceLocateActivityNewUi) getActivity()).setMenuNavigation();
-//            }
-//
-//            @Override
-//            public void onShrinkEnd() {
-//
-//            }
-//
-//            @Override
-//            public void onRestoreStart() {
-//                ((PlaceLocateActivityNewUi) getActivity()).setBackNavigation();
-//            }
-//
-//            @Override
-//            public void onRestoreEnd() {
-////                locatingMapFragment.restoreControls();
-//            }
-//        });
-//
-//        reset();
 
-//        mapContainer.startShrinkAnimation();
 
     }
 
-    /* returns true if consumed event */
-//    public boolean onBackPressed(){
-//        mapContainer.startShrinkAnimation();
-////        locatSnapshot(new GoogleMap.SnapshotReadyCallback() {
-////
-////            shotReady(Bitmap bitmap) {
-////            etOverlayImage(bitmap);
-////
-////            }
-////        });
-//        return
-//    }
-
     private void toggleFragments(){
-        if(locatingMapFragment.isAdded()){
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
-                    .commit();
+//        if(locatingMapFragment.isAdded()){
+//            getChildFragmentManager()
+//                    .beginTransaction()
+//                    .replace(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
+//                    .commit();
+//        }else{
+//            getChildFragmentManager()
+//                    .beginTransaction()
+//                    .replace(mainContent.getId(), locatingMapFragment, "locating_map_fragment")
+//                    .commit();
+//        }
+
+        if(locatingMapContainer.getVisibility() == View.VISIBLE){
+            locatingMapContainer.setVisibility(View.GONE);
+            streetMapContainer.setVisibility(View.VISIBLE);
         }else{
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(mainContent.getId(), locatingMapFragment, "locating_map_fragment")
-                    .commit();
+            locatingMapContainer.setVisibility(View.VISIBLE);
+            streetMapContainer.setVisibility(View.GONE);
         }
     }
 
@@ -147,28 +115,17 @@ public class PlaceLocateControllerFragment extends Fragment {
         locatingMapFragment.clearMap();
     }
 
-//    public void reset() {
-//        ((PlaceLocateActivityNewUi) getActivity()).setMenuNavigation();
-//        mapContainer.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                mapContainer.setScale(.35f);
-//                mapContainer.setDelta(.3f);
-//                mapContainer.setImageCrop(.6f);
-//                mapContainer.setRespondToClick();
-//                mapContainer.setOverlayDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                mapContainer.invalidate();
-//            }
-//        });
-//    }
-
     public void reset(){
         clearMap();
-        if(locatingMapFragment.isAdded()) {
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
-                    .commit();
-        }
+//        if(locatingMapFragment.isAdded()) {
+//            getChildFragmentManager()
+//                    .beginTransaction()
+//                    .replace(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
+//                    .commit();
+//        }
+
+        locatingMapContainer.setVisibility(View.GONE);
+        streetMapContainer.setVisibility(View.VISIBLE);
+
     }
 }

@@ -8,4 +8,5 @@
     <dimen name="console_width">-1dp</dimen>
     <dimen name="transmission_console_height">220dp</dimen>
     <dimen name="locate_result_row_margins">0dp</dimen>
+    <dimen name="profile_stats_location_view_horizontal_padding">0dp</dimen>
 </resources>

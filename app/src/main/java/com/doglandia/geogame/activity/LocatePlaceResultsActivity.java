@@ -81,13 +81,14 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
 
         placeLocateResult = Parcels.unwrap(getIntent().getParcelableExtra("locate_result"));
 
-        addMapFragment();
+//        addMapFragment();
 
         GeoCodeTask geoCodeTask = new GeoCodeTask(this){
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 showLocationDetails(placeLocateResult);
+                addMapFragment();
             }
         };
         geoCodeTask.execute(placeLocateResult.getActualLocation());
@@ -107,10 +108,13 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
 
     private void addMapFragment() {
         Bundle args = new Bundle();
-        args.putParcelable("locate_result", getIntent().getParcelableExtra("locate_result"));
+        args.putParcelable("locate_result", Parcels.wrap(placeLocateResult));
         PlaceLocateResultMapFragment fragment = new PlaceLocateResultMapFragment();
         fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction().add(R.id.locate_place_results_fragment_holder, fragment,RESULT_MAP_FRAGMENT_TAG).commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.locate_place_results_fragment_holder, fragment,RESULT_MAP_FRAGMENT_TAG)
+                .setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out)
+                .commit();
     }
 
     private void showLocationDetails(PlaceLocateResult placeLocateResult) {

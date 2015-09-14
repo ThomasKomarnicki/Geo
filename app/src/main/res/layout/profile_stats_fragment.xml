@@ -46,7 +46,9 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="40dp"
+                android:background="@drawable/green_bottom_background"
+                android:paddingBottom="4dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -58,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Locations Scouted"
+                        android:text="Locations Discovered"
                         android:id="@+id/textView8"
                         android:layout_gravity="center_horizontal" />
 
@@ -108,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="My Toughest Location to Target:"
+                    android:text="Toughest Location to Target:"
                     android:id="@+id/profile_stats_hardest_location_title"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp"
@@ -130,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="My Easiest Location to Target:"
+                    android:text="Easiest Location to Target:"
                     android:id="@+id/profile_stats_easiest_location_title"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp"

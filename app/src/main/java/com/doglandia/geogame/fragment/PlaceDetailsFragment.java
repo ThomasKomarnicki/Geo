@@ -19,16 +19,13 @@ import android.widget.TextView;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.util.Util;
-import com.doglandia.geogame.map.PlaceHeatMapFragment;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.server.Server;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

@@ -33,12 +33,6 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         if(getArguments() != null && getArguments().containsKey("locate_result")) {
             placeLocateResult = Parcels.unwrap(getArguments().getParcelable("locate_result"));
         }
@@ -46,7 +40,7 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 PlaceLocateResultMapFragment.this.googleMap = googleMap;
-                googleMap.getUiSettings().setAllGesturesEnabled(false);
+                googleMap.getUiSettings().setMapToolbarEnabled(false);
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
@@ -59,6 +53,7 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
 
             }
         });
+
     }
 
     public void showPlaceLocateResult(PlaceLocateResult placeLocateResult){

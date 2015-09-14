@@ -1,7 +1,7 @@
 package com.doglandia.geogame.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
@@ -24,9 +24,12 @@ public class ProfileStatsActivity extends CalligraphyActivity {
         int userId = UserAuth.getAuthUserId();
         String authToken = UserAuth.getAuthUserToken();
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.profile_Stats_fragment_container, ProfileStatsFragment.getInstance(userId,authToken))
-                .commit();
+        FrameLayout fragmentContainer = (FrameLayout) findViewById(R.id.profile_stats_fragment_container);
+        if(fragmentContainer.getChildCount() == 0) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.profile_stats_fragment_container, ProfileStatsFragment.getInstance(userId, authToken))
+                    .commit();
+        }
     }
 
     @Override

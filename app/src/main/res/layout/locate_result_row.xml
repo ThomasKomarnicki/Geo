@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="@dimen/locate_result_row_margins"
-        android:layout_marginRight="@dimen/locate_result_row_margins">
+        android:layout_marginRight="@dimen/locate_result_row_margins"
+        android:background="@drawable/green_bottom_background">
 
         <FrameLayout
             android:layout_width="0dp"

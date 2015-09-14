@@ -8,6 +8,33 @@
         android:layout_height="match_parent"
         android:id="@+id/place_locate_controller_content">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/place_locate_street_container">
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.doglandia.geogame.map.StreetViewMapFragment"
+                android:id="@+id/place_locate_street_map_fragment"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/place_locate_map_container"
+            android:visibility="gone">
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.doglandia.geogame.map.LocatingMapFragment"
+                android:id="@+id/place_locate_locating_map_fragment"/>
+
+        </FrameLayout>
+
 
     </FrameLayout>
 

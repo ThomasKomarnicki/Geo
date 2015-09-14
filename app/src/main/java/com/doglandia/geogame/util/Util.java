@@ -2,7 +2,6 @@ package com.doglandia.geogame.util;
 
 import android.content.Context;
 import android.location.Geocoder;
-import android.util.Log;
 
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceLocateResult;
