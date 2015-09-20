@@ -45,6 +45,9 @@ public class PlaceLocateIntroduction extends PlaceLocateBaseActivity {
                 @Override
                 public void onNewTextShown(int textIndex) {
                     Log.d(TAG,"textIndex = "+textIndex);
+                    if(textIndex == 1){
+                        // todo highlight map button
+                    }
                 }
             });
         }

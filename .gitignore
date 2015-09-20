@@ -29,3 +29,4 @@ proguard/
 *.log
 app/app.iml
 map-utils/map-utils.iml
+*.psd

@@ -51,12 +51,14 @@ public class ContinueText extends TextView {
     public void startBlinking(){
 //        setAlpha(1);
         setVisibility(View.VISIBLE);
+
         if(alphaAnimation == null){
             alphaAnimation = AnimatorInflater.loadAnimator(getContext(),R.animator.blinking_text);
             alphaAnimation.setTarget(this);
             alphaAnimation.start();
         }else{
-            alphaAnimation.resume();
+            alphaAnimation.end();
+            alphaAnimation.start();
         }
 //        alphaAnimation = ObjectAnimator.ofFloat(this,"alpha",0,1);
 
@@ -68,7 +70,7 @@ public class ContinueText extends TextView {
         setAlpha(0);
         if(alphaAnimation != null){
 //            alphaAnimation.cancel();
-            alphaAnimation.pause();
+            alphaAnimation.end();
         }
     }
 
