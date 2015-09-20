@@ -236,4 +236,9 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
     public void onTransmissionEnd() {
         UserAuth.finishedDiscoverFirstRun(this);
     }
+
+    @Override
+    public void onNewTextShown(int textIndex) {
+
+    }
 }

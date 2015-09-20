@@ -113,7 +113,9 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
                         placeLocateControllerFragment.reset();
                         placeLocateControllerFragment.setPosition(place.getLatLng());
 
-                        calculatingLocationResultsFragment.dismissAllowingStateLoss();
+                        if (!isChangingConfigurations()) {
+                            calculatingLocationResultsFragment.dismissAllowingStateLoss();
+                        }
                         Intent intent = new Intent(PlaceLocateBaseActivity.this, LocatePlaceResultsActivity.class);
 
 //                      place.geocode(new Geocoder(PlaceLocateBaseActivity.this));
@@ -140,6 +142,10 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
 //            setNewPlace();
 //        }
         placeLocateControllerFragment.reset();
+        CalculatingLocationResultsFragment fragment = (CalculatingLocationResultsFragment) getSupportFragmentManager().findFragmentByTag("calculating_location_results_fragment");
+        if(fragment != null){
+            fragment.dismissAllowingStateLoss();
+        }
     }
 
     @Override
@@ -153,4 +159,5 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
         placeLocateControllerFragment.setPosition(place.getLatLng());
         placeLocateControllerFragment.clearMap();
     }
+
 }

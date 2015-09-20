@@ -80,6 +80,13 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onNewTextShown(int textIndex) {
+        if(transmissionEndedTextListener != null){
+            transmissionEndedTextListener.onNewTextShown(textIndex);
+        }
+    }
+
     public void setTransmissionEndedTextListener(TransmissionTextListener transmissionEndedTextListener) {
         this.transmissionEndedTextListener = transmissionEndedTextListener;
     }

@@ -37,6 +37,11 @@ public class TransmissionTestActivity extends AppCompatActivity {
             public void onTransmissionEnd() {
                 getSupportFragmentManager().beginTransaction().remove(transmissionFragment).commitAllowingStateLoss();
             }
+
+            @Override
+            public void onNewTextShown(int textIndex) {
+
+            }
         });
     }
 }

@@ -51,7 +51,10 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Place place = places.get(position);
-        if(place.getState() != null){
+        if(place.getCity() == null){
+            holder.cityTv.setText(place.getState());
+        }
+        else if(place.getState() != null){
             holder.cityTv.setText(place.getCity()+", "+place.getState());
         }else {
             holder.cityTv.setText(place.getCity());

@@ -27,6 +27,8 @@ public class PlaceLocateControllerFragment extends Fragment {
 
     private static final String TAG = "PlaceLocateController";
 
+    private static final String LOCATING_FRAGMENT_VISIBLE = "locating_fragment_visible";
+
 //    FrameLayout streetViewContainer;
 //    AnimatorFrameLayout mapContainer;
     private FrameLayout mainContent;
@@ -82,6 +84,9 @@ public class PlaceLocateControllerFragment extends Fragment {
 //                .add(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
 //                .commit();
 
+        if(savedInstanceState != null && savedInstanceState.getBoolean(LOCATING_FRAGMENT_VISIBLE,false)){
+            toggleFragments();
+        }
 
     }
 
@@ -128,4 +133,13 @@ public class PlaceLocateControllerFragment extends Fragment {
         streetMapContainer.setVisibility(View.VISIBLE);
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(locatingMapContainer.getVisibility() == View.VISIBLE){
+            outState.putBoolean(LOCATING_FRAGMENT_VISIBLE,true);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
 }

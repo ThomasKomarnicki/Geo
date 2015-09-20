@@ -24,7 +24,6 @@ public class ProfileStatsActivity extends CalligraphyActivity {
         int userId = UserAuth.getAuthUserId();
         String authToken = UserAuth.getAuthUserToken();
 
-        FrameLayout fragmentContainer = (FrameLayout) findViewById(R.id.profile_stats_fragment_container);
         if(getSupportFragmentManager().findFragmentByTag("profile_stats_fragment") == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.profile_stats_fragment_container, ProfileStatsFragment.getInstance(userId, authToken),"profile_stats_fragment")

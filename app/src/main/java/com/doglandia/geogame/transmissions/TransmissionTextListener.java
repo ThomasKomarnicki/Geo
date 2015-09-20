@@ -5,4 +5,5 @@ package com.doglandia.geogame.transmissions;
  */
 public interface TransmissionTextListener {
     void onTransmissionEnd();
+    void onNewTextShown(int textIndex);
 }

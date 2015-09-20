@@ -46,6 +46,15 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 
         mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.locate_map_fragment);
 
+        if(savedInstanceState != null) {
+
+            if (savedInstanceState.containsKey(MARKER_LOCATION)) {
+                selectedLocation = savedInstanceState.getParcelable(MARKER_LOCATION);
+
+            }
+
+        }
+
         mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -61,9 +70,6 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
                         return true;
                     }
                 });
-                if(selectedLocation != null) {
-                    onMapLocationClicked(selectedLocation);
-                }
 
                 googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                     @Override
@@ -83,15 +89,17 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
                     }
                 });
 
+                if (selectedLocation != null) {
+                    onMapLocationClicked(selectedLocation);
+                }
+
             }
         });
-
-
 
     }
 
 
-    public void restoreControls(){
+    public void restoreControls() {
         googleMap.getUiSettings().setRotateGesturesEnabled(false);
         googleMap.getUiSettings().setCompassEnabled(false);
         googleMap.getUiSettings().setTiltGesturesEnabled(false);
@@ -116,7 +124,7 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
         vibrator.vibrate(50);
     }
 
-    private void onMapLocationClicked(LatLng latLng){
+    private void onMapLocationClicked(LatLng latLng) {
         selectedLocation = latLng;
 //        if(floatingActionButton.getVisibility() == FloatingActionButton.INVISIBLE){
 //            animateFABIn();
@@ -128,16 +136,17 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
     }
 
     public void clearMap(){
+        if(googleMap != null) {
 //        floatingActionButton.setVisibility(View.INVISIBLE);
-        Log.d("LocatingMapFragment", "map cleared");
+            Log.d("LocatingMapFragment", "map cleared");
 //        if(marker != null) {
 //            marker.remove();
 //            marker.setVisible(false);
 //        }
-        googleMap.clear();
-        CameraUpdate defaultMapLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(0,0),1);
-        googleMap.moveCamera(defaultMapLocation);
-
+            googleMap.clear();
+            CameraUpdate defaultMapLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(0, 0), 1);
+            googleMap.moveCamera(defaultMapLocation);
+        }
     }
 
     @Override
@@ -146,19 +155,6 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 //        outState.putBoolean(ACTION_BUTTON_VISIBLE, floatingActionButton.getVisibility() == View.VISIBLE);
         if(selectedLocation != null) {
             outState.putParcelable(MARKER_LOCATION, selectedLocation);
-        }
-
-    }
-
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null) {
-
-            if (savedInstanceState.containsKey(MARKER_LOCATION)) {
-                selectedLocation = savedInstanceState.getParcelable(MARKER_LOCATION);
-            }
-
         }
 
     }

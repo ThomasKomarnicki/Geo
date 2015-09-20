@@ -25,6 +25,8 @@ public class TransmissionConsole extends FrameLayout {
 
     private TransmissionTextListener transmissionTextListener;
 
+    private int textIndex = 0;
+
     public TransmissionConsole(Context context) {
         super(context);
         init();
@@ -57,12 +59,21 @@ public class TransmissionConsole extends FrameLayout {
     }
 
     private void startAnimatingText(String text){
+        if(transmissionTextListener != null){
+            transmissionTextListener.onNewTextShown(textIndex);
+            textIndex++;
+        }
         transmissionText.setMessageToDisplay(text);
         transmissionText.startTextAnimation(new TransmissionTextListener() {
             @Override
             public void onTransmissionEnd() {
                 Log.d(TAG,"transmission Ended");
                 continueText.startBlinking();
+            }
+
+            @Override
+            public void onNewTextShown(int textIndex) {
+
             }
         });
         continueText.stopBlinking();

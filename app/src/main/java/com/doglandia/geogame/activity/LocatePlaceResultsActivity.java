@@ -87,8 +87,10 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                showLocationDetails(placeLocateResult);
-                addMapFragment();
+                if(!isChangingConfigurations()) {
+                    showLocationDetails(placeLocateResult);
+                    addMapFragment();
+                }
             }
         };
         geoCodeTask.execute(placeLocateResult.getActualLocation());
