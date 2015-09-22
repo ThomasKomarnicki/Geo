@@ -20,6 +20,7 @@ import com.doglandia.geogame.model.PlaceLocateResult;
 import com.doglandia.geogame.model.response.LocationGuessResult;
 import com.doglandia.geogame.server.GeoCodeTask;
 import com.doglandia.geogame.server.Server;
+import com.doglandia.geogame.util.CurrentLocationManager;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcels;
@@ -44,12 +45,16 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
 
     private NavigationAdapter navigationAdapter;
 
+    private CurrentLocationManager currentLocationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_locate_base);
 
         UserAuth.spinUp(this);
+        currentLocationManager = new CurrentLocationManager(this);
+        currentLocationManager.setCurrentPlaceId(UserAuth.getAuthUserCurrentLocation());
 
         mNavDrawer = (DrawerLayout) findViewById(R.id.main_nav_drawer);
         menuIcon = (ImageView) findViewById(R.id.place_locate_menu);
@@ -70,27 +75,31 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
     }
 
     protected void fetchUserCurrentLocation(final boolean showOnCompletion){
-        Server.getInstance().getLocation(UserAuth.getAuthUserCurrentLocation(), new Callback<Place>() {
-            @Override
-            public void success(Place place, Response response) {
-                PlaceLocateBaseActivity.this.place = place;
+        if(currentLocationManager.getCurrentPlace() != null){
+            if(showOnCompletion){
+                placeLocateControllerFragment.setPosition(currentLocationManager.getCurrentPlace().getLatLng());
+            }
+        }else {
+            Server.getInstance().getLocation(UserAuth.getAuthUserCurrentLocation(), new Callback<Place>() {
+                @Override
+                public void success(Place place, Response response) {
+                    PlaceLocateBaseActivity.this.place = place;
 //                placeLocateControllerFragment.setPosition(place.getLatLng());
-                if (showOnCompletion) {
-                    placeLocateControllerFragment.setPosition(place.getLatLng());
+                    if (showOnCompletion) {
+                        placeLocateControllerFragment.setPosition(place.getLatLng());
+                    }
+
                 }
 
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    error.printStackTrace();
+                }
+            });
+        }
     }
 
     public void onLocationSelected(LatLng latLng){
-
-
 
         final CalculatingLocationResultsFragment calculatingLocationResultsFragment = new CalculatingLocationResultsFragment();
         calculatingLocationResultsFragment.show(getSupportFragmentManager(), "calculating_location_results_fragment");
@@ -104,12 +113,14 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
             @Override
             public void success(final LocationGuessResult locationGuessResult, Response response) {
                 PlaceLocateBaseActivity.this.place = locationGuessResult.getNewLocation();
-                UserAuth.setCurrentLocation(place.getId(), PlaceLocateBaseActivity.this);
 
                 new GeoCodeTask(PlaceLocateBaseActivity.this) {
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
+                        currentLocationManager.setCurrentPlace(place);
+                        UserAuth.setCurrentLocation(place.getId(), PlaceLocateBaseActivity.this);
+
                         placeLocateControllerFragment.reset();
                         placeLocateControllerFragment.setPosition(place.getLatLng());
 

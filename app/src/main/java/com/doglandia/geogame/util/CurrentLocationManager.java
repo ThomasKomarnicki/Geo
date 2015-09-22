@@ -20,6 +20,7 @@ import retrofit.client.Response;
 public class CurrentLocationManager {
 
     private static final String CURRENT_PLACE = "current_place";
+    private static final String CURRENT_PLACE_ID = "current_place_id";
 
     private Context context;
 
@@ -27,35 +28,57 @@ public class CurrentLocationManager {
 
     private boolean currentLocationIsValid = true;
 
-    public CurrentLocationManager(Context context, int currentPlaceId){
+    public CurrentLocationManager(Context context){
         this.context = context;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        currentPlace = new Gson().fromJson(preferences.getString(CURRENT_PLACE,""),Place.class);
+        currentPlace = Server.serverGson.fromJson(preferences.getString(CURRENT_PLACE,""),Place.class);
 
-        if(currentPlace == null){ // TODO
-            Server.getInstance().getLocation(currentPlaceId, new Callback<Place>() {
-                @Override
-                public void success(Place place, Response response) {
-                    currentPlace = place;
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-
-                }
-            });
-        }
     }
 
     public Place getCurrentPlace(){
         return currentPlace;
     }
 
+    public void setCurrentPlace(Place place){
+        currentPlace = place;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CURRENT_PLACE,Server.serverGson.toJson(place));
+        editor.commit();
+        setCurrentPlaceId(place.getId());
+    }
+
+    public void setCurrentPlaceId(int placeId){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(CURRENT_PLACE_ID,placeId);
+    }
+
+    public int getCurrentPlaceId(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(CURRENT_PLACE_ID,-1);
+    }
+
     public void onNewLocationRetrieved(Place place){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(CURRENT_PLACE,new Gson().toJson(place));
-        editor.apply();
+        editor.commit();
+    }
+
+    public void fetchLocation(final Callback<Place> callback){
+        Server.getInstance().getLocation(getCurrentPlaceId(), new Callback<Place>() {
+            @Override
+            public void success(Place place, Response response) {
+                onNewLocationRetrieved(place);
+                callback.success(place,response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
     }
 }
