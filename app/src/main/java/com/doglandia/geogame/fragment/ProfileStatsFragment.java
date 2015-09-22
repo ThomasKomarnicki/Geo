@@ -14,6 +14,7 @@ import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.UserProfileStats;
 import com.doglandia.geogame.server.GeoCodeTask;
 import com.doglandia.geogame.server.Server;
+import com.doglandia.geogame.util.ConnectionErrorHandler;
 import com.doglandia.geogame.util.Util;
 import com.doglandia.geogame.view.ProfileStatsLocationView;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -130,6 +131,7 @@ public class ProfileStatsFragment extends Fragment {
                 @Override
                 public void failure(RetrofitError error) {
                     error.printStackTrace();
+                    ((ConnectionErrorHandler)getActivity()).onConnectionFailed();
                 }
             });
         }

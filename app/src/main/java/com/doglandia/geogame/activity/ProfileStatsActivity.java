@@ -7,11 +7,13 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.UserAuth;
 import com.doglandia.geogame.adapter.NavigationAdapter;
 import com.doglandia.geogame.fragment.ProfileStatsFragment;
+import com.doglandia.geogame.fragment.error.ButtonLessNoDataFragment;
+import com.doglandia.geogame.util.ConnectionErrorHandler;
 
 /**
  * Created by Thomas on 9/6/2015.
  */
-public class ProfileStatsActivity extends CalligraphyActivity {
+public class ProfileStatsActivity extends CalligraphyActivity implements ConnectionErrorHandler {
 
     private NavigationAdapter navigationAdapter;
 
@@ -36,5 +38,12 @@ public class ProfileStatsActivity extends CalligraphyActivity {
         if(!navigationAdapter.onBackPressed()){
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onConnectionFailed() {
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.error_content, new ButtonLessNoDataFragment())
+                .commit();
     }
 }
