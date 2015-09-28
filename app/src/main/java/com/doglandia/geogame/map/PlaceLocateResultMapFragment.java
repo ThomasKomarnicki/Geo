@@ -61,7 +61,7 @@ public class PlaceLocateResultMapFragment extends SupportMapFragment {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(placeLocateResult.getGuessedLocation());
         googleMap.moveCamera(cameraUpdate);
         googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getGuessedLocation()).title("Guessed Location").icon(BitmapDescriptorFactory.defaultMarker(Util.PRIMARY_COLOR_HUE)));
-        googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getActualLocation().getLatLng()).title("Actual Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.target_marker)));
+        googleMap.addMarker(new MarkerOptions().position(placeLocateResult.getActualLocation().getLatLng()).title("Actual Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_target_marker)));
 
 
         LatLngBounds.Builder builder = LatLngBounds.builder();

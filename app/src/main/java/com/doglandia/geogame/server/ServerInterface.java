@@ -3,6 +3,7 @@ package com.doglandia.geogame.server;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.model.SlideShowInfo;
 import com.doglandia.geogame.model.User;
 import com.doglandia.geogame.model.UserProfileStats;
 import com.doglandia.geogame.model.response.LocationGuessResult;
@@ -53,4 +54,7 @@ public interface ServerInterface {
 
     @GET("/users/{user_id}/profile_stats/")
     void getProfileStats(@Path("user_id")Integer userId, @Query("auth_token")String authToken, Callback<UserProfileStats> callback);
+
+    @GET("/slideshow_info")
+    void getSlideShowInfo(Callback<SlideShowInfo> callback);
 }

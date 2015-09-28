@@ -18,7 +18,7 @@ public class TransmissionTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(new FrameLayout(this));
 
-        transmissionFragment = TransmissionFragment.createInstance("TRANSMISSION TEXT 1",
+        transmissionFragment = TransmissionFragment.createInstance(4000,"TRANSMISSION TEXT 1",
                 "LONGER TRANSMISSION TEXT, KEEEPOOO WEEEPOOO KEEEE ARARARARAR PLEASE NO HELP");
         getSupportFragmentManager().beginTransaction()
                 .add(android.R.id.content,transmissionFragment)

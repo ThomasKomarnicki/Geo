@@ -6,6 +6,7 @@ import com.doglandia.geogame.GeoApplication;
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.model.PlaceDetails;
 import com.doglandia.geogame.model.PlaceLocateResult;
+import com.doglandia.geogame.model.SlideShowInfo;
 import com.doglandia.geogame.model.User;
 import com.doglandia.geogame.model.UserProfileStats;
 import com.doglandia.geogame.model.response.LocationGuessResult;
@@ -141,6 +142,11 @@ public class LocalMockServer implements ServerInterface {
 
     @Override
     public void getProfileStats(@Path("user_id") Integer userId, @Query("auth_token") String authToken, Callback<UserProfileStats> callback) {
+
+    }
+
+    @Override
+    public void getSlideShowInfo(Callback<SlideShowInfo> callback) {
 
     }
 

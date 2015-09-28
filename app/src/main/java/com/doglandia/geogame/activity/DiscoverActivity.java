@@ -68,7 +68,7 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
         discoverStreetViewFragment.setVisible(false);
 
         if(UserAuth.isDiscoverFirstRun(this)){
-            TransmissionFragment transmissionFragment = TransmissionFragment.createInstance("Here you can select locations");
+            TransmissionFragment transmissionFragment = TransmissionFragment.createInstance(1000,"Here you can select locations");
             getSupportFragmentManager().beginTransaction()
                     .add(android.R.id.content,transmissionFragment,"transmission_fragment")
                     .commitAllowingStateLoss();

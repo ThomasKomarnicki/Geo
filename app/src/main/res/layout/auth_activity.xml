@@ -1,50 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".4"></FrameLayout>
+        android:layout_height="match_parent"
+        android:name="com.doglandia.geogame.fragment.SlideShowBackgroundFragment"
+        android:id="@+id/auth_slide_show_background"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5">
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/google_sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_alignLeft="@+id/continue_without_sign_in"
-            android:layout_alignStart="@+id/continue_without_sign_in"
-            android:layout_alignRight="@+id/continue_without_sign_in"
-            android:layout_alignEnd="@+id/continue_without_sign_in" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Continue Without Signing In"
-            android:id="@+id/continue_without_sign_in"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true" />
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@+id/continue_without_sign_in"
-            android:layout_below="@+id/google_sign_in_button">
+            android:layout_height="0dp"
+            android:layout_weight=".4"></FrameLayout>
 
-            <ProgressBar
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".5">
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/google_sign_in_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/auth_activity_progress"
                 android:layout_gravity="center"
-                android:visibility="gone" />
-        </FrameLayout>
-    </RelativeLayout>
+                android:layout_alignLeft="@+id/continue_without_sign_in"
+                android:layout_alignStart="@+id/continue_without_sign_in"
+                android:layout_alignRight="@+id/continue_without_sign_in"
+                android:layout_alignEnd="@+id/continue_without_sign_in" />
 
-</LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Continue Without Signing In"
+                android:id="@+id/continue_without_sign_in"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/continue_without_sign_in"
+                android:layout_below="@+id/google_sign_in_button">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/auth_activity_progress"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</FrameLayout>

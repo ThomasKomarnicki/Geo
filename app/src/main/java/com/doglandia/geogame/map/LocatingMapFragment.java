@@ -131,7 +131,7 @@ public class LocatingMapFragment extends Fragment implements GoogleMap.OnMapClic
 //        }
         googleMap.clear();
 
-        Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.target_marker)));
+        Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_target_marker)));
         marker.showInfoWindow();
     }
 

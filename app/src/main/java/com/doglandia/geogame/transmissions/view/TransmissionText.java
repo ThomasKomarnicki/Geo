@@ -161,7 +161,7 @@ public class TransmissionText extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
 //        Log.d(TAG, "drawing transmission text, " + numCharsDisplayed + " / " + messageToDisplay.length());
-        if(!messageToDisplay.equals(transmissionText.getText().toString())) {
+        if(messageToDisplay != null && !messageToDisplay.equals(transmissionText.getText().toString())) {
             transmissionText.setText(messageToDisplay.substring(0, numCharsDisplayed));
         }
         super.onDraw(canvas);
