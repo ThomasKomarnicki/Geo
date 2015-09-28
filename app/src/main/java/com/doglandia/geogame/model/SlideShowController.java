@@ -31,6 +31,7 @@ public class SlideShowController {
             }
         }
 
+        smallestCountImage.shownCount++;
         return smallestCountImage.url;
     }
 
@@ -40,6 +41,10 @@ public class SlideShowController {
 
     public long getChangeDelay(){
         return 7000;
+    }
+
+    public void finish() {
+        running = false;
     }
 
     private class Image{

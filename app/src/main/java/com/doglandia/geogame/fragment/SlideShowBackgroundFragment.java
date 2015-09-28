@@ -17,6 +17,7 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.model.SlideShowController;
 import com.doglandia.geogame.service.AuthSlideShowBinder;
 import com.doglandia.geogame.service.AuthSlideShowService;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Thomas on 9/27/2015.
@@ -46,7 +47,14 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
             @Override
             public void run() {
                 while(slideShowController.isRunning()){
+                    try {
+                        Thread.sleep(slideShowController.getChangeDelay());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        break;
+                    }
 
+                    Picasso.with(getActivity()).load(slideShowController.getNextImageUrl()).into(imageView);
                 }
             }
         });
@@ -72,6 +80,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     @Override
     public void onDestroy() {
+        slideShowController.finish();
         getActivity().unbindService(serviceConnection);
         super.onDestroy();
     }
