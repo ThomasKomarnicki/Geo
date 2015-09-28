@@ -41,6 +41,15 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
         super.onActivityCreated(savedInstanceState);
         slideShowController = new SlideShowController();
         attachToService();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(slideShowController.isRunning()){
+
+                }
+            }
+        });
     }
 
     private void attachToService(){

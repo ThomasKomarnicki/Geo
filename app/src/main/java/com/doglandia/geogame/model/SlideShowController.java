@@ -1,5 +1,7 @@
 package com.doglandia.geogame.model;
 
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +10,12 @@ import java.util.List;
  */
 public class SlideShowController {
 
-    List<Image> downloadedImages;
+    private List<Image> downloadedImages;
+
+    private boolean running;
 
     public SlideShowController(){
+        running = true;
         downloadedImages = new ArrayList<>();
     }
 
@@ -27,6 +32,14 @@ public class SlideShowController {
         }
 
         return smallestCountImage.url;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public long getChangeDelay(){
+        return 7000;
     }
 
     private class Image{
