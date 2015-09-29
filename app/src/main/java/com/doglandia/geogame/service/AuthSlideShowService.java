@@ -8,6 +8,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.doglandia.geogame.R;
 import com.doglandia.geogame.model.SlideShowInfo;
@@ -22,6 +23,7 @@ import retrofit.client.Response;
 
 public class AuthSlideShowService extends Service{
 
+    private static final String TAG = "AuthSlideShowService";
     private AuthSlideShowBinder binder;
 
     private Looper mServiceLooper;
@@ -35,6 +37,7 @@ public class AuthSlideShowService extends Service{
     public void onCreate() {
         super.onCreate();
         binder = new AuthSlideShowBinder(this);
+        slideShowImageManager = new SlideShowImageManager();
 
         HandlerThread thread = new HandlerThread("ServiceStartArguments", android.os.Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -43,9 +46,11 @@ public class AuthSlideShowService extends Service{
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
 
+        Log.d(TAG,"srated slide show service");
         Server.getInstance().getSlideShowInfo(new Callback<SlideShowInfo>() {
             @Override
             public void success(SlideShowInfo slideShowInfo, Response response) {
+                Log.d(TAG,"got slide show info");
                 List<String> urls = slideShowInfo.getFullyQualifiedImageUrls(getResources().getBoolean(R.bool.show_two_pane_layout));
                 startDownloadingImages(urls);
             }
@@ -60,7 +65,7 @@ public class AuthSlideShowService extends Service{
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
+        Log.d(TAG,"bound to service");
         return binder;
     }
 
@@ -92,6 +97,7 @@ public class AuthSlideShowService extends Service{
             // Normally we would do some work here, like download a file.
             // For our sample, we just sleep for 5 seconds.
             String url = msg.getData().getString("url");
+            Log.d(TAG,"fetching url: "+url);
             Picasso.with(AuthSlideShowService.this).load(url).fetch();
             slideShowImageManager.onUrlDownloaded(url);
             if(onImageDownloadedListener != null){

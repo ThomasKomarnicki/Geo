@@ -31,8 +31,12 @@ public class SlideShowController {
             }
         }
 
-        smallestCountImage.shownCount++;
-        return smallestCountImage.url;
+        if(smallestCountImage != null) {
+            smallestCountImage.shownCount++;
+            return smallestCountImage.url;
+        }else{
+            return null;
+        }
     }
 
     public boolean isRunning() {

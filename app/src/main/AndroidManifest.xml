@@ -52,10 +52,7 @@
             android:value="AIzaSyBoouDBiaPMw66A5M7WU2QtiBD8s1N9W0s" />
 
         <service
-            android:name=".service.AuthSlideShowService"
-            android:enabled="false"
-            android:exported="false" >
-        </service>
+            android:name=".service.AuthSlideShowService"/>
     </application>
 
 </manifest>

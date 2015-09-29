@@ -18,6 +18,7 @@ import com.doglandia.geogame.activity.locate.PlaceLocateDefaultActivity;
 import com.doglandia.geogame.activity.locate.PlaceLocateIntroduction;
 import com.doglandia.geogame.model.User;
 import com.doglandia.geogame.server.Server;
+import com.doglandia.geogame.service.AuthSlideShowService;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.ConnectionResult;
@@ -181,6 +182,13 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
             mIsResolving = false;
             mGoogleApiClient.connect();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent serviceIntent = new Intent(this, AuthSlideShowService.class);
+        stopService(serviceIntent);
     }
 
     private void onGoogleSignedIn(Bundle bundle){

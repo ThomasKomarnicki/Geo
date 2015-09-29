@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +18,21 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.model.SlideShowController;
 import com.doglandia.geogame.service.AuthSlideShowBinder;
 import com.doglandia.geogame.service.AuthSlideShowService;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by Thomas on 9/27/2015.
  */
-public class SlideShowBackgroundFragment extends Fragment implements AuthSlideShowBinder.OnImageDownloadedListener {
+public class SlideShowBackgroundFragment extends Fragment implements AuthSlideShowBinder.OnImageDownloadedListener, Callback {
 
+    private static final String TAG = "SlideShowFragment";
     private ImageView imageView;
     private ServiceConnection serviceConnection;
 
     private SlideShowController slideShowController;
+
+    private boolean imageHasSource = false;
 
     @Nullable
     @Override
@@ -54,10 +59,20 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
                         break;
                     }
 
-                    Picasso.with(getActivity()).load(slideShowController.getNextImageUrl()).into(imageView);
+                    final String url = slideShowController.getNextImageUrl();
+                    Log.d(TAG,"slide show controller next url == "+url);
+                    if(url != null) {
+                        imageView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Picasso.with(getActivity()).load(url).into(imageView, SlideShowBackgroundFragment.this);
+                            }
+                        });
+
+                    }
                 }
             }
-        });
+        }).start();
     }
 
     private void attachToService(){
@@ -86,7 +101,26 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     }
 
     @Override
-    public void onImageDownloaded(String url) {
+    public void onImageDownloaded(final String url) {
+        if(!imageHasSource) {
+            imageView.post(new Runnable() {
+                @Override
+                public void run() {
+                    Picasso.with(getActivity()).load(url).into(imageView,SlideShowBackgroundFragment.this);
+                }
+            });
+        }
         slideShowController.onNewImageDownloaded(url);
+
+    }
+
+    @Override
+    public void onSuccess() {
+        imageHasSource = true;
+    }
+
+    @Override
+    public void onError() {
+
     }
 }
