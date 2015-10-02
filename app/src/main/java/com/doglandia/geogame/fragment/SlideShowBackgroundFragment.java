@@ -34,6 +34,8 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     private boolean imageHasSource = false;
 
+    private long activityCreatedAt;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        activityCreatedAt = System.currentTimeMillis();
         Picasso.with(getActivity()).load(R.drawable.earth_view_2116).into(imageView);
         slideShowController = new SlideShowController();
         attachToService();
@@ -86,6 +89,8 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
             public void onServiceConnected(ComponentName name, IBinder service) {
                 AuthSlideShowBinder binder = (AuthSlideShowBinder) service;
                 binder.setOnImageDownloadedListener(SlideShowBackgroundFragment.this);
+                Log.d(TAG,"service created and connected at "+(System.currentTimeMillis() - activityCreatedAt));
+
             }
 
             @Override
@@ -105,20 +110,21 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     @Override
     public void onImageDownloaded(final String url) {
-        if(!imageHasSource) {
-            imageView.post(new Runnable() {
-                @Override
-                public void run() {
-                    Picasso.with(getActivity()).load(url).into(imageView,SlideShowBackgroundFragment.this);
-                }
-            });
-        }
+//        if(!imageHasSource) {
+//            imageView.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Picasso.with(getActivity()).load(url).into(imageView,SlideShowBackgroundFragment.this);
+//                }
+//            });
+//        }
         slideShowController.onNewImageDownloaded(url);
 
     }
 
     @Override
     public void onSuccess() {
+        Log.d(TAG,"image downloaded into imageView "+(System.currentTimeMillis() - activityCreatedAt));
         slideShowController.imageSuccessfullyDownloaded();
         imageHasSource = true;
     }
