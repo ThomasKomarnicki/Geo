@@ -45,6 +45,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Picasso.with(getActivity()).load(R.drawable.earth_view_2116).into(imageView);
         slideShowController = new SlideShowController();
         attachToService();
 

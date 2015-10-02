@@ -1,5 +1,9 @@
 package com.doglandia.geogame.model;
 
+import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -44,7 +48,7 @@ public class SlideShowController {
     }
 
     public long getChangeDelay(){
-        return 7000;
+        return 4500;
     }
 
     public void finish() {
@@ -59,5 +63,11 @@ public class SlideShowController {
             this.url = url;
             shownCount = 0;
         }
+    }
+
+    public boolean shouldDownloadImages(Activity activity){
+        ConnectivityManager connManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        return mWifi.isConnected();
     }
 }

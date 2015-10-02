@@ -12,5 +12,5 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#a7000000"></FrameLayout>
+        android:background="#67000000"></FrameLayout>
 </FrameLayout>
