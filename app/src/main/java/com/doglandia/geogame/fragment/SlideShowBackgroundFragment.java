@@ -60,16 +60,18 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
                         break;
                     }
 
-                    final String url = slideShowController.getNextImageUrl();
-                    Log.d(TAG,"slide show controller next url == "+url);
-                    if(url != null) {
-                        imageView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Picasso.with(getActivity()).load(url).into(imageView, SlideShowBackgroundFragment.this);
-                            }
-                        });
+                    if(!slideShowController.isAwaitingImage()) {
+                        final String url = slideShowController.getNextImageUrl();
+                        Log.d(TAG, "slide show controller next url == " + url);
+                        if (url != null) {
+                            imageView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Picasso.with(getActivity()).load(url).into(imageView, SlideShowBackgroundFragment.this);
+                                }
+                            });
 
+                        }
                     }
                 }
             }
@@ -117,6 +119,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     @Override
     public void onSuccess() {
+        slideShowController.imageSuccessfullyDownloaded();
         imageHasSource = true;
     }
 

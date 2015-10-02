@@ -17,6 +17,7 @@ public class SlideShowController {
     private List<Image> downloadedImages;
 
     private boolean running;
+    private boolean awaitingImage = false;
 
     public SlideShowController(){
         running = true;
@@ -37,6 +38,7 @@ public class SlideShowController {
 
         if(smallestCountImage != null) {
             smallestCountImage.shownCount++;
+            awaitingImage = true;
             return smallestCountImage.url;
         }else{
             return null;
@@ -53,6 +55,14 @@ public class SlideShowController {
 
     public void finish() {
         running = false;
+    }
+
+    public void imageSuccessfullyDownloaded() {
+        awaitingImage = false;
+    }
+
+    public boolean isAwaitingImage() {
+        return awaitingImage;
     }
 
     private class Image{
