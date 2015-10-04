@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -112,8 +113,19 @@ public class PlaceLocateControllerFragment extends Fragment {
         }
     }
 
-    public void setPosition(LatLng latLng) {
-        streetViewMapFragment.setPosition(latLng);
+    public void setPosition(final LatLng latLng) {
+        if(streetViewMapFragment != null) {
+            streetViewMapFragment.setPosition(latLng);
+        }else{
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 100ms
+                    streetViewMapFragment.setPosition(latLng);
+                }
+            }, 100);
+        }
     }
 
     public void clearMap() {

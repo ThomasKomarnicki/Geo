@@ -53,7 +53,9 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
         activityCreatedAt = System.currentTimeMillis();
         Picasso.with(getActivity()).load(R.drawable.earth_view_2116).into(fadingImageView.getVisibleImageView());
         slideShowController = new SlideShowController();
-        attachToService();
+        if(slideShowController.shouldDownloadImages(getActivity())) {
+            attachToService();
+        }
 
 
     }

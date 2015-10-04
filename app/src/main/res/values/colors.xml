@@ -6,4 +6,6 @@
     <color name="text_shadow">#7F000000</color>
     <color name="accent_material_dark">@color/primary</color>
     <color name="transmission_text_color">@color/primary</color>
+
+
 </resources>

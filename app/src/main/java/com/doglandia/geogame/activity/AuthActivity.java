@@ -60,13 +60,15 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTheme(android.support.v7.appcompat.R.style.Theme_AppCompat_Light_NoActionBar);
-        setContentView(R.layout.auth_activity);
-
         if(UserAuth.getAuthState(this) != UserAuth.AuthState.LOGGED_OUT){
             startPlaceLocateActivity();
             return;
         }
+
+        setTheme(android.support.v7.appcompat.R.style.Theme_AppCompat_Light_NoActionBar);
+        setContentView(R.layout.auth_activity);
+
+
 
         progressBar = (ProgressBar) findViewById(R.id.auth_activity_progress);
 

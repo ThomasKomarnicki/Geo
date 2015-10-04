@@ -140,7 +140,10 @@
                     android:layout_below="@+id/linearLayout"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="32dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/primary_button_background"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp" />
             </FrameLayout>
 
         </LinearLayout>

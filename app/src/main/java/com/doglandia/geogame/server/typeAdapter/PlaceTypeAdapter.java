@@ -1,12 +1,12 @@
 package com.doglandia.geogame.server.typeAdapter;
 
-import android.util.JsonToken;
 import android.util.Log;
 
 import com.doglandia.geogame.model.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
@@ -45,24 +45,31 @@ public class PlaceTypeAdapter extends TypeAdapter<Place> {
         double lon = 0;
 
         while(in.hasNext()){
-            String name = in.nextName();
-            switch (name){
-                case "id":
-                    place.setId(in.nextInt());
-                    break;
-                case "user":
-                    place.setUserId(in.nextInt());
-                    break;
-                case "lat":
-                    lat = in.nextDouble();
-                    break;
-                case "lon":
-                    lon = in.nextDouble();
-                    break;
-                case "date_added":
-                    place.setDateAdded(in.nextString());
-                    break;
-            }
+
+//            if(in.peek() == JsonToken.NAME) {
+            Log.d("PlaceTypeAdapter",in.peek().name());
+                String name = in.nextName();
+                switch (name) {
+                    case "id":
+                        place.setId(in.nextInt());
+                        break;
+                    case "user":
+                        place.setUserId(in.nextInt());
+                        break;
+                    case "lat":
+                        lat = in.nextDouble();
+                        break;
+                    case "lon":
+                        lon = in.nextDouble();
+                        break;
+                    case "date_added":
+                        place.setDateAdded(in.nextString());
+                        break;
+                    case "place":
+                        place.setId(in.nextInt());
+                        break;
+                }
+//            }
         }
 
         in.endObject();

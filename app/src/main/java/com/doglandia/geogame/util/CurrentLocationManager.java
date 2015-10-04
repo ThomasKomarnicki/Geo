@@ -3,6 +3,7 @@ package com.doglandia.geogame.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.doglandia.geogame.model.Place;
 import com.doglandia.geogame.server.Server;
@@ -21,6 +22,7 @@ public class CurrentLocationManager {
 
     private static final String CURRENT_PLACE = "current_place";
     private static final String CURRENT_PLACE_ID = "current_place_id";
+    private static final String TAG = "CurrentLocationManager";
 
     private Context context;
 
@@ -32,6 +34,7 @@ public class CurrentLocationManager {
         this.context = context;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Log.d(TAG,"current place string = "+preferences.getString(CURRENT_PLACE,""));
         currentPlace = Server.serverGson.fromJson(preferences.getString(CURRENT_PLACE,""),Place.class);
 
     }
@@ -63,7 +66,7 @@ public class CurrentLocationManager {
     public void onNewLocationRetrieved(Place place){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(CURRENT_PLACE,new Gson().toJson(place));
+        editor.putString(CURRENT_PLACE, Server.serverGson.toJson(place));
         editor.commit();
     }
 
