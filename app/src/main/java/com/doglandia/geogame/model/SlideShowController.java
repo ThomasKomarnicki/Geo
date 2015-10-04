@@ -50,7 +50,7 @@ public class SlideShowController {
     }
 
     public long getChangeDelay(){
-        return 4500;
+        return 5000;
     }
 
     public void finish() {

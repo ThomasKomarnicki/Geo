@@ -18,6 +18,7 @@ import com.doglandia.geogame.R;
 import com.doglandia.geogame.model.SlideShowController;
 import com.doglandia.geogame.service.AuthSlideShowBinder;
 import com.doglandia.geogame.service.AuthSlideShowService;
+import com.doglandia.geogame.view.FadingImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -27,12 +28,13 @@ import com.squareup.picasso.Picasso;
 public class SlideShowBackgroundFragment extends Fragment implements AuthSlideShowBinder.OnImageDownloadedListener, Callback {
 
     private static final String TAG = "SlideShowFragment";
-    private ImageView imageView;
+//    private ImageView imageView;
+    private FadingImageView fadingImageView;
     private ServiceConnection serviceConnection;
 
     private SlideShowController slideShowController;
 
-    private boolean imageHasSource = false;
+    private boolean imageLoopStarted = false;
 
     private long activityCreatedAt;
 
@@ -40,7 +42,8 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.slide_show_background_fragment,null);
-        imageView = (ImageView) view.findViewById(R.id.slide_show_image_view);
+//        imageView = (ImageView) view.findViewById(R.id.slide_show_image_view);
+        fadingImageView = (FadingImageView) view.findViewById(R.id.slide_show_fading_image_view);
         return view;
     }
 
@@ -48,10 +51,14 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         activityCreatedAt = System.currentTimeMillis();
-        Picasso.with(getActivity()).load(R.drawable.earth_view_2116).into(imageView);
+        Picasso.with(getActivity()).load(R.drawable.earth_view_2116).into(fadingImageView.getVisibleImageView());
         slideShowController = new SlideShowController();
         attachToService();
 
+
+    }
+
+    private void startImageLooping(){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -67,6 +74,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
                         final String url = slideShowController.getNextImageUrl();
                         Log.d(TAG, "slide show controller next url == " + url);
                         if (url != null) {
+                            final ImageView imageView = fadingImageView.getHiddenImageView();
                             imageView.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -110,7 +118,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     @Override
     public void onImageDownloaded(final String url) {
-//        if(!imageHasSource) {
+//        if(!imageLoopStarted) {
 //            imageView.post(new Runnable() {
 //                @Override
 //                public void run() {
@@ -119,14 +127,19 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 //            });
 //        }
         slideShowController.onNewImageDownloaded(url);
+        if(!imageLoopStarted){
+            imageLoopStarted = true;
+            startImageLooping();
+        }
 
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG,"image downloaded into imageView "+(System.currentTimeMillis() - activityCreatedAt));
+        Log.d(TAG, "image downloaded into imageView " + (System.currentTimeMillis() - activityCreatedAt));
         slideShowController.imageSuccessfullyDownloaded();
-        imageHasSource = true;
+        fadingImageView.fadeInNewImage();
+
     }
 
     @Override

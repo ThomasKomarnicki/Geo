@@ -3,14 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.doglandia.geogame.view.FadingImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/slide_show_image_view"
-        android:scaleType="centerCrop" />
+        android:id="@+id/slide_show_fading_image_view" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#67000000"></FrameLayout>
+        android:background="#3f000000"></FrameLayout>
 </FrameLayout>
