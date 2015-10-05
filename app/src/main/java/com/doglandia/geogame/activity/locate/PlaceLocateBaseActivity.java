@@ -80,7 +80,7 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
                 placeLocateControllerFragment.setPosition(currentLocationManager.getCurrentPlace().getLatLng());
             }
         }else {
-            Server.getInstance().getLocation(UserAuth.getAuthUserCurrentLocation(), new Callback<Place>() {
+            currentLocationManager.fetchLocation(new Callback<Place>() {
                 @Override
                 public void success(Place place, Response response) {
                     PlaceLocateBaseActivity.this.place = place;
@@ -92,10 +92,9 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
                 }
 
                 @Override
-                public void failure(RetrofitError error) {
-                    error.printStackTrace();
-                }
+                public void failure(RetrofitError error) {}
             });
+
         }
     }
 
