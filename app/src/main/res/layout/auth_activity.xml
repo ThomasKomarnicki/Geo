@@ -55,7 +55,9 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/auth_activity_progress"
                         android:layout_gravity="center"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:indeterminateTint="@color/primary"
+                        android:indeterminateTintMode="src_in" />
                 </FrameLayout>
             </FrameLayout>
         </LinearLayout>

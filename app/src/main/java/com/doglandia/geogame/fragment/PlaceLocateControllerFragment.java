@@ -121,7 +121,6 @@ public class PlaceLocateControllerFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //Do something after 100ms
                     streetViewMapFragment.setPosition(latLng);
                 }
             }, 100);

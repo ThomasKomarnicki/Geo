@@ -77,6 +77,7 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
     protected void fetchUserCurrentLocation(final boolean showOnCompletion){
         if(currentLocationManager.getCurrentPlace() != null){
             if(showOnCompletion){
+                PlaceLocateBaseActivity.this.place = currentLocationManager.getCurrentPlace();
                 placeLocateControllerFragment.setPosition(currentLocationManager.getCurrentPlace().getLatLng());
             }
         }else {

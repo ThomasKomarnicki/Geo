@@ -8,7 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/place_details_fragment_progress"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:progressTint="@color/primary"/>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

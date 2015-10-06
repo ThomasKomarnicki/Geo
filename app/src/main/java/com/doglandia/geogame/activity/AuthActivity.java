@@ -155,7 +155,10 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
                 // Could not resolve the connection result, show the user an
                 // error dialog.
 //                showErrorDialog(connectionResult);
+                enableSignInButtons(true);
             }
+        }else{
+            enableSignInButtons(true);
         }
 
     }

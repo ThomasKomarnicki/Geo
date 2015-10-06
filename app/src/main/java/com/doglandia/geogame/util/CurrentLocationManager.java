@@ -56,6 +56,7 @@ public class CurrentLocationManager {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(CURRENT_PLACE_ID,placeId);
+        editor.commit();
     }
 
     public int getCurrentPlaceId(){
@@ -80,6 +81,7 @@ public class CurrentLocationManager {
 
             @Override
             public void failure(RetrofitError error) {
+                error.printStackTrace();
                 callback.failure(error);
             }
         });

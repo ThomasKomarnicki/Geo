@@ -74,7 +74,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
                     if(!slideShowController.isAwaitingImage()) {
                         final String url = slideShowController.getNextImageUrl();
-                        Log.d(TAG, "slide show controller next url == " + url);
+//                        Log.d(TAG, "slide show controller next url == " + url);
                         if (url != null) {
                             final ImageView imageView = fadingImageView.getHiddenImageView();
                             imageView.post(new Runnable() {
@@ -99,7 +99,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
             public void onServiceConnected(ComponentName name, IBinder service) {
                 AuthSlideShowBinder binder = (AuthSlideShowBinder) service;
                 binder.setOnImageDownloadedListener(SlideShowBackgroundFragment.this);
-                Log.d(TAG,"service created and connected at "+(System.currentTimeMillis() - activityCreatedAt));
+//                Log.d(TAG,"service created and connected at "+(System.currentTimeMillis() - activityCreatedAt));
 
             }
 
@@ -138,7 +138,7 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "image downloaded into imageView " + (System.currentTimeMillis() - activityCreatedAt));
+//        Log.d(TAG, "image downloaded into imageView " + (System.currentTimeMillis() - activityCreatedAt));
         slideShowController.imageSuccessfullyDownloaded();
         fadingImageView.fadeInNewImage();
 
