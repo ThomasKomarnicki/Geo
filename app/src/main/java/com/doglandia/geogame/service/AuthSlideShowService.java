@@ -96,12 +96,16 @@ public class AuthSlideShowService extends Service{
         public void handleMessage(Message msg) {
             // Normally we would do some work here, like download a file.
             // For our sample, we just sleep for 5 seconds.
+
             String url = msg.getData().getString("url");
-            Log.d(TAG,"fetching url: "+url);
-            Picasso.with(AuthSlideShowService.this).load(url).fetch();
-            slideShowImageManager.onUrlDownloaded(url);
-            if(onImageDownloadedListener != null){
-                onImageDownloadedListener.onImageDownloaded(url);
+            if (!slideShowImageManager.isUrlDownloaded(url)) {
+
+                Log.d(TAG, "fetching url: " + url);
+                Picasso.with(AuthSlideShowService.this).load(url).fetch();
+                slideShowImageManager.onUrlDownloaded(url);
+                if (onImageDownloadedListener != null) {
+                    onImageDownloadedListener.onImageDownloaded(url);
+                }
             }
             // Stop the service using the startId, so that we don't stop
             // the service in the middle of handling another job

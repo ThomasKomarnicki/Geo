@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,8 @@ import com.squareup.picasso.Picasso;
 public class SlideShowBackgroundFragment extends Fragment implements AuthSlideShowBinder.OnImageDownloadedListener, Callback {
 
     private static final String TAG = "SlideShowFragment";
+    private static final String CURRENT_URL = "current_url";
+//    private static final String SLIDE_SHOW_CONTROLLER_INDEX = "slide_show_controller_index";
 //    private ImageView imageView;
     private FadingImageView fadingImageView;
     private ServiceConnection serviceConnection;
@@ -37,6 +38,8 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     private boolean imageLoopStarted = false;
 
     private long activityCreatedAt;
+
+    private String currentUrl;
 
     @Nullable
     @Override
@@ -51,8 +54,14 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         activityCreatedAt = System.currentTimeMillis();
-        Picasso.with(getActivity()).load(R.drawable.earth_view_2116).into(fadingImageView.getVisibleImageView());
+        if(savedInstanceState != null && savedInstanceState.containsKey(CURRENT_URL)){
+            currentUrl = savedInstanceState.getString(CURRENT_URL);
+            Picasso.with(getActivity()).load(currentUrl).into(fadingImageView.getVisibleImageView());
+        }else {
+            Picasso.with(getActivity()).load(R.drawable.earth_view_2116).into(fadingImageView.getVisibleImageView());
+        }
         slideShowController = new SlideShowController();
+        slideShowController.restoreState(savedInstanceState);
         if(slideShowController.shouldDownloadImages(getActivity())) {
             attachToService();
         }
@@ -76,13 +85,16 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
                         final String url = slideShowController.getNextImageUrl();
 //                        Log.d(TAG, "slide show controller next url == " + url);
                         if (url != null) {
+                            currentUrl = url;
                             final ImageView imageView = fadingImageView.getHiddenImageView();
-                            imageView.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Picasso.with(getActivity()).load(url).into(imageView, SlideShowBackgroundFragment.this);
-                                }
-                            });
+                            if(imageView != null) {
+                                imageView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Picasso.with(getActivity()).load(url).into(imageView, SlideShowBackgroundFragment.this);
+                                    }
+                                });
+                            }
 
                         }
                     }
@@ -147,5 +159,14 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     @Override
     public void onError() {
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(currentUrl != null){
+            slideShowController.saveState(outState);
+            outState.putString(CURRENT_URL,currentUrl);
+        }
+        super.onSaveInstanceState(outState);
     }
 }

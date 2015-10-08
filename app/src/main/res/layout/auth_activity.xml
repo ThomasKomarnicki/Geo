@@ -83,12 +83,14 @@
                 android:text="Continue Without Signing In"
                 android:id="@+id/continue_without_sign_in_holder"
                 android:layout_gravity="center"
-                android:layout_centerInParent="true"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:paddingTop="4dp"
-                android:paddingBottom="4dp">
+                android:paddingBottom="4dp"
+                android:layout_below="@+id/google_sign_in_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/auth_button_margin">
 
                 <Button
                     android:layout_width="wrap_content"

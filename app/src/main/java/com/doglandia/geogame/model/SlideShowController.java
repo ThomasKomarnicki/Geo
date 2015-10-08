@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.widget.ImageView;
+
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +17,8 @@ import java.util.List;
  * Created by Thomas on 9/27/2015.
  */
 public class SlideShowController {
+
+    private static final String IMAGES = "images";
 
     private List<Image> downloadedImages;
 
@@ -30,7 +36,9 @@ public class SlideShowController {
 
     public String getNextImageUrl(){
         Image smallestCountImage = null;
-        for(Image image : downloadedImages){
+        for(int i = 0; i < downloadedImages.size(); i++){
+//        for(Image image : downloadedImages){
+            Image image = downloadedImages.get(i);
             if(smallestCountImage == null || image.shownCount < smallestCountImage.shownCount){
                 smallestCountImage = image;
             }
@@ -65,9 +73,12 @@ public class SlideShowController {
         return awaitingImage;
     }
 
-    private class Image{
+    @Parcel
+    public static class Image{
         String url;
         int shownCount;
+
+        public Image(){}
 
         public Image(String url){
             this.url = url;
@@ -79,5 +90,15 @@ public class SlideShowController {
         ConnectivityManager connManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         return mWifi.isConnected();
+    }
+
+    public void saveState(Bundle outState){
+        outState.putParcelable(IMAGES, Parcels.wrap(downloadedImages));
+    }
+
+    public void restoreState(Bundle inState){
+        if(inState != null && inState.containsKey(IMAGES)) {
+            downloadedImages = Parcels.unwrap(inState.getParcelable(IMAGES));
+        }
     }
 }

@@ -24,4 +24,13 @@ public class SlideShowImageManager {
     public void addUrls(List<String> imageUrls) {
         this.imageUrls.addAll(imageUrls);
     }
+
+    public boolean isUrlDownloaded(String url){
+        for(String string : downloadedUrls){
+            if(url.equals(string)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
