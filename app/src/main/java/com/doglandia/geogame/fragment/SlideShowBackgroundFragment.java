@@ -114,7 +114,9 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
     @Override
     public void onDestroy() {
         slideShowController.finish();
-        getActivity().unbindService(serviceConnection);
+        if(serviceConnection != null) {
+            getActivity().unbindService(serviceConnection);
+        }
         super.onDestroy();
     }
 
