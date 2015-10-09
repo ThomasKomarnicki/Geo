@@ -103,4 +103,7 @@ public class Place {
         this.dateAdded = dateAdded;
     }
 
+    public String getDateAdded() {
+        return dateAdded;
+    }
 }

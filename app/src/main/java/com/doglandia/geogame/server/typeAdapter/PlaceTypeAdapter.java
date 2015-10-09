@@ -20,10 +20,9 @@ public class PlaceTypeAdapter extends TypeAdapter<Place> {
     @Override
     public void write(JsonWriter out, Place place) throws IOException {
         out.beginObject();
-        out.name("user").value(place.getUserId());
-        if(place.getId() >= 0) {
-            out.name("place").value(place.getId());
-        }
+
+        out.name("id").value(place.getId());
+        out.name("date_added").value(place.getDateAdded());
         out.name("lat").value(place.getLatLng().latitude);
         out.name("lon").value(place.getLatLng().longitude);
         out.endObject();
@@ -65,9 +64,9 @@ public class PlaceTypeAdapter extends TypeAdapter<Place> {
                     case "date_added":
                         place.setDateAdded(in.nextString());
                         break;
-                    case "place":
-                        place.setId(in.nextInt());
-                        break;
+//                    case "place":
+//                        place.setId(in.nextInt());
+//                        break;
                 }
 //            }
         }
