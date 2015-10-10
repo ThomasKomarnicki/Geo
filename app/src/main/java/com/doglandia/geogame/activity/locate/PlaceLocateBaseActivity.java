@@ -2,6 +2,7 @@ package com.doglandia.geogame.activity.locate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -121,8 +122,15 @@ public class PlaceLocateBaseActivity extends CalligraphyActivity {
                         currentLocationManager.setCurrentPlace(place);
                         UserAuth.setCurrentLocation(place.getId(), PlaceLocateBaseActivity.this);
 
-                        placeLocateControllerFragment.reset();
-                        placeLocateControllerFragment.setPosition(place.getLatLng());
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                placeLocateControllerFragment.reset();
+                                placeLocateControllerFragment.setPosition(place.getLatLng());
+                            }
+                        },500);
+
 
                         if (!isChangingConfigurations()) {
                             calculatingLocationResultsFragment.dismissAllowingStateLoss();

@@ -103,9 +103,9 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
 
     protected void onStart() {
         super.onStart();
-        if(mGoogleApiClient!= null) {
-            mGoogleApiClient.connect();
-        }
+//        if(mGoogleApiClient!= null) {
+//            mGoogleApiClient.connect();
+//        }
     }
 
     protected void onStop() {
