@@ -22,6 +22,7 @@ import retrofit.converter.GsonConverter;
 public class Server {
 
     private static final String HEROKU_DEV_SERVER = "https://geo-server-dev.herokuapp.com";
+    private static final String HEROKU_PROD_SERVER = "https://geo-server-prod.herokuapp.com/";
     public static final String SERVER_ADDRESS =  HEROKU_DEV_SERVER;
     public static Gson serverGson = new GsonBuilder()
             .registerTypeAdapter(Place.class,new PlaceTypeAdapter())
