@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/transmission_text"
         fontPath="fonts/Orbitron-Regular.ttf"
-        android:lineSpacingExtra="2dp"
+        android:lineSpacingMultiplier="1.2"
         android:layout_above="@+id/continue_text"
         android:layout_alignParentTop="true"
         android:paddingBottom="20dp" />
