@@ -33,11 +33,10 @@ public class Server {
             .create();
     public static ServerInterface getInstance(){
         if(serverInterface == null){
-//            serverInterface = new LocalMockServer();
 
 
             serverInterface = new RestAdapter.Builder()
-                    .setEndpoint(HEROKU_DEV_SERVER)
+                    .setEndpoint(SERVER_ADDRESS)
                     .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setConverter(new GsonConverter(serverGson))
                     .build()

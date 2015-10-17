@@ -84,7 +84,7 @@ public class TransmissionConsole extends FrameLayout {
         if(transmissionText.isAnimating()){
             transmissionText.showFullText();
         }
-        else if(currentTextIndex < text.length-1) {
+        else if(text != null && currentTextIndex < text.length-1) {
             currentTextIndex++;
             startAnimatingText(text[currentTextIndex]);
         }else{
