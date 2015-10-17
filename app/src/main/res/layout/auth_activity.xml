@@ -6,7 +6,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.doglandia.geogame.fragment.SlideShowBackgroundFragment"
+        android:name="com.doglandia.unearthed.fragment.SlideShowBackgroundFragment"
         android:id="@+id/auth_slide_show_background"/>
 
     <LinearLayout

@@ -36,7 +36,7 @@
                 <fragment
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:name="com.doglandia.geogame.map.DiscoverMapFragment"
+                    android:name="com.doglandia.unearthed.map.DiscoverMapFragment"
                     android:id="@+id/discover_map_framgnet"
                     app:mapType="hybrid"/>
 
@@ -48,7 +48,7 @@
                     <fragment
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:name="com.doglandia.geogame.map.DiscoverStreetViewFragment"
+                        android:name="com.doglandia.unearthed.map.DiscoverStreetViewFragment"
                         android:id="@+id/discover_steet_view_fragment"/>
 
 

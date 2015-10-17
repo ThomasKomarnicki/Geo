@@ -33,7 +33,7 @@
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.doglandia.geogame.fragment.PlaceDetailsFragment"
+            android:name="com.doglandia.unearthed.fragment.PlaceDetailsFragment"
             android:id="@+id/place_etails_fragment"
             android:tag="place_details_fragment"/>
 

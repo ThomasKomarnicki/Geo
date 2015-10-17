@@ -142,7 +142,7 @@
                             android:layout_marginBottom="20dp"
                             android:layout_marginTop="40dp" />
 
-                        <com.doglandia.geogame.view.ProfileStatsLocationView
+                        <com.doglandia.unearthed.view.ProfileStatsLocationView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/profile_stats_hardest_location"/>
@@ -164,7 +164,7 @@
                             android:layout_marginBottom="20dp"
                             android:layout_marginTop="40dp" />
 
-                        <com.doglandia.geogame.view.ProfileStatsLocationView
+                        <com.doglandia.unearthed.view.ProfileStatsLocationView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/profile_stats_easiest_location"/>
@@ -186,7 +186,7 @@
                             android:layout_marginBottom="20dp"
                             android:layout_marginTop="40dp" />
 
-                        <com.doglandia.geogame.view.ProfileStatsLocationView
+                        <com.doglandia.unearthed.view.ProfileStatsLocationView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/profile_stats_closest_location_guess"/>

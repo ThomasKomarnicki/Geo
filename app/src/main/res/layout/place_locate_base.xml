@@ -20,7 +20,7 @@
             <fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                class="com.doglandia.geogame.fragment.PlaceLocateControllerFragment"
+                class="com.doglandia.unearthed.fragment.PlaceLocateControllerFragment"
                 android:id="@+id/place_locate_controller"/>
 
         </FrameLayout>

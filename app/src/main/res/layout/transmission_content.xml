@@ -4,7 +4,7 @@
     android:background="#aa000000"
     android:id="@+id/transmission_content">
     
-    <com.doglandia.geogame.transmissions.view.TransmissionConsole
+    <com.doglandia.unearthed.transmissions.view.TransmissionConsole
         android:layout_width="wrap_content"
         android:layout_height="@dimen/transmission_console_height"
         android:layout_gravity="center"
@@ -13,6 +13,6 @@
         android:layout_marginLeft="50dp"
         android:id="@+id/transmission_console">
 
-    </com.doglandia.geogame.transmissions.view.TransmissionConsole>
+    </com.doglandia.unearthed.transmissions.view.TransmissionConsole>
 
 </FrameLayout>

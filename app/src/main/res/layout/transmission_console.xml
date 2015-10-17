@@ -4,7 +4,7 @@
     android:background="@drawable/transmission_console_background"
     android:padding="12dp">
 
-    <com.doglandia.geogame.transmissions.view.TransmissionText
+    <com.doglandia.unearthed.transmissions.view.TransmissionText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/transmission_text"
@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:paddingBottom="20dp" />
 
-    <com.doglandia.geogame.transmissions.view.ContinueText
+    <com.doglandia.unearthed.transmissions.view.ContinueText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/transmission_continue_text"
