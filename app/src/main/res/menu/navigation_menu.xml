@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_sub_item_1"
+        android:title="Locate and Guess"/>
+    <item
+        android:id="@+id/navigation_sub_item_2"
+        android:title="Discover"/>
+
+    <item
+        android:id="@+id/navigation_sub_item_3"
+        android:title="Recent Locations"/>
+
+    <item
+        android:id="@+id/navigation_sub_item_4"
+        android:title="My Places"/>
+
+    <item
+        android:id="@+id/navigation_sub_item_5"
+        android:title="Agent Statistics"/>
+</menu>

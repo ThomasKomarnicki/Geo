@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="recent_locations_title_text_appearance" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">28dp</item>
+    </style>
+</resources>

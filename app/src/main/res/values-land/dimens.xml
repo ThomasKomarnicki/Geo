@@ -2,4 +2,8 @@
 <resources>
 
     <dimen name="nav_drawer_margin_offset">-16dp</dimen>
+    <dimen name="console_width">350dp</dimen>
+    <dimen name="transmission_console_height">180dp</dimen>
+    <dimen name="profile_stats_location_view_horizontal_padding">50dp</dimen>
+    <dimen name="auth_button_margin">10dp</dimen>
 </resources>

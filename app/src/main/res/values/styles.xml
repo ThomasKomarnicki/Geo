@@ -1,19 +1,60 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
 
-            <!-- customize the color palette -->
-            <!--<item name="colorPrimary">@color/material_green_500</item>-->
-            <!--<item name="colorPrimaryDark">@color/material_green_700</item>-->
-            <!--<item name="colorAccent">@color/material_green_A200</item>-->
+            <!--&lt;!&ndash; customize the color palette &ndash;&gt;-->
+            <!--<item name="colorPrimary">@color/primary</item>-->
+            <!--<item name="colorPrimaryDark">@color/primary_dark</item>-->
+            <!--<item name="colorAccent">@color/primary_dark</item>-->
 
-    </style>
+    <!--</style>-->
 
     <style name="NavDrawer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginRight">@dimen/nav_drawer_margin_offset</item>
+    </style>
+
+    <dimen name="locate_select_button_margin_right">30dp</dimen>
+    <dimen name="locate_select_button_margin_bottom">30dp</dimen>
+
+    <style name="TransparentToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="colorAccent">@color/primary</item>
+    </style>
+
+    <style name="recent_locations_title_text_appearance" parent="TextAppearance.AppCompat.Display1">
+
+    </style>
+
+    <style name="Theme.AppTheme.NoActionBar" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="colorAccent">@color/primary</item>
+    </style>
+
+    <style name="AppThemeDark" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="colorAccent">@color/primary</item>
+    </style>
+
+    <style name="transmission_text" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/transmission_text_color</item>
+    </style>
+
+    <style name="transmission_continue_text" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/transmission_text_color</item>
+    </style>
+
+    <style name="text_shadow_style">
+        <!--<item name="android:paddingLeft">4dp</item>-->
+        <!--<item name="android:paddingBottom">4dp</item>-->
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">10</item>
     </style>
 
 </resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/place_locate_controller_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/place_locate_street_container">
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.doglandia.unearthed.map.StreetViewMapFragment"
+                android:id="@+id/place_locate_street_map_fragment"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/place_locate_map_container"
+            android:visibility="gone">
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.doglandia.unearthed.map.LocatingMapFragment"
+                android:id="@+id/place_locate_locating_map_fragment"/>
+
+        </FrameLayout>
+
+
+    </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/plcate_locate_controller_toggle"
+        app:fabSize="normal"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="@dimen/locate_select_button_margin_right"
+        android:layout_marginBottom="@dimen/locate_select_button_margin_bottom"
+        android:src="@drawable/ic_map_white_36dp" />
+</FrameLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/main_app_bar"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="@android:color/transparent">-->
+
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/main_toolbar"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:background="#10000000"-->
+            <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
+
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.doglandia.unearthed.fragment.PlaceDetailsFragment"
+            android:id="@+id/place_etails_fragment"
+            android:tag="place_details_fragment"/>
+
+        <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/heat_map_holder">-->
+
+        <!--</FrameLayout>-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/place_details_back"
+            android:layout_gravity="left|top"
+            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:background="?attr/actionBarItemBackground"
+            android:padding="12dp" />
+
+        <!--android:background="?attr/itemBackground"-->
+
+
+    </FrameLayout>
+
+
+</RelativeLayout>

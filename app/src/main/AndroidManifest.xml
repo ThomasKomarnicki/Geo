@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.doglandia.geogame" >
+    package="com.doglandia.unearthed" >
 
-    <uses-permission android:name="ANDROID.PERMISSION.INTERNET"/>
+    <uses-permission android:name="ANDROID.PERMISSION.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <application
+        android:name="com.doglandia.unearthed.GeoApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppThemeDark" >
+        <activity android:name="com.doglandia.unearthed.activity.LocatePlaceResultsActivity" />
+        <activity android:name="com.doglandia.unearthed.activity.RecentLocationsActivity" />
+        <activity android:name="com.doglandia.unearthed.activity.MyPlacesActivity" />
+        <activity android:name="com.doglandia.unearthed.activity.PlaceDetailsActivity" />
+        <activity android:name="com.doglandia.unearthed.activity.DiscoverActivity" />
+        <activity android:name="com.doglandia.unearthed.activity.locate.PlaceLocateDefaultActivity" />
+        <activity android:name="com.doglandia.unearthed.activity.ProfileStatsActivity" />
+        <activity android:name="com.doglandia.unearthed.activity.locate.PlaceLocateIntroduction" />
+        <!-- <activity android:name=".test.TransmissionTestActivity"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.doglandia.unearthed.activity.AuthActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +43,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.doglandia.unearthed.activity.PlaceLocateActivityNewUi" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBoouDBiaPMw66A5M7WU2QtiBD8s1N9W0s"/>
+            android:value="AIzaSyBoouDBiaPMw66A5M7WU2QtiBD8s1N9W0s" />
+
+        <service
+            android:name="com.doglandia.unearthed.service.AuthSlideShowService"/>
     </application>
 
 </manifest>

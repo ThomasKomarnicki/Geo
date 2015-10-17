@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/place_details_fragment_progress"
+        android:layout_gravity="center"
+        android:progressTint="@color/primary"/>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/place_details_fragment_scroll_view">
+
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/place_details_hero_container">
+
+                <!--<FrameLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:id="@+id/place_details_hero_fragment_container">-->
+
+                <!--</FrameLayout>-->
+
+                <fragment
+                    xmlns:map="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:id="@+id/place_details_lite_map"
+                    map:cameraZoom="17"
+                    map:mapType="satellite"
+                    map:liteMode="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/place_details_city"
+                    android:textSize="34sp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textIsSelectable="false"
+                    android:padding="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#FFF"
+                    android:shadowColor="@color/text_shadow"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="2"/>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/place_details_country"
+                android:layout_marginTop="16dp"
+                android:textSize="34sp"
+                android:layout_marginLeft="16dp"
+                fontPath="fonts/Orbitron-Regular.ttf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Average Guess Distance:"
+                android:id="@+id/textView2"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                fontPath="fonts/Orbitron-Bold.ttf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1250 mi"
+                android:id="@+id/place_details_average"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="34sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Best Guess:"
+                android:id="@+id/textView3"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                fontPath="fonts/Orbitron-Bold.ttf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="150 mi"
+                android:id="@+id/place_details_best_guess"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="34sp" />
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Other Guesses:"-->
+                <!--android:id="@+id/textView"-->
+                <!--android:layout_marginTop="40dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold"-->
+                <!--fontPath="fonts/Orbitron-Bold.ttf"/>-->
+
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/place_details_heat_map_container">-->
+
+                <!--<fragment-->
+                    <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:name="com.doglandia.geogame.map.PlaceHeatMapFragment"-->
+                    <!--android:id="@+id/place_details_heat_map"-->
+                    <!--map:mapType="normal"-->
+                    <!--android:layout_marginTop="20dp" />-->
+            <!--</FrameLayout>-->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
