@@ -99,6 +99,7 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
         place.setLatLng(latLng);
         place.setUserId(UserAuth.getAuthUserId());
 
+
         Server.getInstance().addUserLocation(place, UserAuth.getAuthUserToken(), new Callback<Place>() {
             @Override
             public void success(Place place, Response response) {

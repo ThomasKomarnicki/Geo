@@ -50,7 +50,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBoouDBiaPMw66A5M7WU2QtiBD8s1N9W0s" />
+            android:value="AIzaSyC-IDQw-561soE6z_g8JQJoxapKO1LGWEc" />
 
         <service
             android:name="com.doglandia.unearthed.service.AuthSlideShowService"/>

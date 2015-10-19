@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.doglandia.unearthed.model.Place;
 import com.doglandia.unearthed.model.User;
+import com.doglandia.unearthed.server.Server;
 import com.doglandia.unearthed.server.typeAdapter.PlaceTypeAdapter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -110,10 +111,11 @@ public class UserAuth {
     }
 
     private static Gson getGson(){
-        return new GsonBuilder()
-                .registerTypeAdapter(Place.class,new PlaceTypeAdapter())
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+//        return new GsonBuilder()
+//                .registerTypeAdapter(Place.class,new PlaceTypeAdapter())
+//                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+//                .create();
+        return Server.serverGson;
     }
 
     public static boolean isFirstRun(Context context){

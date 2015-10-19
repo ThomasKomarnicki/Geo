@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.doglandia.unearthed.R;
+import com.doglandia.unearthed.transmissions.TransmissionFragment;
 import com.doglandia.unearthed.transmissions.TransmissionTextListener;
 
 /**
@@ -50,8 +51,7 @@ public class TransmissionConsole extends FrameLayout {
 
     }
 
-    public void animateText(String[] text, TransmissionTextListener transmissionTextListener){
-        this.transmissionTextListener = transmissionTextListener;
+    public void animateText(String[] text){
         this.text = text;
         currentTextIndex = 0;
         startAnimatingText(text[currentTextIndex]);
@@ -90,5 +90,9 @@ public class TransmissionConsole extends FrameLayout {
         }else{
             transmissionTextListener.onTransmissionEnd();
         }
+    }
+
+    public void setTransmissionTextListener(TransmissionTextListener transmissionTextListener) {
+        this.transmissionTextListener = transmissionTextListener;
     }
 }

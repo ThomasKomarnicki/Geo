@@ -120,7 +120,7 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
         // onConnected indicates that an account was selected on the device, that the selected
         // account has granted any requested permissions to our app and that we were able to
         // establish a service connection to Google Play services.
-        Log.d(TAG, "onConnected:" + bundle);
+        Log.e(TAG, "onConnected:" + bundle);
         mShouldResolve = false;
 
         // Show the signed-in UI
@@ -137,7 +137,7 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
         // Could not connect to Google Play Services.  The user needs to select an account,
         // grant permissions or resolve an error in order to sign in. Refer to the javadoc for
         // ConnectionResult to see possible error codes.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Log.e(TAG, "onConnectionFailed:" + connectionResult);
 
         if (!mIsResolving && mShouldResolve) {
             if (connectionResult.hasResolution()) {
@@ -175,7 +175,7 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
+        Log.e(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
 
         if (requestCode == RC_SIGN_IN) {
             // If the error resolution was not successful we should not resolve further.
@@ -221,7 +221,7 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
 
         @Override
         protected void onPostExecute(String result) {
-            Log.i(TAG, "ID token: " + result);
+            Log.e(TAG, "ID token: " + result);
             if (result != null) {
                 Map<String,String> map = new HashMap<>();
                 map.put("auth_token",result);

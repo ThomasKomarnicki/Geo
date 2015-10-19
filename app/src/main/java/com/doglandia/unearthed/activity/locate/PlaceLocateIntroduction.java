@@ -19,14 +19,18 @@ public class PlaceLocateIntroduction extends PlaceLocateBaseActivity {
         super.onCreate(savedInstanceState);
         fetchUserCurrentLocation(true);
 
-        TransmissionFragment transmissionFragment = TransmissionFragment.createInstance(4000,
-                "Hello Agent, You have been selected to locate designated locations around the world... ",
-                "You will be given a transmitted rendering of the location. When you can locate it, press the map button...",
-                "Click on a location on the map and then press the \"Locate Here\" button to lock in the location. "
-        );
-        getSupportFragmentManager().beginTransaction()
-                .add(android.R.id.content,transmissionFragment,"transmission_fragment")
-                .commitAllowingStateLoss();
+        TransmissionFragment transmissionFragment = (TransmissionFragment) getSupportFragmentManager().findFragmentByTag("transmission_fragment");
+        if(transmissionFragment == null){
+            transmissionFragment = TransmissionFragment.createInstance(3000,
+                    "Hello Agent, You have been selected to locate designated locations around the world... ",
+                    "You will be given a transmitted rendering of the location. When you can locate it, press the map button...",
+                    "Click on a location on the map and then press the \"Locate Here\" button to lock in the location. "
+            );
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(android.R.id.content,transmissionFragment,"transmission_fragment")
+                    .commitAllowingStateLoss();
+        }
 
 
     }

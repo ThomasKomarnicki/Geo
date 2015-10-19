@@ -13,7 +13,7 @@ import java.util.List;
 @Parcel
 public class Place {
 
-    int id = -1;
+    int id;
 
     int userId;
 

@@ -67,7 +67,7 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
     }
 
     private void animateText(String... text){
-        transmissionConsole.animateText(text, this);
+        transmissionConsole.animateText(text);
     }
 
     private void startTransmissionViewAnimation(){
@@ -106,7 +106,12 @@ public class TransmissionFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         // continue / end current animation
         transmissionConsole.onScreenClick();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        transmissionConsole.setTransmissionTextListener(this);
     }
 
     @Override

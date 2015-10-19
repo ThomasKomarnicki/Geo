@@ -21,7 +21,10 @@ public class PlaceTypeAdapter extends TypeAdapter<Place> {
     public void write(JsonWriter out, Place place) throws IOException {
         out.beginObject();
 
-        out.name("id").value(place.getId());
+        if(place.getId() > 0) {
+            out.name("id").value(place.getId());
+        }
+        out.name("user").value(place.getUserId());
         out.name("date_added").value(place.getDateAdded());
         out.name("lat").value(place.getLatLng().latitude);
         out.name("lon").value(place.getLatLng().longitude);
