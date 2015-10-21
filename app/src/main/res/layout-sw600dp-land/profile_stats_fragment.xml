@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/profile_stats_content_view">
+            android:id="@+id/profile_stats_content_view"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:orientation="vertical"

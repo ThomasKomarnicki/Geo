@@ -48,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/green_bottom_background"
-                android:paddingBottom="4dp">
+                android:paddingBottom="4dp"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:orientation="vertical"

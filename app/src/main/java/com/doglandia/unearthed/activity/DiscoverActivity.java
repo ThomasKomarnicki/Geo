@@ -113,7 +113,6 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
         });
         hideStreetViewFragment();
         NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, getString(R.string.activity_discover_title));
-        FragmentManager fragmentManager = getSupportFragmentManager();
         getSupportFragmentManager().popBackStack("discover_street_view_fragment",0);
         discoverMapFragment.resetMapZoom();
 

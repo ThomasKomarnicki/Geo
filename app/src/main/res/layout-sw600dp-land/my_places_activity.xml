@@ -36,7 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:background="@color/background_material_dark">
+                    android:background="@color/background_material_dark"
+                    android:baselineAligned="false">
 
                     <fragment
                         android:layout_width="0dp"

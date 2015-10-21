@@ -196,7 +196,7 @@ public class AuthActivity extends CalligraphyActivity implements GoogleApiClient
     }
 
     private void onGoogleSignedIn(Bundle bundle){
-        new GetIdTokenTask().execute(new Void[]{});
+        new GetIdTokenTask().execute();
     }
 
     public class GetIdTokenTask extends AsyncTask<Void, Void, String> {

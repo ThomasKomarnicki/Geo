@@ -32,7 +32,7 @@ import retrofit.client.Response;
 /**
  * Created by Thomas on 8/16/2015.
  */
-public class PlaceLocateBaseActivity extends CalligraphyActivity {
+public abstract class PlaceLocateBaseActivity extends CalligraphyActivity {
 
     private static final int START_NEW_LOCATION_RESULT = 0x420;
 

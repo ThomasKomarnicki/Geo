@@ -30,7 +30,7 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
 //        this.highlightSelected = highlightSelected;
         this.places = places;
 
-        TypedArray a = context.getTheme().obtainStyledAttributes(R.style.AppTheme, new int[] {R.attr.selectableItemBackground});
+//        TypedArray a = context.getTheme().obtainStyledAttributes(R.style.AppTheme, new int[] {R.attr.selectableItemBackground});
 //        backgroundResourceId = a.getResourceId(0, 0);
     }
 

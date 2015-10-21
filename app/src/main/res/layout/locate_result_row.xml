@@ -12,7 +12,8 @@
         android:orientation="horizontal"
         android:layout_marginLeft="@dimen/locate_result_row_margins"
         android:layout_marginRight="@dimen/locate_result_row_margins"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="?android:attr/selectableItemBackground"
+        android:baselineAligned="false">
 
         <FrameLayout
             android:layout_width="0dp"

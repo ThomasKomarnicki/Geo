@@ -174,7 +174,7 @@ public class AnimatorFrameLayout extends FrameLayout {
         long duration = 400;
         AnimatorSet restoreAnimation = new AnimatorSet();
 
-        final float[] values = new float[] {.6f, 0f};
+//        final float[] values = new float[] {.6f, 0f};
         ObjectAnimator clipBoundsAnimation = ObjectAnimator.ofFloat(this, "imageCrop", 0.6f, 0f);
 
         ObjectAnimator scaleAnimation = ObjectAnimator.ofFloat(this,"scale",.35f,1f);

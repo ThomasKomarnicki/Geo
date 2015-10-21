@@ -59,7 +59,7 @@ public class PlaceHeatMapFragment extends SupportMapFragment {
         }
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(this.placeDetails.getPlace().getLatLng()));
-        int overlayRadius = (int) (getResources().getDisplayMetrics().density * 200);
+//        int overlayRadius = (int) (getResources().getDisplayMetrics().density * 200);
         if(this.placeDetails.getLocationGuesses() != null && !this.placeDetails.getLocationGuesses().isEmpty()) {
 //            HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
 //            builder.data(this.placeDetails.getLocationGuesses());

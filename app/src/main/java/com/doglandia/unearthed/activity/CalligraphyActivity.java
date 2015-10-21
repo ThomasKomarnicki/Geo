@@ -8,7 +8,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * Created by Thomas on 9/7/2015.
  */
-public class CalligraphyActivity extends AppCompatActivity {
+public abstract class CalligraphyActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
