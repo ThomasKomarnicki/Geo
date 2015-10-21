@@ -55,7 +55,7 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
         streetViewContainer = (FrameLayout) findViewById(R.id.discover_street_view_map_container);
         streetViewContainer.setVisibility(View.INVISIBLE);
 
-        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this,"Discover");
+        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this,getString(R.string.activity_discover_title));
 
         toolbar =  (Toolbar)findViewById(R.id.recent_locations_toolbar);
 
@@ -65,7 +65,7 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
         discoverStreetViewFragment.setVisible(false);
 
         if(UserAuth.isDiscoverFirstRun(this)){
-            TransmissionFragment transmissionFragment = TransmissionFragment.createInstance(1000,"Here you can select locations");
+            TransmissionFragment transmissionFragment = TransmissionFragment.createInstance(1000,getString(R.string.transmission_discover_message));
             getSupportFragmentManager().beginTransaction()
                     .add(android.R.id.content,transmissionFragment,"transmission_fragment")
                     .commitAllowingStateLoss();
@@ -112,7 +112,7 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
             }
         });
         hideStreetViewFragment();
-        NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
+        NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, getString(R.string.activity_discover_title));
         FragmentManager fragmentManager = getSupportFragmentManager();
         getSupportFragmentManager().popBackStack("discover_street_view_fragment",0);
         discoverMapFragment.resetMapZoom();
@@ -130,7 +130,7 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
     }
 
     private void showNoLocationToast(){
-        Toast.makeText(this,"Street View Not Found",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,R.string.activity_discover_streetview_not_found,Toast.LENGTH_SHORT).show();
     }
 
     public void setStreetViewToolbar(){
@@ -140,14 +140,14 @@ public class DiscoverActivity extends CalligraphyActivity implements Transmissio
             public void onClick(View v) {
 //                getSupportFragmentManager().popBackStack();
                 onBackPressed();
-                NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, "Discover");
+                NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, getString(R.string.activity_discover_title));
             }
         });
     }
 
     public void setDiscoverToolbar(){
         navigationAdapter.initNavigation();
-        NavigationAdapter.setUpNavDrawerActivity(this, "Discover");
+        NavigationAdapter.setUpNavDrawerActivity(DiscoverActivity.this, getString(R.string.activity_discover_title));
     }
 
     public void hideStreetViewFragment(){

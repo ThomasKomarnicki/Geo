@@ -148,7 +148,7 @@ public class ProfileStatsFragment extends Fragment {
         if(userProfileStats.getHardestLocation() != null) {
             hardestLocation.setCity(userProfileStats.getHardestLocation().getCity());
             hardestLocation.setCountry(userProfileStats.getHardestLocation().getCountry());
-            hardestLocation.setDistanceText("Average Distance: " + Util.getDistanceDisplay(userProfileStats.getHardestLocationAverage()));
+            hardestLocation.setDistanceText(getString(R.string.profile_stats_avg_distance) + " " + Util.getDistanceDisplay(userProfileStats.getHardestLocationAverage()));
 
             SupportMapFragment supportMapFragment = createLiteModeMapFragment(hardestLocation.setMapFrameId(HARDEST_LOCATION_MAP_FRAME_ID));
             supportMapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -166,7 +166,7 @@ public class ProfileStatsFragment extends Fragment {
         if(userProfileStats.getEasiestLocation() != null) {
             easiestLocation.setCity(userProfileStats.getEasiestLocation().getCity());
             easiestLocation.setCountry(userProfileStats.getEasiestLocation().getCountry());
-            easiestLocation.setDistanceText("Average Distance: " + Util.getDistanceDisplay(userProfileStats.getEasiestLocationAverage()));
+            easiestLocation.setDistanceText(getString(R.string.profile_stats_avg_distance) + " " + Util.getDistanceDisplay(userProfileStats.getEasiestLocationAverage()));
 
             SupportMapFragment supportMapFragment = createLiteModeMapFragment(easiestLocation.setMapFrameId(EASIEST_LOCATION_MAP_FRAME_ID));
             supportMapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -184,7 +184,7 @@ public class ProfileStatsFragment extends Fragment {
         if(userProfileStats.getBestGuessLocation() != null) {
             closestLocationGuess.setCity(userProfileStats.getBestGuessLocation().getCity());
             closestLocationGuess.setCountry(userProfileStats.getBestGuessLocation().getCountry());
-            closestLocationGuess.setDistanceText("Best Target Distance: " + Util.getDistanceDisplay(userProfileStats.getBestGuess()));
+            closestLocationGuess.setDistanceText(getString(R.string.profile_stats_best_target_distance) + " " + Util.getDistanceDisplay(userProfileStats.getBestGuess()));
 
             SupportMapFragment supportMapFragment = createLiteModeMapFragment(closestLocationGuess.setMapFrameId(BEST_GUESS_LOCATION_MAP_FRAME_ID));
             supportMapFragment.getMapAsync(new OnMapReadyCallback() {

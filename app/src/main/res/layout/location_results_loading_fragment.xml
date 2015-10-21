@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculating Results"
+        android:text="@string/calculating_location_loading_message"
         android:id="@+id/textView5"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_gravity="center_vertical" />

@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Average Guess Distance:"
+                android:text="@string/place_details_avg_guess_distance"
                 android:id="@+id/textView2"
                 android:layout_marginTop="40dp"
                 android:layout_marginLeft="16dp"
@@ -95,7 +95,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Best Guess:"
+                android:text="@string/place_details_best_guesses"
                 android:id="@+id/textView3"
                 android:layout_marginTop="40dp"
                 android:layout_marginLeft="16dp"

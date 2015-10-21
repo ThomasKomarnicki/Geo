@@ -20,7 +20,7 @@ public class ProfileStatsActivity extends CalligraphyActivity implements Connect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_stats);
-        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, "Agent Statistics");
+        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, getString(R.string.activity_stats_title));
 
         int userId = UserAuth.getAuthUserId();
         String authToken = UserAuth.getAuthUserToken();

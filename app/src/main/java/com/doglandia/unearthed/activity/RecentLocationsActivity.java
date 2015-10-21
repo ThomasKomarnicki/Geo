@@ -70,7 +70,7 @@ public class RecentLocationsActivity extends CalligraphyActivity implements Loca
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        mapFragmentHolder = (FrameLayout) findViewById(R.id.recent_locations_map_holder);
 
-        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, "Recent Places");
+        navigationAdapter = NavigationAdapter.setUpNavDrawerActivity(this, getString(R.string.activity_recent_locations_title));
 
         if(savedInstanceState != null && savedInstanceState.containsKey(PLACE_LOCATE_RESULTS)){
             placeLocateResults = Parcels.unwrap(savedInstanceState.getParcelable(PLACE_LOCATE_RESULTS));

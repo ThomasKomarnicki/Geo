@@ -1,6 +1,59 @@
 <resources>
     <string name="app_name">UnEarthed</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="activity_auth_continue_button">Continue Without Signing In</string>
+
+    <string name="activity_discover_title">Discover</string>
+    <string name="activity_discover_streetview_not_found">Street View Not Found</string>
+
+
+    <string name="activity_locate_place_results_title">Locate Result</string>
+    <string name="activity_locate_place_results_distance">DISTANCE:</string>
+    <string name="activity_locate_place_results_score">SCORE:</string>
+    <string name="activity_locate_place_results_next_button">Next Location</string>
+
+    <string name="activity_my_places_title">My Locations</string>
+
+    <string name="activity_stats_title">Agent Statistics</string>
+
+    <string name="activity_recent_locations_title">Recent Places</string>
+
+
+    <string name="transmission_discover_message">Here you can select locations</string>
+
+    <string name="score">SCORE</string>
+    <string name="distance">DISTANCE</string>
+
+    <!-- error messages -->
+    <string name="could_not_connect">Could not connect, check your internet connection or try again later</string>
+    <string name="no_locations_error">You don\'t have any recent location guesses</string>
+    <string name="start_now">Start Now</string>
+    <string name="no_added_places_error">You haven\'t added any places yet</string>
+    <string name="discover_places">Discover Places Now</string>
+
+    <!-- nav menu -->
+    <string name="menu_locate_and_guess">Uncover and Locate</string>
+    <string name="menu_discover">@string/activity_discover_title</string>
+    <string name="menu_recent_locations">@string/activity_recent_locations_title</string>
+    <string name="menu_my_places">@string/activity_my_places_title</string>
+    <string name="menu_statistics">@string/activity_stats_title</string>
+
+    <string name="locate_here_map_info_window">Locate Here</string>
+
+    <!-- fragments -->
+    <string name="calculating_location_loading_message">Calculating Results</string>
+
+    <string name="place_details_avg_guess_distance">Average Guess Distance:</string>
+    <string name="place_details_best_guesses">Best Guess:</string>
+
+    <string name="profile_stats_avg_distance">Average Distance:</string>
+    <string name="profile_stats_best_target_distance">Best Target Distance:</string>
+    <string name="profile_stats_agent_level">Agent\nLevel</string>
+    <string name="profile_stats_locations_discovered">Locations Discovered</string>
+    <string name="profile_stats_locations_targeted">Locations Targetted</string>
+    <string name="profile_stats_toughest">Toughest Location to Target:</string>
+    <string name="profile_stats_easiest">Easiest Location to Target:</string>
+    <string name="profile_stats_closest">Closest Location Target:</string>
 </resources>

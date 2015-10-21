@@ -134,14 +134,6 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     @Override
     public void onImageDownloaded(final String url) {
-//        if(!imageLoopStarted) {
-//            imageView.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Picasso.with(getActivity()).load(url).into(imageView,SlideShowBackgroundFragment.this);
-//                }
-//            });
-//        }
         slideShowController.onNewImageDownloaded(url);
         if(!imageLoopStarted){
             imageLoopStarted = true;
@@ -152,7 +144,6 @@ public class SlideShowBackgroundFragment extends Fragment implements AuthSlideSh
 
     @Override
     public void onSuccess() {
-//        Log.d(TAG, "image downloaded into imageView " + (System.currentTimeMillis() - activityCreatedAt));
         slideShowController.imageSuccessfullyDownloaded();
         fadingImageView.fadeInNewImage();
 

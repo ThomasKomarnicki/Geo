@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Locate Here"
+        android:text="@string/locate_here_map_info_window"
         android:id="@+id/textView4"
         android:layout_gravity="center"
         android:paddingLeft="12dp"

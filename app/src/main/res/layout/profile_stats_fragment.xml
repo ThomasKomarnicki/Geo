@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Agent\nLevel"
+                    android:text="@string/profile_stats_agent_level"
                     android:id="@+id/textView7"
                     android:gravity="center_horizontal"
                     android:layout_alignParentTop="true"
@@ -60,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Locations Discovered"
+                        android:text="@string/profile_stats_locations_discovered"
                         android:id="@+id/textView8"
                         android:layout_gravity="center_horizontal" />
 
@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Locations Targeted"
+                        android:text="@string/profile_stats_locations_targeted"
                         android:id="@+id/textView9"
                         android:layout_gravity="center_horizontal" />
 
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Toughest Location to Target:"
+                    android:text="@string/profile_stats_toughest"
                     android:id="@+id/profile_stats_hardest_location_title"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp"
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Easiest Location to Target:"
+                    android:text="@string/profile_stats_easiest"
                     android:id="@+id/profile_stats_easiest_location_title"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp"
@@ -154,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Closest Location Target:"
+                    android:text="@string/profile_stats_closest"
                     android:id="@+id/profile_stats_closest_location_guess_title"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp"

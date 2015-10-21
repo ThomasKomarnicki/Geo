@@ -54,7 +54,7 @@ public class LocatePlaceResultsActivity extends CalligraphyActivity {
         boolean fromRecentLocations = getIntent().getBooleanExtra(FROM_RECENT_LOCATIONS,true);
         if(!fromRecentLocations){
             nextLocationButton.setVisibility(View.INVISIBLE);
-            toolbar.setTitle("Locate Result");
+            toolbar.setTitle(getString(R.string.activity_locate_place_results_title));
             toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override

@@ -73,10 +73,10 @@ public class MyPlacesFragment extends Fragment implements MyPlacesAdapter.OnPlac
         if(getActivity() == null){
             return;
         }
-        if(getResources().getBoolean(R.bool.show_two_pane_layout)) {
-            MyPlacesAdapter myPlacesAdapter = (MyPlacesAdapter) recyclerView.getAdapter();
-//            myPlacesAdapter.setSelectedIndex(position);
-        }
+//        if(getResources().getBoolean(R.bool.show_two_pane_layout)) {
+//            MyPlacesAdapter myPlacesAdapter = (MyPlacesAdapter) recyclerView.getAdapter();
+////            myPlacesAdapter.setSelectedIndex(position);
+//        }
 
         ((MyPlacesActivity)getActivity()).onPlaceClick(place, position);
     }

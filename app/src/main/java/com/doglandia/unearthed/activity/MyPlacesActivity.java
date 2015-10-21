@@ -95,7 +95,7 @@ public class MyPlacesActivity extends CalligraphyActivity implements OnHeatMapCl
     }
 
     public void getPlacesFromServer(int page){
-        Log.d(TAG,"places == null, fetching data");
+//        Log.d(TAG,"places == null, fetching data");
         Server.getInstance().getUserLocations(UserAuth.getAuthUserId(),page, new Callback<ArrayList<Place>>() {
             @Override
             public void success(ArrayList<Place> retrievedPlaces, Response response) {
@@ -120,7 +120,7 @@ public class MyPlacesActivity extends CalligraphyActivity implements OnHeatMapCl
                             super.onPostExecute(aVoid);
                             progressBar.setVisibility(View.GONE);
 
-                            Log.d(getLocalClassName(), "got " + places.size() + " places");
+//                            Log.d(getLocalClassName(), "got " + places.size() + " places");
                             myPlacesFragment.showPlacesList(places);
                             if(showTwoPane) {
                                 myPlacesFragment.onPlaceClick(places.get(0), 0);
@@ -176,7 +176,7 @@ public class MyPlacesActivity extends CalligraphyActivity implements OnHeatMapCl
     public boolean onHeatMapClicked() {
         setHeatMapToolbar();
         showingHeatMap = true;
-        Log.d(TAG,"my places heat map clicked");
+//        Log.d(TAG,"my places heat map clicked");
         HeatDialogMapFragment heatDialogMapFragment = new HeatDialogMapFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -219,7 +219,7 @@ public class MyPlacesActivity extends CalligraphyActivity implements OnHeatMapCl
 
     private void setNavDrawerToolbar(){
         navigationAdapter = new NavigationAdapter(this);
-        NavigationAdapter.setUpNavDrawerActivity(this,"My Places");
+        NavigationAdapter.setUpNavDrawerActivity(this,getString(R.string.activity_my_places_title));
     }
 
     @Override

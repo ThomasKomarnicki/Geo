@@ -24,8 +24,6 @@ public class PlaceLocateControllerFragment extends Fragment {
 
     private static final String LOCATING_FRAGMENT_VISIBLE = "locating_fragment_visible";
 
-//    FrameLayout streetViewContainer;
-//    AnimatorFrameLayout mapContainer;
     private FrameLayout mainContent;
     private FloatingActionButton toggle;
 
@@ -41,9 +39,6 @@ public class PlaceLocateControllerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.place_locate_controller,null);
-
-//        streetViewContainer = (FrameLayout) view.findViewById(R.id.place_locate_controller_street_container);
-//        mapContainer = (AnimatorFrameLayout) view.findViewById(R.id.place_locate_controller_map_container);
 
         mainContent = (FrameLayout) view.findViewById(R.id.place_locate_controller_content);
         toggle = (FloatingActionButton) view.findViewById(R.id.plcate_locate_controller_toggle);
@@ -64,13 +59,6 @@ public class PlaceLocateControllerFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        if(streetViewMapFragment == null){
-//            streetViewMapFragment = new StreetViewMapFragment();
-//        }
-//        if(locatingMapFragment == null){
-//            locatingMapFragment = new LocatingMapFragment();
-//        }
-
         streetViewMapFragment = (StreetViewMapFragment) getChildFragmentManager().findFragmentById(R.id.place_locate_street_map_fragment);
         locatingMapFragment = (LocatingMapFragment) getChildFragmentManager().findFragmentById(R.id.place_locate_locating_map_fragment);
 
@@ -86,17 +74,6 @@ public class PlaceLocateControllerFragment extends Fragment {
     }
 
     private void toggleFragments(){
-//        if(locatingMapFragment.isAdded()){
-//            getChildFragmentManager()
-//                    .beginTransaction()
-//                    .replace(mainContent.getId(), streetViewMapFragment, "street_map_fragment")
-//                    .commit();
-//        }else{
-//            getChildFragmentManager()
-//                    .beginTransaction()
-//                    .replace(mainContent.getId(), locatingMapFragment, "locating_map_fragment")
-//                    .commit();
-//        }
 
         if(locatingMapContainer.getVisibility() == View.VISIBLE){
             locatingMapContainer.setVisibility(View.GONE);

@@ -66,7 +66,6 @@ public class PlaceDetailsFragment extends Fragment {
         scrollView = (ScrollView) view.findViewById(R.id.place_details_fragment_scroll_view);
         progressBar = (ProgressBar) view.findViewById(R.id.place_details_fragment_progress);
         hideView();
-        Log.d("PlaceDetailsFragment","onCreateView");
 
         cityTv = (TextView) view.findViewById(R.id.place_details_city);
         countryTv = (TextView) view.findViewById(R.id.place_details_country);
@@ -109,7 +108,6 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d("PlaceDetailsFragment", "onActivityCreated");
 
         headerLiteMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.place_details_lite_map);
 //        GoogleMapOptions options = new GoogleMapOptions()
@@ -126,9 +124,6 @@ public class PlaceDetailsFragment extends Fragment {
                 initHeaderMap();
             }
         });
-
-        Log.d("PlaceDetailsFragment", "Activity finished create");
-
 
     }
 
@@ -164,7 +159,7 @@ public class PlaceDetailsFragment extends Fragment {
             return;
         }
 
-        Log.d("PlaceDetailsFrag", "succesfully initiated header google map");
+//        Log.d("PlaceDetailsFrag", "succesfully initiated header google map");
 
         headerGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(placeDetails.getPlace().getLatLng(),17));
 

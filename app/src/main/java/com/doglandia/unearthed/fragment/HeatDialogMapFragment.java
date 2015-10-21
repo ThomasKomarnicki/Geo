@@ -65,7 +65,7 @@ public class HeatDialogMapFragment extends Fragment {
                 placeDetailsFragment.setOnPlaceDetailsLoadedListener(new PlaceDetailsFragment.OnPlaceDetailsLoadedListener() {
                     @Override
                     public void onPlaceDetailsLoaded(PlaceDetails placeDetails) {
-                        Log.d("HeatDialogMapFragment", "on Place details loaded");
+//                        Log.d("HeatDialogMapFragment", "on Place details loaded");
                         heatMapFragment.showHeat(placeDetails);
                     }
                 });

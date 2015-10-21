@@ -95,7 +95,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="Continue Without Signing In"
+                    android:text="@string/activity_auth_continue_button"
                     android:id="@+id/continue_without_sign_in"
                     android:layout_gravity="center"
                     android:layout_centerInParent="true"

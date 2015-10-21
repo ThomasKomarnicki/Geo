@@ -85,7 +85,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="DISTANCE:"
+                        android:text="@string/activity_locate_place_results_distance"
                         android:id="@+id/results_distance"
                         android:textSize="20sp"
                         android:layout_alignTop="@+id/results_state"
@@ -104,7 +104,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SCORE:"
+                        android:text="@string/activity_locate_place_results_score"
                         android:id="@+id/results_score"
                         android:textSize="20sp"
                         android:layout_marginRight="32dp"
@@ -135,7 +135,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Next Location"
+                    android:text="@string/activity_locate_place_results_next_button"
                     android:id="@+id/next_location_button"
                     android:layout_below="@+id/linearLayout"
                     android:layout_centerHorizontal="true"

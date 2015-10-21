@@ -43,7 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.doglandia.unearthed.activity.PlaceLocateActivityNewUi" />
+        <!--<activity android:name="com.doglandia.unearthed.activity.PlaceLocateActivityNewUi" />-->
 
         <meta-data
             android:name="com.google.android.gms.version"

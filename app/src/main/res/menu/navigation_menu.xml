@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_sub_item_1"
-        android:title="Locate and Guess"/>
+        android:title="@string/menu_locate_and_guess"/>
     <item
         android:id="@+id/navigation_sub_item_2"
-        android:title="Discover"/>
+        android:title="@string/menu_discover"/>
 
     <item
         android:id="@+id/navigation_sub_item_3"
-        android:title="Recent Locations"/>
+        android:title="@string/menu_recent_locations"/>
 
     <item
         android:id="@+id/navigation_sub_item_4"
-        android:title="My Places"/>
+        android:title="@string/menu_my_places"/>
 
     <item
         android:id="@+id/navigation_sub_item_5"
-        android:title="Agent Statistics"/>
+        android:title="@string/menu_statistics"/>
 </menu>
